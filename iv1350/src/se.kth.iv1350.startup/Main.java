@@ -9,10 +9,17 @@ import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.view.View;
 
+/**
+ * Contains the <code>main</code> method, which starts the program.
+ */
 public class Main {
-    private final float STARTING_BALANCE = 0;
+    /**
+     * Starts the application
+     * @param args The application does not take nay command line parameters.
+     */
+    public static void main(String[] args) {
+        final float STARTING_BALANCE = 0;
 
-    public void Main(String[] args) {
         AccountingHandler accHandler = new AccountingHandler();
         InventoryHandler invHandler = new InventoryHandler();
         DiscountHandler discHandler = new DiscountHandler();

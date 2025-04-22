@@ -8,4 +8,8 @@ public class View {
     public View(Controller contr) {
         this.contr = contr;
     }
+
+    public void testRun() {
+        contr.startSale();
+    }
 }
