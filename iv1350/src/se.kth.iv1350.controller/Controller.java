@@ -9,6 +9,9 @@ import se.kth.iv1350.integration.PrinterHandler;
 import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Sale;
 
+/**
+ * Contains code for the Controller. It is responsible for directing traffic between the different layers in the system.
+ */
 public class Controller {
     private AccountingHandler accHandler;
     private InventoryHandler invHandler;

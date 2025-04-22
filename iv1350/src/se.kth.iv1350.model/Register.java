@@ -1,5 +1,8 @@
 package se.kth.iv1350.model;
 
+/**
+ * Used for handling how much money the store receives and gives out as change.
+ */
 public class Register {
     private Amount balance;
 
