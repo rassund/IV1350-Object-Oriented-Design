@@ -12,4 +12,10 @@ public class SaleSummaryDTO {
         this.itemPrice = itemPrice;
         this.runningTotal = runningTotal;
     }
+
+    public String getLatestItemAddedDescription() {return itemDescription;}
+
+    public Amount getLatestItemAddedPrice() {return itemPrice;}
+
+    public Amount getRunningTotal() {return runningTotal;}
 }

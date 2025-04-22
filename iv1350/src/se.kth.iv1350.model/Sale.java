@@ -3,6 +3,7 @@ package se.kth.iv1350.model;
 import se.kth.iv1350.DTO.ItemDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -14,18 +15,18 @@ public class Sale {
     private Amount costAddedByVAT;
 
     public Sale() {
-        this.runningTotal = new Amount(0);
+        this.runningTotal = new Amount(BigDecimal.ZERO);
         this.items = new ArrayList<ItemDTO>();
-        this.costAddedByVAT = new Amount(0);
+        this.costAddedByVAT = new Amount(BigDecimal.ZERO);
     }
 
     public SaleSummaryDTO addItem(ItemDTO itemDTO) {
         items.add(itemDTO);
-        float priceOfItem = itemDTO.getPrice().getAmount();
-        float costAddedByVAT = priceOfItem * itemDTO.getVatRate();
+        Amount priceOfItem = itemDTO.getPrice();
+        Amount costAddedByVAT = new Amount(priceOfItem.getAmount().multiply(itemDTO.getVatRate()));
 
-        runningTotal.setAmount(runningTotal.getAmount() + priceOfItem + costAddedByVAT);
-        this.costAddedByVAT.setAmount(this.costAddedByVAT.getAmount() + costAddedByVAT);
+        runningTotal.add(priceOfItem.getAmount().add(costAddedByVAT.getAmount()));
+        this.costAddedByVAT.add(costAddedByVAT.getAmount());
         return new SaleSummaryDTO(itemDTO.getDescription(), itemDTO.getPrice(), runningTotal);
     }
 

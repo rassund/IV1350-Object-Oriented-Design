@@ -4,6 +4,8 @@ import se.kth.iv1350.DTO.ItemDTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
+import java.math.BigDecimal;
+
 /**
  * Used for handling the database containing the information for all items in the store's inventory.
  */
@@ -12,7 +14,7 @@ public class InventoryHandler {
 
     public InventoryHandler() {
         for (int i = 0; i < dummyItems.length; i++) {
-            dummyItems[i] = new ItemDTO(new Amount(40+i), VAT.LOW, "Dummy item nr " + i, i);
+            dummyItems[i] = new ItemDTO(new Amount(BigDecimal.valueOf(40+i)), VAT.LOW, "Dummy item nr " + i, i);
         }
     }
 

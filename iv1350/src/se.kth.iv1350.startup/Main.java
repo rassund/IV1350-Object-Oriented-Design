@@ -9,6 +9,8 @@ import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.view.View;
 
+import java.math.BigDecimal;
+
 /**
  * Contains the <code>main</code> method, which starts the program.
  */
@@ -18,7 +20,7 @@ public class Main {
      * @param args The application does not take any command line parameters.
      */
     public static void main(String[] args) {
-        final float STARTING_BALANCE = 0;
+        final BigDecimal STARTING_BALANCE = BigDecimal.ZERO;
 
         AccountingHandler accHandler = new AccountingHandler();
         InventoryHandler invHandler = new InventoryHandler();

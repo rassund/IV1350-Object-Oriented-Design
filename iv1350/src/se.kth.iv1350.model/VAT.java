@@ -1,17 +1,19 @@
 package se.kth.iv1350.model;
 
+import java.math.BigDecimal;
+
 public enum VAT {
-    LOW(0.06f),
-    MEDIUM(0.12f),
-    HIGH(0.25f);
+    LOW(new BigDecimal("0.06")),
+    MEDIUM(new BigDecimal("0.12")),
+    HIGH(new BigDecimal("0.25"));
 
-    private final float rate;
+    private final BigDecimal rate;
 
-    VAT(float rate) {
+    VAT(BigDecimal rate) {
         this.rate = rate;
     }
 
-    public float getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 }
