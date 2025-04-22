@@ -8,7 +8,7 @@ import se.kth.iv1350.model.VAT;
  * Used for handling the database where all items in the store's inventory is written down.
  */
 public class InventoryHandler {
-    ItemDTO[] dummyItems = new ItemDTO[3];
+    private ItemDTO[] dummyItems = new ItemDTO[3];
 
     public InventoryHandler() {
         for (int i = 0; i < dummyItems.length; i++) {

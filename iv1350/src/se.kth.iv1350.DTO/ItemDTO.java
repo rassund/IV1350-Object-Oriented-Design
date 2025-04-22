@@ -13,6 +13,7 @@ public class ItemDTO {
         this.price = price;
         this.vatRate = vatRate;
         this.description = description;
+        this.itemID = itemID;
     }
 
     public int getID() {
