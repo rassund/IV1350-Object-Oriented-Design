@@ -1,5 +1,7 @@
 package se.kth.iv1350.controller;
 
+import se.kth.iv1350.DTO.ItemDTO;
+import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.integration.AccountingHandler;
 import se.kth.iv1350.integration.DiscountHandler;
 import se.kth.iv1350.integration.InventoryHandler;
@@ -27,5 +29,27 @@ public class Controller {
 
     public void startSale() {
         this.sale = new Sale();
+    }
+
+    public SaleSummaryDTO enterItemID(int itemID) {
+        ItemDTO itemDTO = getItemFromSale(itemID);
+        if (itemDTO == null) {
+            itemDTO = invHandler.fetchInfo(itemID);
+        }
+
+        return sale.addItem(itemDTO);
+    }
+
+    private boolean itemIDAlreadyEntered(int itemID) {
+        return getItemFromSale(itemID) != null;
+    }
+
+    private ItemDTO getItemFromSale(int itemID) {
+        for (ItemDTO item : sale.getItems()) {
+            if (item.getID() == itemID) {
+                return item;
+            }
+        }
+        return null;
     }
 }
