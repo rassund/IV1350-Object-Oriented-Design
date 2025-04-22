@@ -10,7 +10,7 @@ import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Sale;
 
 /**
- * Contains code for the Controller. It is responsible for directing traffic between the different layers in the system.
+ * Contains code for the Controller. It is responsible for directing traffic between the different layers in the system and all calls are made through it after startup.
  */
 public class Controller {
     private AccountingHandler accHandler;
@@ -37,7 +37,7 @@ public class Controller {
     public SaleSummaryDTO enterItemID(int itemID) {
         ItemDTO itemDTO = getItemFromSale(itemID);
         if (itemDTO == null) {
-            itemDTO = invHandler.fetchInfo(itemID);
+            itemDTO = invHandler.fetchItemDTO(itemID);
         }
 
         return sale.addItem(itemDTO);

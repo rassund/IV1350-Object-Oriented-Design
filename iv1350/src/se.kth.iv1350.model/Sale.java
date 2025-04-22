@@ -6,7 +6,7 @@ import se.kth.iv1350.DTO.SaleSummaryDTO;
 import java.util.ArrayList;
 
 /**
- * Contains details for all things related to a sale of item(s).
+ * Contains details for all things related to the current instance of a sale of item(s).
  */
 public class Sale {
     private Amount runningTotal;

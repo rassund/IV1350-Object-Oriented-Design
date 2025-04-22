@@ -26,7 +26,7 @@ class InventoryHandlerTest {
         ItemDTO returnedItemDTO;
         for (int i = 0; i < 3; i++) {
             ItemDTO expectedItemDTO = new ItemDTO(new Amount(5), VAT.HIGH, "", i);
-            returnedItemDTO = invHandler.fetchInfo(i);
+            returnedItemDTO = invHandler.fetchItemDTO(i);
             assertNotNull(returnedItemDTO, "Returned item DTO is null");
             assertEquals(expectedItemDTO.getID(), returnedItemDTO.getID(), "InventoryHandler did not fetch correct item");
         }
@@ -34,7 +34,7 @@ class InventoryHandlerTest {
 
     @Test
     void fetchInfoInvalidID() {
-        ItemDTO returnedItemDTO = invHandler.fetchInfo(10);
+        ItemDTO returnedItemDTO = invHandler.fetchItemDTO(10);
         assertNull(returnedItemDTO, "InventoryHandler returned an item with invalid ID");
     }
 }

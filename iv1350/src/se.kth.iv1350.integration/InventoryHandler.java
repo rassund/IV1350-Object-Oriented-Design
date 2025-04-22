@@ -5,7 +5,7 @@ import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
 /**
- * Used for handling the database where all items in the store's inventory is written down.
+ * Used for handling the database containing the information for all items in the store's inventory.
  */
 public class InventoryHandler {
     private ItemDTO[] dummyItems = new ItemDTO[3];
@@ -16,7 +16,7 @@ public class InventoryHandler {
         }
     }
 
-    public ItemDTO fetchInfo(int itemID) {
+    public ItemDTO fetchItemDTO(int itemID) {
         for (ItemDTO item : dummyItems) {
             if (item.getID() == itemID) {
                 return item;
