@@ -1,9 +1,11 @@
 package se.kth.iv1350.model;
 
 import se.kth.iv1350.DTO.ItemDTO;
+import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -32,5 +34,12 @@ public class Sale {
 
     public ArrayList<ItemDTO> getItems() {
         return items;
+    }
+
+    public SaleDTO endSale(Amount amountPaid) {
+        LocalDateTime dateTime = LocalDateTime.now();
+        // If amountPaid > runningTotal
+        Amount change = amountPaid.subtract(runningTotal);
+        return new SaleDTO(dateTime, items, runningTotal, costAddedByVAT, amountPaid, change);
     }
 }

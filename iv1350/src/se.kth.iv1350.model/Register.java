@@ -9,4 +9,8 @@ public class Register {
     public Register(Amount balance) {
         this.balance = balance;
     }
+
+    public void updateRegister(Amount totalPrice) {
+        balance.add(totalPrice.getAmount());
+    }
 }

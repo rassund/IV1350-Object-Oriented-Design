@@ -1,6 +1,7 @@
 package se.kth.iv1350.integration;
 
 import se.kth.iv1350.DTO.ItemDTO;
+import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
@@ -25,5 +26,9 @@ public class InventoryHandler {
             }
         }
         return null;
+    }
+
+    public void updateInventory(SaleDTO saleDTO) {
+        return;
     }
 }
