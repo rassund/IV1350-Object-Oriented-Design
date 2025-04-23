@@ -26,9 +26,10 @@ public class Sale {
         items.add(itemDTO);
         Amount priceOfItem = itemDTO.getPrice();
         Amount costAddedByVAT = new Amount(priceOfItem.getAmount().multiply(itemDTO.getVatRate()));
+        Amount amountToAdd = new Amount(priceOfItem.getAmount().add(costAddedByVAT.getAmount()));
 
-        runningTotal.add(priceOfItem.getAmount().add(costAddedByVAT.getAmount()));
-        this.costAddedByVAT.add(costAddedByVAT.getAmount());
+        runningTotal.add(amountToAdd);
+        this.costAddedByVAT.add(costAddedByVAT);
         return new SaleSummaryDTO(itemDTO.getDescription(), itemDTO.getPrice(), runningTotal);
     }
 

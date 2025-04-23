@@ -21,7 +21,12 @@ public class Amount {
         this.amount = amount;
     }
 
-    public void add(BigDecimal amountToAdd) { this.amount = this.amount.add(amountToAdd); }
+    public void add(Amount amountToAdd) { this.amount = this.amount.add(amountToAdd.getAmount()); }
+
+    public Amount subtract(Amount amountToSubtract) {
+        BigDecimal newValue = this.getAmount().subtract(amountToSubtract.getAmount());
+        return new Amount(newValue);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -29,10 +34,5 @@ public class Amount {
             return this.getAmount().equals((otherAmount.getAmount()));
         }
         return false;
-    }
-
-    public Amount subtract(Amount amountToSubtract) {
-        BigDecimal newValue = this.getAmount().subtract(amountToSubtract.getAmount());
-        return new Amount(newValue);
     }
 }

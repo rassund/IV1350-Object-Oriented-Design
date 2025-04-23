@@ -11,6 +11,6 @@ public class Register {
     }
 
     public void updateRegister(Amount totalPrice) {
-        balance.add(totalPrice.getAmount());
+        balance.add(totalPrice);
     }
 }

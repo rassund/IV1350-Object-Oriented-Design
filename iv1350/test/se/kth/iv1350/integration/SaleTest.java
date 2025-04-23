@@ -37,7 +37,8 @@ class SaleTest {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
             returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
-            expectedPrice.add(priceOfItem.getAmount().multiply(VAT.MEDIUM.getRate().add(BigDecimal.ONE)));
+            Amount amountToAdd = new Amount(priceOfItem.getAmount().multiply(VAT.MEDIUM.getRate().add(BigDecimal.ONE)));
+            expectedPrice.add(amountToAdd);
 
             assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
             assertEquals(
