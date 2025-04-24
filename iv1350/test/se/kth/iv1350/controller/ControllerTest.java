@@ -11,6 +11,7 @@ import se.kth.iv1350.integration.InventoryHandler;
 import se.kth.iv1350.integration.PrinterHandler;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Register;
+import se.kth.iv1350.model.Sale;
 import se.kth.iv1350.model.VAT;
 
 import java.math.BigDecimal;
@@ -84,5 +85,29 @@ class ControllerTest {
         assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");
         assertEquals(expectedDescription, returnedDescription, "The description of the SaleSummaryDTO does not match the expected description");
         assertEquals(expectedTotal, returnedTotal, "The running total of the SaleSummaryDTO does not match the expected running total");
+    }
+
+    @Test
+    void payForSaleChangeCalculation() {
+        int testItemID = 0;
+        Amount amountPaid = new Amount(new BigDecimal(1000));
+
+        contr.enterItemID(testItemID);
+        Amount returnedChange = contr.payForSale(amountPaid);
+
+        Sale expectedSale = new Sale();
+        expectedSale.addItem(invHandler.fetchItemDTO(testItemID));
+        Amount expectedTotal = expectedSale.getRunningTotal();
+        Amount expectedChange = Amount.subtract(amountPaid, expectedTotal);
+
+        assertEquals(expectedChange, returnedChange, "The returned change does not match the expected change.");
+    }
+
+    @Test
+    void payForSaleExactPayment() {
+        Amount returnedChange = contr.payForSale(new Amount(BigDecimal.ZERO));
+        Amount expectedChange = new Amount(BigDecimal.ZERO);
+
+        assertEquals(expectedChange, returnedChange, "The returned change does not match the expected change.");
     }
 }

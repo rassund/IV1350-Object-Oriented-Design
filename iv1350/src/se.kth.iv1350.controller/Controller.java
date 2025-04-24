@@ -44,15 +44,10 @@ public class Controller {
      */
     public SaleSummaryDTO enterItemID(int itemID) {
         ItemDTO itemDTO = getItemFromSale(itemID);
-        if (itemDTO == null) {
+        if (!itemAlreadyInSale(itemDTO)) {
             itemDTO = invHandler.fetchItemDTO(itemID);
         }
-
         return sale.addItem(itemDTO);
-    }
-
-    private boolean itemIDAlreadyEntered(int itemID) {
-        return getItemFromSale(itemID) != null;
     }
 
     private ItemDTO getItemFromSale(int itemID) {
@@ -64,6 +59,15 @@ public class Controller {
         return null;
     }
 
+    private boolean itemAlreadyInSale(ItemDTO itemDTO) {
+        return itemDTO != null;
+    }
+
+    /**
+     * Handles updating inventory and accounting systems, printing the receipt, and updating the register when the sale is paid for.
+     * @param amountPaid The <code>Amount</code> paid by the customer.
+     * @return The <code>Amount</code> of change to give back to the customer.
+     */
     public Amount payForSale(Amount amountPaid) {
         SaleDTO saleDTO = sale.endSale(amountPaid);
         invHandler.updateInventory(saleDTO);

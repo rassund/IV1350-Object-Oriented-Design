@@ -25,6 +25,11 @@ public class Amount {
 
     public void subtract(Amount amountToSubtract) {this.amount = this.amount.subtract(amountToSubtract.getAmount());}
 
+    public static Amount subtract(Amount amountToSubtractFrom, Amount amountToSubtract) {
+        BigDecimal newAmount = amountToSubtractFrom.getAmount().subtract(amountToSubtract.getAmount());
+        return new Amount(newAmount);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Amount otherAmount) {
