@@ -33,14 +33,16 @@ public class Sale {
         return new SaleSummaryDTO(itemDTO.getDescription(), itemDTO.getPrice(), runningTotal);
     }
 
-    public ArrayList<ItemDTO> getItems() {
-        return items;
-    }
-
     public SaleDTO endSale(Amount amountPaid) {
         LocalDateTime dateTime = LocalDateTime.now();
         // If amountPaid > runningTotal
         Amount change = amountPaid.subtract(runningTotal);
         return new SaleDTO(dateTime, items, runningTotal, costAddedByVAT, amountPaid, change);
     }
+
+    public ArrayList<ItemDTO> getItems() {
+        return items;
+    }
+
+    public Amount getRunningTotal() { return runningTotal; }
 }
