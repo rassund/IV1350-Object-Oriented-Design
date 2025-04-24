@@ -23,15 +23,12 @@ public class Amount {
 
     public void add(Amount amountToAdd) { this.amount = this.amount.add(amountToAdd.getAmount()); }
 
-    public Amount subtract(Amount amountToSubtract) {
-        BigDecimal newValue = this.getAmount().subtract(amountToSubtract.getAmount());
-        return new Amount(newValue);
-    }
+    public void subtract(Amount amountToSubtract) {this.amount = this.amount.subtract(amountToSubtract.getAmount());}
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Amount otherAmount) {
-            return this.getAmount().equals((otherAmount.getAmount()));
+            return this.amount.equals((otherAmount.getAmount()));
         }
         return false;
     }

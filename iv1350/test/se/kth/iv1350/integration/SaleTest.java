@@ -100,7 +100,8 @@ class SaleTest {
             sale.addItem(exampleItemDTO);
         }
         totalPrice = sale.getRunningTotal();
-        Amount expectedChange = amountPaid.subtract(totalPrice);
+        Amount expectedChange = new Amount(amountPaid.getAmount());
+        expectedChange.subtract(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
@@ -117,7 +118,8 @@ class SaleTest {
             sale.addItem(exampleItemDTO);
         }
         totalPrice = sale.getRunningTotal();
-        Amount expectedChange = amountPaid.subtract(totalPrice);
+        Amount expectedChange = new Amount(amountPaid.getAmount());
+        expectedChange.subtract(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
@@ -135,7 +137,8 @@ class SaleTest {
             sale.addItem(exampleItemDTO);
         }
         totalPrice = sale.getRunningTotal();
-        Amount expectedChange = amountPaid.subtract(totalPrice);
+        Amount expectedChange = new Amount(amountPaid.getAmount());
+        expectedChange.subtract(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
@@ -152,7 +155,8 @@ class SaleTest {
             sale.addItem(exampleItemDTO);
         }
         totalPrice = sale.getRunningTotal();
-        Amount expectedChange = amountPaid.subtract(totalPrice);
+        Amount expectedChange = new Amount(amountPaid.getAmount());
+        expectedChange.subtract(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
@@ -169,7 +173,8 @@ class SaleTest {
         }
         totalPrice = sale.getRunningTotal();
         Amount amountPaid = new Amount(totalPrice.getAmount());
-        Amount expectedChange = amountPaid.subtract(totalPrice);
+        Amount expectedChange = new Amount(amountPaid.getAmount());
+        expectedChange.subtract(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
