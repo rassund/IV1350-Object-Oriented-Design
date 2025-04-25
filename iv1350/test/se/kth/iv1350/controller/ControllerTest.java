@@ -98,7 +98,7 @@ class ControllerTest {
         Sale expectedSale = new Sale();
         expectedSale.addItem(invHandler.fetchItemDTO(testItemID));
         Amount expectedTotal = expectedSale.getRunningTotal();
-        Amount expectedChange = Amount.subtract(amountPaid, expectedTotal);
+        Amount expectedChange = Amount.subtractTwoAmounts(amountPaid, expectedTotal);
 
         assertEquals(expectedChange, returnedChange, "The returned change does not match the expected change.");
     }
