@@ -10,6 +10,8 @@ public class Register {
         this.balance = balance;
     }
 
+    public Amount getBalance() {return balance;}
+
     /**
      * Updates the "<code>balance</code>" of this Register instance by adding the amount "<code>totalPrice</code>".
      * @param totalPrice The amount that is added onto the <code>balance</code> for the register.

@@ -1,4 +1,4 @@
-package se.kth.iv1350.DTO;
+package se.kth.iv1350.model;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +55,7 @@ class AmountTest {
         amount.setAmount(new BigDecimal(5));
         Amount amountToSubtract = new Amount(new BigDecimal("5.5"));
         Amount expectedAmount = new Amount(new BigDecimal("-0.5"));
-        amount.subtractTwoAmounts(amountToSubtract);
+        amount.subtractFromThis(amountToSubtract);
 
         assertEquals(amount, expectedAmount, "Amount after substraction is not at expected value");
     }
@@ -65,7 +65,7 @@ class AmountTest {
         amount.setAmount(new BigDecimal(5));
         Amount amountToSubtract = new Amount(new BigDecimal(-6));
         Amount expectedAmount = new Amount(new BigDecimal(11));
-        amount.subtractTwoAmounts(amountToSubtract);
+        amount.subtractFromThis(amountToSubtract);
 
         assertEquals(amount, expectedAmount, "Amount after substraction is not at expected value");
     }
@@ -75,7 +75,7 @@ class AmountTest {
         amount.setAmount(new BigDecimal(5));
         Amount amountToSubtract = new Amount(new BigDecimal(0));
         Amount expectedAmount = new Amount(new BigDecimal(5));
-        amount.subtractTwoAmounts(amountToSubtract);
+        amount.subtractFromThis(amountToSubtract);
 
         assertEquals(amount, expectedAmount, "Amount after substraction is not at expected value");
     }
@@ -105,6 +105,17 @@ class AmountTest {
         boolean booleanToTest = amount.equals(objectToCompare);
 
         assertFalse(booleanToTest);
+    }
+
+    @Test
+    void subtractTwoAmountsTest() {
+        Amount amountToSubtractFrom = new Amount(new BigDecimal("1000"));
+        Amount amountToSubtractWith = new Amount(new BigDecimal("500"));
+        Amount expectedAmount = new Amount(new BigDecimal("500"));
+
+        Amount amountAfterSubtraction = amount.subtractTwoAmounts(amountToSubtractFrom, amountToSubtractWith);
+
+        assertEquals(amountAfterSubtraction, expectedAmount, "subtractTwoAmount() does not result in an expected Amount.");
     }
 
 }

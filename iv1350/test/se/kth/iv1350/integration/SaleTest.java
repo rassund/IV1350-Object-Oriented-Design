@@ -101,7 +101,7 @@ class SaleTest {
         }
         totalPrice = sale.getRunningTotal();
         Amount expectedChange = new Amount(amountPaid.getAmount());
-        expectedChange.subtractTwoAmounts(totalPrice);
+        expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
@@ -119,7 +119,7 @@ class SaleTest {
         }
         totalPrice = sale.getRunningTotal();
         Amount expectedChange = new Amount(amountPaid.getAmount());
-        expectedChange.subtractTwoAmounts(totalPrice);
+        expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
@@ -138,7 +138,7 @@ class SaleTest {
         }
         totalPrice = sale.getRunningTotal();
         Amount expectedChange = new Amount(amountPaid.getAmount());
-        expectedChange.subtractTwoAmounts(totalPrice);
+        expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
@@ -156,7 +156,7 @@ class SaleTest {
         }
         totalPrice = sale.getRunningTotal();
         Amount expectedChange = new Amount(amountPaid.getAmount());
-        expectedChange.subtractTwoAmounts(totalPrice);
+        expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
@@ -174,7 +174,7 @@ class SaleTest {
         totalPrice = sale.getRunningTotal();
         Amount amountPaid = new Amount(totalPrice.getAmount());
         Amount expectedChange = new Amount(amountPaid.getAmount());
-        expectedChange.subtractTwoAmounts(totalPrice);
+        expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
         assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
