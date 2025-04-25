@@ -60,7 +60,7 @@ class ControllerTest {
         ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
         Amount expectedPrice = expectedItemDTO.getPrice();
         String expectedDescription = expectedItemDTO.getDescription();
-        Amount expectedTotal = new Amount(expectedPrice.getAmount().multiply(VAT.LOW.getRate().add(BigDecimal.ONE)));
+        Amount expectedTotal = new Amount(expectedPrice.getAmount().multiply(VAT.LOW.getRateAsDecimal().add(BigDecimal.ONE)));
 
         assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
         assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");

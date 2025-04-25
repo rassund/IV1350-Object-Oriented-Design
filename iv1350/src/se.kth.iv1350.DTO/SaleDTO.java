@@ -24,9 +24,17 @@ public class SaleDTO {
         this.change = change;
     }
 
+    public LocalDateTime getDateTime() { return dateTime; }
+
+    public ArrayList<ItemDTO> getItems() { return items; }
+
     public Amount getTotalPrice() {
         return totalPrice;
     }
+
+    public Amount getTotalVAT() { return totalVAT; }
+
+    public Amount getAmountPaid() { return amountPaid; }
 
     public Amount getChange() {
         return change;

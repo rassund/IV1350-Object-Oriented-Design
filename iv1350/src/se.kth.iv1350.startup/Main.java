@@ -31,5 +31,7 @@ public class Main {
 
         Controller contr = new Controller(accHandler, invHandler, discHandler, printHandler, register);
         View view = new View(contr);
+
+        view.testRun();
     }
 }

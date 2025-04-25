@@ -8,9 +8,11 @@ import java.util.Objects;
  */
 public class Amount {
     private BigDecimal amount;
+    private String currency;
 
     public Amount(BigDecimal amount) {
         this.amount = amount;
+        this.currency = "SEK";
     }
 
     public BigDecimal getAmount() {
@@ -36,5 +38,10 @@ public class Amount {
             return this.amount.equals((otherAmount.getAmount()));
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return this.amount + " " + this.currency;
     }
 }

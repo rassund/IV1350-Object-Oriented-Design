@@ -36,7 +36,7 @@ class SaleTest {
         Amount expectedPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
-            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
 
             assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
@@ -49,7 +49,7 @@ class SaleTest {
         SaleSummaryDTO returnedSaleSummaryDTO;
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
-            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
 
             assertEquals(exampleItemDTO.getDescription(), returnedSaleSummaryDTO.getLatestItemAddedDescription(),
@@ -63,7 +63,7 @@ class SaleTest {
         SaleSummaryDTO returnedSaleSummaryDTO;
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
-            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
 
             assertEquals(exampleItemDTO.getPrice(), returnedSaleSummaryDTO.getLatestItemAddedPrice(),
@@ -78,9 +78,9 @@ class SaleTest {
         Amount expectedPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
-            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
-            Amount amountToAdd = new Amount(priceOfItem.getAmount().multiply(VAT.MEDIUM.getRate().add(BigDecimal.ONE)));
+            Amount amountToAdd = new Amount(priceOfItem.getAmount().multiply(VAT.MEDIUM.getRateAsDecimal().add(BigDecimal.ONE)));
             expectedPrice.add(amountToAdd);
 
             assertEquals(expectedPrice.getAmount(), returnedSaleSummaryDTO.getRunningTotal().getAmount(), "SaleSummaryDTO does not contain the correct running total");
@@ -96,7 +96,7 @@ class SaleTest {
         Amount totalPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
-            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             sale.addItem(exampleItemDTO);
         }
         totalPrice = sale.getRunningTotal();
@@ -114,7 +114,7 @@ class SaleTest {
         Amount totalPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
-            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             sale.addItem(exampleItemDTO);
         }
         totalPrice = sale.getRunningTotal();
@@ -133,7 +133,7 @@ class SaleTest {
         Amount totalPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
-            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             sale.addItem(exampleItemDTO);
         }
         totalPrice = sale.getRunningTotal();
@@ -151,7 +151,7 @@ class SaleTest {
         Amount totalPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
-            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             sale.addItem(exampleItemDTO);
         }
         totalPrice = sale.getRunningTotal();
@@ -168,7 +168,7 @@ class SaleTest {
         Amount totalPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
-            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i);
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             sale.addItem(exampleItemDTO);
         }
         totalPrice = sale.getRunningTotal();

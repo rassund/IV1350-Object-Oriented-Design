@@ -1,21 +1,30 @@
 package se.kth.iv1350.DTO;
 
 import se.kth.iv1350.model.Amount;
+import se.kth.iv1350.model.VAT;
 
 public class SaleSummaryDTO {
-    String itemDescription;
-    Amount itemPrice;
+    ItemDTO itemDTO;
     Amount runningTotal;
+    Amount totalVAT;
 
-    public SaleSummaryDTO(String itemDescription, Amount itemPrice, Amount runningTotal) {
-        this.itemDescription = itemDescription;
-        this.itemPrice = itemPrice;
+    public SaleSummaryDTO(ItemDTO itemDTO, Amount runningTotal, Amount totalVAT) {
+        this.itemDTO = itemDTO;
         this.runningTotal = runningTotal;
+        this.totalVAT = totalVAT;
     }
 
-    public String getLatestItemAddedDescription() {return itemDescription;}
+    public String getLatestItemName() { return itemDTO.getName(); }
 
-    public Amount getLatestItemAddedPrice() {return itemPrice;}
+    public String getLatestItemAddedDescription() { return itemDTO.getDescription(); }
 
-    public Amount getRunningTotal() {return runningTotal;}
+    public Amount getLatestItemAddedPrice() { return itemDTO.getPrice(); }
+
+    public VAT getLatestItemVAT() { return itemDTO.getVATRate(); }
+
+    public Amount getRunningTotal() { return runningTotal; }
+
+    public Amount getTotalVAT() { return totalVAT; }
+
+    public int getLatestItemID() { return itemDTO.getID(); }
 }

@@ -13,7 +13,9 @@ public enum VAT {
         this.rate = rate;
     }
 
-    public BigDecimal getRate() {
-        return rate;
+    public BigDecimal getRateAsDecimal() { return rate; }
+
+    public String vatToPercent() {
+        return rate.multiply(new BigDecimal(100)) + "%";
     }
 }

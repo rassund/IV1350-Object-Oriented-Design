@@ -10,12 +10,14 @@ public class ItemDTO {
     private VAT vatRate;
     private String description;
     private int itemID;
+    private String name;
 
-    public ItemDTO(Amount price, VAT vatRate, String description, int itemID) {
+    public ItemDTO(Amount price, VAT vatRate, String description, int itemID, String name) {
         this.price = price;
         this.vatRate = vatRate;
         this.description = description;
         this.itemID = itemID;
+        this.name = name;
     }
 
     public int getID() {
@@ -26,11 +28,9 @@ public class ItemDTO {
         return price;
     }
 
-    public BigDecimal getVatRate() {
-        return vatRate.getRate();
-    }
+    public VAT getVATRate() { return vatRate; }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
+
+    public String getName() { return name; }
 }

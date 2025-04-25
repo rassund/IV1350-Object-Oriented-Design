@@ -11,12 +11,21 @@ import java.math.BigDecimal;
  * Used for handling the database containing the information for all items in the store's inventory.
  */
 public class InventoryHandler {
-    private ItemDTO[] dummyItems = new ItemDTO[3];
+    private final ItemDTO[] dummyItems = new ItemDTO[2];
 
     public InventoryHandler() {
-        for (int i = 0; i < dummyItems.length; i++) {
-            dummyItems[i] = new ItemDTO(new Amount(BigDecimal.valueOf(40+i)), VAT.LOW, "Dummy item nr " + i, i);
-        }
+        addDummyItems();
+    }
+
+    private void addDummyItems() {
+        dummyItems[0] = new ItemDTO(new Amount(
+                new BigDecimal("29.90")), VAT.LOW,
+                "BigWheel Oatmeal 500g, whole grain oats, high fiber, gluten free",
+                0, "BigWheel Oatmeal");
+        dummyItems[1] = new ItemDTO(new Amount(
+                new BigDecimal("14.90")), VAT.LOW,
+                "YouGoGo Blueberry 240g, low sugar yogurt, blueberry flavour",
+                1, "YouGoGo Blueberry");
     }
 
     public ItemDTO fetchItemDTO(int itemID) {
