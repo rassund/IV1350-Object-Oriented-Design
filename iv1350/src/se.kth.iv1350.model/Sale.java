@@ -22,28 +22,36 @@ public class Sale {
         this.costAddedByVAT = new Amount(BigDecimal.ZERO);
     }
 
+    public ArrayList<ItemDTO> getItems() { return items; }
+
+    public Amount getRunningTotal() { return runningTotal; }
+
+    /**
+     * Adds an <code>ItemDTO</code> to the sale and returns a <code>SaleSummaryDTO</code> for the register to display. Also updates the running total.
+     * @param itemDTO The item to add to the sale.
+     * @return A <code>SaleSummaryDTO</code> object containing info to show on the Register.
+     */
     public SaleSummaryDTO addItem(ItemDTO itemDTO) {
         items.add(itemDTO);
         Amount priceOfItem = itemDTO.getPrice();
         Amount costAddedByVAT = new Amount(priceOfItem.getAmount().multiply(itemDTO.getVatRate()));
         Amount amountToAdd = new Amount(priceOfItem.getAmount().add(costAddedByVAT.getAmount()));
 
-        runningTotal.add(amountToAdd);
-        this.costAddedByVAT.add(costAddedByVAT);
+        runningTotal.addToThis(amountToAdd);
+        this.costAddedByVAT.addToThis(costAddedByVAT);
         return new SaleSummaryDTO(itemDTO.getDescription(), itemDTO.getPrice(), runningTotal);
     }
 
+    /**
+     * Ends the sale, returning info to be displayed on the receipt.
+     * @param amountPaid The amount the customer gives to pay for the sale.
+     * @return A <code>SaleDTO</code> object containing info to be shown on the receipt given to the customer. Includes how much money the customer gets back as change.
+     */
     public SaleDTO endSale(Amount amountPaid) {
         LocalDateTime dateTime = LocalDateTime.now();
         // If amountPaid > runningTotal
         Amount change = new Amount(amountPaid.getAmount());
-        change.subtract(runningTotal);
+        change.subtractFromThis(runningTotal);
         return new SaleDTO(dateTime, items, runningTotal, costAddedByVAT, amountPaid, change);
     }
-
-    public ArrayList<ItemDTO> getItems() {
-        return items;
-    }
-
-    public Amount getRunningTotal() { return runningTotal; }
 }
