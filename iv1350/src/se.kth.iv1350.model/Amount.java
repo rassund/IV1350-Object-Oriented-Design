@@ -1,7 +1,6 @@
 package se.kth.iv1350.model;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * Represents an amount of money in SEK.
@@ -21,15 +20,35 @@ public class Amount {
         this.amount = amount;
     }
 
-    public void add(Amount amountToAdd) { this.amount = this.amount.add(amountToAdd.getAmount()); }
+    /**
+     * Adds the amount <code>amountToAdd</code> onto the amount that calls this method.
+     * Uses the <code>BigDecimal</code> "add" method.
+     * @param amountToAdd Contains what to add to the amount that calls this method.
+     */
+    public void addToThis(Amount amountToAdd) { this.amount = this.amount.add(amountToAdd.getAmount()); }
 
-    public void subtract(Amount amountToSubtract) {this.amount = this.amount.subtract(amountToSubtract.getAmount());}
+    /**
+     * Subtracts the amount <code>amountToSubtract</code> from the amount that calls this method.
+     * @param amountToSubtract Contains what to subtract from the amount that calls this method.
+     */
+    public void subtractFromThis(Amount amountToSubtract) {this.amount = this.amount.subtract(amountToSubtract.getAmount());}
 
-    public static Amount subtract(Amount amountToSubtractFrom, Amount amountToSubtract) {
+    /**
+     * Subtracts one amount with another and returns the difference.
+     * @param amountToSubtractFrom The <code>Amount</code> that gets reduced.
+     * @param amountToSubtract The <code>Amount</code> that subtracts from <code>amountToSubtractFrom</code>.
+     * @return What remains after subtraction: <code>amountToSubtractFrom</code> - <code>amountToSubtract</code>.
+     */
+    public static Amount subtractTwoAmounts(Amount amountToSubtractFrom, Amount amountToSubtract) {
         BigDecimal newAmount = amountToSubtractFrom.getAmount().subtract(amountToSubtract.getAmount());
         return new Amount(newAmount);
     }
 
+    /**
+     * Checks if a given object is the same object as the <code>Amount</code> object that calls this method.
+     * @param obj The object which may or may not be equal to the <code>Amount</code> object that calls this method.
+     * @return Returns "true" if the given object is the same as the <code>Amount</code> object that calls this method. Otherwise, returns "false".
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Amount otherAmount) {

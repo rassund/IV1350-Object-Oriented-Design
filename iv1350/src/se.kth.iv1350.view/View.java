@@ -16,6 +16,9 @@ public class View {
         this.contr = contr;
     }
 
+    /**
+     * Simulates a sale of items. Used for testing.
+     */
     public void testRun() {
         contr.startSale();
         for (int i = 0; i < 5; i++) {
