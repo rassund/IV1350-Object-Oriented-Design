@@ -34,7 +34,17 @@ public class Sale {
      * @return A <code>SaleSummaryDTO</code> object containing info to show on the Register.
      */
     public SaleSummaryDTO addItem(ItemInBasketDTO itemInBasketDTO) {
-        items.add(itemInBasketDTO);
+        int indexOfItemToAdd = -1;
+        for (ItemInBasketDTO item : this.getItems()) {
+            if (item.getID() == itemInBasketDTO.getID()) {
+                indexOfItemToAdd = items.indexOf(itemInBasketDTO);
+            }
+        }
+        if (indexOfItemToAdd == -1)
+            items.add(itemInBasketDTO);
+        else
+            items.set(indexOfItemToAdd, itemInBasketDTO);
+
         Amount priceOfItem = itemInBasketDTO.getPrice();
         Amount costAddedByVAT = new Amount(priceOfItem.getAmount().subtract(priceOfItem.getAmount().divide(itemInBasketDTO.getVATRate().getRateAsDecimal().add(BigDecimal.ONE), RoundingMode.HALF_UP)));
 
