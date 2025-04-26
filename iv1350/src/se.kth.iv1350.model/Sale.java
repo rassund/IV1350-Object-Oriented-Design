@@ -38,6 +38,7 @@ public class Sale {
         for (ItemInBasketDTO item : this.getItems()) {
             if (item.getID() == itemInBasketDTO.getID()) {
                 indexOfItemToAdd = items.indexOf(itemInBasketDTO);
+                break;
             }
         }
         if (indexOfItemToAdd == -1)
