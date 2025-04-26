@@ -80,8 +80,7 @@ class SaleTest {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
-            Amount amountToAdd = new Amount(priceOfItem.getAmount().multiply(VAT.MEDIUM.getRateAsDecimal().add(BigDecimal.ONE)));
-            expectedPrice.addToThis(amountToAdd);
+            expectedPrice.addToThis(priceOfItem);
 
             assertEquals(expectedPrice.getAmount(), returnedSaleSummaryDTO.getRunningTotal().getAmount(), "SaleSummaryDTO does not contain the correct running total");
         }
