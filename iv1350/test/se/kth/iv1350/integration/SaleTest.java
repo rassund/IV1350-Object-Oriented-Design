@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import se.kth.iv1350.DTO.ItemDTO;
+import se.kth.iv1350.DTO.ItemInBasketDTO;
 import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.model.Amount;
@@ -32,12 +33,14 @@ class SaleTest {
     @Test
     void addItemDTONotNull() {
         ItemDTO exampleItemDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
         SaleSummaryDTO returnedSaleSummaryDTO;
         Amount expectedPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
-            returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
 
             assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
         }
@@ -46,11 +49,13 @@ class SaleTest {
     @Test
     void addItemCorrectItemDescription() {
         ItemDTO exampleItemDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
         SaleSummaryDTO returnedSaleSummaryDTO;
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
-            returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
 
             assertEquals(exampleItemDTO.getDescription(), returnedSaleSummaryDTO.getLatestItemAddedDescription(),
                     "SaleSummaryDTO does not contain the correct description for the last item");
@@ -60,11 +65,13 @@ class SaleTest {
     @Test
     void addItemCorrectLastItemPrice() {
         ItemDTO exampleItemDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
         SaleSummaryDTO returnedSaleSummaryDTO;
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
-            returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
 
             assertEquals(exampleItemDTO.getPrice(), returnedSaleSummaryDTO.getLatestItemAddedPrice(),
                     "SaleSummaryDTO does not contain the correct price for the last item");
@@ -75,11 +82,13 @@ class SaleTest {
     void addItemCorrectRunningTotal() {
         ItemDTO exampleItemDTO;
         SaleSummaryDTO returnedSaleSummaryDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
         Amount expectedPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
-            returnedSaleSummaryDTO = sale.addItem(exampleItemDTO);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
             expectedPrice.addToThis(priceOfItem);
 
             assertEquals(expectedPrice.getAmount(), returnedSaleSummaryDTO.getRunningTotal().getAmount(), "SaleSummaryDTO does not contain the correct running total");
@@ -92,11 +101,13 @@ class SaleTest {
     void endSaleAmountPaidBiggerThanTotalPrice() {
         Amount amountPaid = new Amount(new BigDecimal("1000"));
         ItemDTO exampleItemDTO;
-        Amount totalPrice = new Amount(BigDecimal.ZERO);
+        ItemInBasketDTO exampleItemInBasketDTO;
+        Amount totalPrice;
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
-            sale.addItem(exampleItemDTO);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            sale.addItem(exampleItemInBasketDTO);
         }
         totalPrice = sale.getRunningTotal();
         Amount expectedChange = new Amount(amountPaid.getAmount());
@@ -110,11 +121,13 @@ class SaleTest {
     void endSaleAmountPaidSmallerThanTotalPrice() {
         Amount amountPaid = new Amount(new BigDecimal("1"));
         ItemDTO exampleItemDTO;
-        Amount totalPrice = new Amount(BigDecimal.ZERO);
+        ItemInBasketDTO exampleItemInBasketDTO;
+        Amount totalPrice;
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
-            sale.addItem(exampleItemDTO);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            sale.addItem(exampleItemInBasketDTO);
         }
         totalPrice = sale.getRunningTotal();
         Amount expectedChange = new Amount(amountPaid.getAmount());
@@ -129,11 +142,13 @@ class SaleTest {
     void endSaleAmountPaidIsZero() {
         Amount amountPaid = new Amount(new BigDecimal("0"));
         ItemDTO exampleItemDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
         Amount totalPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
-            sale.addItem(exampleItemDTO);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            sale.addItem(exampleItemInBasketDTO);
         }
         totalPrice = sale.getRunningTotal();
         Amount expectedChange = new Amount(amountPaid.getAmount());
@@ -147,11 +162,13 @@ class SaleTest {
     void endSaleAmountPaidIsNegative() {
         Amount amountPaid = new Amount(new BigDecimal("-5"));
         ItemDTO exampleItemDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
         Amount totalPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
-            sale.addItem(exampleItemDTO);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            sale.addItem(exampleItemInBasketDTO);
         }
         totalPrice = sale.getRunningTotal();
         Amount expectedChange = new Amount(amountPaid.getAmount());
@@ -164,11 +181,13 @@ class SaleTest {
     @Test
     void endSaleAmountPaidEqualsTotalPrice() {
         ItemDTO exampleItemDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
         Amount totalPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
-            sale.addItem(exampleItemDTO);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            sale.addItem(exampleItemInBasketDTO);
         }
         totalPrice = sale.getRunningTotal();
         Amount amountPaid = new Amount(totalPrice.getAmount());

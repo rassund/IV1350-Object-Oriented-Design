@@ -1,6 +1,7 @@
 package se.kth.iv1350.controller;
 
 import se.kth.iv1350.DTO.ItemDTO;
+import se.kth.iv1350.DTO.ItemInBasketDTO;
 import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.integration.AccountingHandler;
@@ -43,15 +44,21 @@ public class Controller {
      * @return A <code>SaleSummaryDTO</code> with information to be displayed in the view.
      */
     public SaleSummaryDTO enterItemID(int itemID) {
-        ItemDTO itemDTO = getItemFromSale(itemID);
-        if (!itemAlreadyInSale(itemDTO)) {
+        ItemInBasketDTO itemInBasketDTO = getItemFromSale(itemID);
+        ItemDTO itemDTO;
+        if (!itemAlreadyInSale(itemInBasketDTO)) {
             itemDTO = invHandler.fetchItemDTO(itemID);
+            itemInBasketDTO = new ItemInBasketDTO(itemDTO, 1);
         }
-        return sale.addItem(itemDTO);
+        else {
+            int amountOfItemsInBasket = itemInBasketDTO.getAmountInBasket();
+            itemInBasketDTO = new ItemInBasketDTO(itemInBasketDTO, amountOfItemsInBasket + 1);
+        }
+        return sale.addItem(itemInBasketDTO);
     }
 
-    private ItemDTO getItemFromSale(int itemID) {
-        for (ItemDTO item : sale.getItems()) {
+    private ItemInBasketDTO getItemFromSale(int itemID) {
+        for (ItemInBasketDTO item : sale.getItems()) {
             if (item.getID() == itemID) {
                 return item;
             }
@@ -59,8 +66,8 @@ public class Controller {
         return null;
     }
 
-    private boolean itemAlreadyInSale(ItemDTO itemDTO) {
-        return itemDTO != null;
+    private boolean itemAlreadyInSale(ItemInBasketDTO itemInBasketDTO) {
+        return itemInBasketDTO != null;
     }
 
     /**

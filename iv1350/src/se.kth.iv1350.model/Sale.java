@@ -1,6 +1,7 @@
 package se.kth.iv1350.model;
 
 import se.kth.iv1350.DTO.ItemDTO;
+import se.kth.iv1350.DTO.ItemInBasketDTO;
 import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 
@@ -14,32 +15,32 @@ import java.util.ArrayList;
  */
 public class Sale {
     private final Amount runningTotal;
-    private final ArrayList<ItemDTO> items;
+    private final ArrayList<ItemInBasketDTO> items;
     private final Amount totalVAT;
 
     public Sale() {
         this.runningTotal = new Amount(BigDecimal.ZERO);
-        this.items = new ArrayList<ItemDTO>();
+        this.items = new ArrayList<ItemInBasketDTO>();
         this.totalVAT = new Amount(BigDecimal.ZERO);
     }
 
-    public ArrayList<ItemDTO> getItems() { return items; }
+    public ArrayList<ItemInBasketDTO> getItems() { return items; }
 
     public Amount getRunningTotal() { return runningTotal; }
 
     /**
      * Adds an <code>ItemDTO</code> to the sale and returns a <code>SaleSummaryDTO</code> for the register to display. Also updates the running total.
-     * @param itemDTO The item to add to the sale.
+     * @param itemInBasketDTO The item to add to the sale.
      * @return A <code>SaleSummaryDTO</code> object containing info to show on the Register.
      */
-    public SaleSummaryDTO addItem(ItemDTO itemDTO) {
-        items.add(itemDTO);
-        Amount priceOfItem = itemDTO.getPrice();
-        Amount costAddedByVAT = new Amount(priceOfItem.getAmount().subtract(priceOfItem.getAmount().divide(itemDTO.getVATRate().getRateAsDecimal().add(BigDecimal.ONE), RoundingMode.HALF_UP)));
+    public SaleSummaryDTO addItem(ItemInBasketDTO itemInBasketDTO) {
+        items.add(itemInBasketDTO);
+        Amount priceOfItem = itemInBasketDTO.getPrice();
+        Amount costAddedByVAT = new Amount(priceOfItem.getAmount().subtract(priceOfItem.getAmount().divide(itemInBasketDTO.getVATRate().getRateAsDecimal().add(BigDecimal.ONE), RoundingMode.HALF_UP)));
 
         runningTotal.addToThis(priceOfItem);
         totalVAT.addToThis(costAddedByVAT);
-        return new SaleSummaryDTO(itemDTO, runningTotal, totalVAT);
+        return new SaleSummaryDTO(itemInBasketDTO, runningTotal, totalVAT);
     }
 
     /**

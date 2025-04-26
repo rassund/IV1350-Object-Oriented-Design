@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.DTO.ItemDTO;
+import se.kth.iv1350.DTO.ItemInBasketDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.integration.AccountingHandler;
 import se.kth.iv1350.integration.DiscountHandler;
@@ -96,7 +97,8 @@ class ControllerTest {
         Amount returnedChange = contr.payForSale(amountPaid);
 
         Sale expectedSale = new Sale();
-        expectedSale.addItem(invHandler.fetchItemDTO(testItemID));
+        ItemInBasketDTO itemToAdd = new ItemInBasketDTO(invHandler.fetchItemDTO(testItemID), 1);
+        expectedSale.addItem(itemToAdd);
         Amount expectedTotal = expectedSale.getRunningTotal();
         Amount expectedChange = Amount.subtractTwoAmounts(amountPaid, expectedTotal);
 
