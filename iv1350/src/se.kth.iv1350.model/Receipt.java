@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-
+/**
+ * Represents a receipt for a Sale and contains all information needed for its printing.
+ */
 public class Receipt {
     private final LocalDateTime dateTimeOfSale;
     private final  Amount totalPrice;
@@ -32,9 +34,16 @@ public class Receipt {
 
     }
 
-
+    /**
+     * Returns the date for a sale.
+     * @return A <code>LocalDate</code> representing the date for the receipts purchase.
+     */
     public LocalDate getDateOfSale() { return dateTimeOfSale.toLocalDate(); }
 
+    /**
+     * Returns the hour and minute (but not seconds or anything below) for a purchase.
+     * @return A <code>LocalDate</code> showing the hour and minute for the receipts purchase.
+     */
     public LocalTime getTimeOfSale() { return dateTimeOfSale.toLocalTime().withSecond(0).withNano(0); }
 
     public Amount getTotalPrice() { return totalPrice; }
