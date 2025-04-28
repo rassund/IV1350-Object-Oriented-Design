@@ -14,6 +14,11 @@ public class Amount {
         this.currency = "SEK";
     }
 
+    public Amount(Amount amount) {
+        this.amount = amount.getAmount();
+        this.currency = amount.getCurrency();
+    }
+
     public BigDecimal getAmount() {
         return amount;
     }
@@ -21,6 +26,8 @@ public class Amount {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+
+    public String getCurrency() { return currency; }
 
     /**
      * Adds the amount <code>amountToAdd</code> onto the amount that calls this method.

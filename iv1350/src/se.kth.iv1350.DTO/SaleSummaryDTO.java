@@ -3,15 +3,15 @@ package se.kth.iv1350.DTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
-public class SaleSummaryDTO {
-    ItemInBasketDTO itemInBasketDTO;
-    Amount runningTotal;
-    Amount totalVAT;
+public final class SaleSummaryDTO {
+    private final ItemInBasketDTO itemInBasketDTO;
+    private final Amount runningTotal;
+    private final Amount totalVAT;
 
     public SaleSummaryDTO(ItemInBasketDTO itemInBasketDTO, Amount runningTotal, Amount totalVAT) {
-        this.itemInBasketDTO = new ItemInBasketDTO(itemInBasketDTO);
-        this.runningTotal = runningTotal;
-        this.totalVAT = totalVAT;
+        this.itemInBasketDTO = itemInBasketDTO;
+        this.runningTotal = new Amount(runningTotal);
+        this.totalVAT = new Amount(totalVAT);
     }
 
     public String getLatestItemName() { return itemInBasketDTO.getName(); }

@@ -3,41 +3,30 @@ package se.kth.iv1350.DTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
-public class ItemInBasketDTO {
-    private Amount price;
-    private VAT VATRate;
-    private String description;
-    private int itemID;
-    private String name;
-    private int amountInBasket;
+public final class ItemInBasketDTO {
+    private final Amount price;
+    private final VAT VATRate;
+    private final String description;
+    private final int itemID;
+    private final String name;
+    private final int amountInBasket;
 
     public ItemInBasketDTO(ItemDTO itemDTO, int amountInBasket) {
-        this.price = itemDTO.getPrice();
+        this.price = new Amount(itemDTO.getPrice());
         this.VATRate = itemDTO.getVATRate();
         this.description = itemDTO.getDescription();
         this.itemID = itemDTO.getID();
         this.name = itemDTO.getName();
         this.amountInBasket = amountInBasket;
-
     }
 
     public ItemInBasketDTO(ItemInBasketDTO itemInBasketDTO, int amountInBasket) {
-        this.price = itemInBasketDTO.getPrice();
+        this.price = new Amount(itemInBasketDTO.getPrice());
         this.VATRate = itemInBasketDTO.getVATRate();
         this.description = itemInBasketDTO.getDescription();
         this.itemID = itemInBasketDTO.getID();
         this.name = itemInBasketDTO.getName();
         this.amountInBasket = amountInBasket;
-
-    }
-
-    public ItemInBasketDTO(ItemInBasketDTO itemInBasketDTO) {
-        this.price = itemInBasketDTO.getPrice();
-        this.VATRate = itemInBasketDTO.getVATRate();
-        this.description = itemInBasketDTO.getDescription();
-        this.itemID = itemInBasketDTO.getID();
-        this.name = itemInBasketDTO.getName();
-        this.amountInBasket = itemInBasketDTO.getAmountInBasket();
     }
 
     public int getID() {
