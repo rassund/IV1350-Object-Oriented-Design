@@ -18,40 +18,63 @@ public class Sale {
     private final ArrayList<ItemInBasketDTO> items;
     private final Amount totalVAT;
 
+    /**
+     * Creates a {@link Sale} instance containing no items.
+     */
     public Sale() {
         this.runningTotal = new Amount("0");
-        this.items = new ArrayList<ItemInBasketDTO>();
+        this.items = new ArrayList<>();
         this.totalVAT = new Amount("0");
     }
 
+    /**
+     * Returns a reference to the list of items included in the sale.
+     * @return The list of items in the sale.
+     */
     public ArrayList<ItemInBasketDTO> getItems() { return items; }
 
+    /**
+     * Returns the running total of the sale.
+     * @return The running total of the sale.
+     */
     public Amount getRunningTotal() { return runningTotal; }
 
     /**
-     * Adds an <code>ItemDTO</code> to the sale and returns a <code>SaleSummaryDTO</code> for the register to display. Also updates the running total.
-     * @param itemInBasketDTO The item to add to the sale.
-     * @return A <code>SaleSummaryDTO</code> object containing info to show on the Register.
+     * Adds an {@link ItemDTO} to the sale and returns a {@link SaleSummaryDTO} for the register to display. Also updates the running total.
+     * @param itemToAdd The item to add to the sale.
+     * @return A {@link SaleSummaryDTO} object containing info to show on the Register.
      */
-    public SaleSummaryDTO addItem(ItemInBasketDTO itemInBasketDTO) {
+    public SaleSummaryDTO addItem(ItemInBasketDTO itemToAdd) {
         int indexOfItemToAdd = -1;
-        for (ItemInBasketDTO item : this.getItems()) {
-            if (item.itemID() == itemInBasketDTO.itemID()) {
+        for (ItemInBasketDTO item : items) {
+            if (itemIsAlreadyInBasket(item.itemID(), itemToAdd.itemID())) {
                 indexOfItemToAdd = items.indexOf(item);
                 break;
             }
         }
         if (indexOfItemToAdd == -1)
-            items.add(itemInBasketDTO);
+            items.add(itemToAdd);
         else
-            items.set(indexOfItemToAdd, itemInBasketDTO);
+            items.set(indexOfItemToAdd, itemToAdd);
 
-        Amount priceOfItem = itemInBasketDTO.price();
-        Amount costAddedByVAT = new Amount(priceOfItem.getAmount().subtract(priceOfItem.getAmount().divide(itemInBasketDTO.vatRate().getRateAsDecimal().add(BigDecimal.ONE), RoundingMode.HALF_UP)));
+        Amount priceOfItem = itemToAdd.price();
+        Amount costAddedByVAT = costAddedByVAT(itemToAdd);
 
         runningTotal.addToThis(priceOfItem);
         totalVAT.addToThis(costAddedByVAT);
-        return new SaleSummaryDTO(itemInBasketDTO, runningTotal, totalVAT);
+        return new SaleSummaryDTO(itemToAdd, runningTotal, totalVAT);
+    }
+
+    private boolean itemIsAlreadyInBasket(int itemInBasketID, int itemToAddID) {
+        return itemInBasketID == itemToAddID;
+    }
+
+    private Amount costAddedByVAT(ItemInBasketDTO itemInBasketDTO) {
+        BigDecimal price = itemInBasketDTO.price().getAmount();
+        BigDecimal vatRate = itemInBasketDTO.vatRate().getRateAsDecimal();
+        BigDecimal amountToSubtract = price.divide(vatRate.add(BigDecimal.ONE), RoundingMode.HALF_UP);
+        BigDecimal vatPortion = price.subtract(amountToSubtract);
+        return new Amount(vatPortion);
     }
 
     /**
