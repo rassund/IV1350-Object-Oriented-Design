@@ -1,6 +1,7 @@
 package se.kth.iv1350.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Represents an amount of money in SEK.
@@ -10,7 +11,8 @@ public class Amount {
     private final String currency;
 
     public Amount(double amount) {
-        this.amount = BigDecimal.valueOf(amount);
+        BigDecimal bigDecimalAmount = BigDecimal.valueOf(amount);
+        this.amount = bigDecimalAmount.setScale(2, RoundingMode.HALF_UP);
         this.currency = "SEK";
     }
 
