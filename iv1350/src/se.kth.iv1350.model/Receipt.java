@@ -36,13 +36,13 @@ public class Receipt {
 
     /**
      * Returns the date for a sale.
-     * @return A <code>LocalDate</code> representing the date for the receipts purchase.
+     * @return A <code>LocalDate</code> representing the date in local time for the receipts purchase.
      */
     public LocalDate getDateOfSale() { return dateTimeOfSale.toLocalDate(); }
 
     /**
      * Returns the hour and minute (but not seconds or anything below) for a purchase.
-     * @return A <code>LocalDate</code> showing the hour and minute for the receipts purchase.
+     * @return A <code>LocalDate</code> showing the hour and minute in local time for the receipts purchase.
      */
     public LocalTime getTimeOfSale() { return dateTimeOfSale.toLocalTime().withSecond(0).withNano(0); }
 
