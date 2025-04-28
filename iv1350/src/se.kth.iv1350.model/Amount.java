@@ -59,8 +59,11 @@ public class Amount {
         return false;
     }
 
-    @Override
-    public String toString() {
+    /**
+     * Gets a string containing the amount/price of this Amount instance, together with the currency used for this Amount instance.
+     * @return A string containing the <code>amount</code> value of this Amount instance, together with the <code>currency</code> value.
+     */
+    public String printCurrencyWithPrice() {
         return this.amount + " " + this.currency;
     }
 }

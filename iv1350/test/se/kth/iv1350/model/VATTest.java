@@ -7,25 +7,45 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VATTest {
-    VAT testVATLow;
-    VAT testVATMedium;
-    VAT testVATHigh;
+    VAT vatLow;
+    VAT vatMedium;
+    VAT vatHigh;
 
     @BeforeEach
     void setUp() {
-        testVATLow = VAT.LOW;
-        testVATMedium = VAT.MEDIUM;
-        testVATHigh = VAT.HIGH;
+        vatLow = VAT.LOW;
+        vatMedium = VAT.MEDIUM;
+        vatHigh = VAT.HIGH;
     }
 
     @AfterEach
     void tearDown() {
-        testVATLow = null;
-        testVATMedium = null;
-        testVATHigh = null;
+        vatLow = null;
+        vatMedium = null;
+        vatHigh = null;
     }
 
     @Test
-    void vatToPercent() {
+    void correctLowPercentageIsShown(){
+        String vatPercentageLow = vatLow.vatToPercent();
+        String expectedResultLow = "6.00%";
+
+        assertEquals(expectedResultLow, vatPercentageLow, "vatToPercent() does not give the expected percentage for VAT.LOW (6.00%)");
+    }
+
+    @Test
+    void correctMediumPercentageIsShown(){
+        String vatPercentageMedium = vatMedium.vatToPercent();
+        String expectedResultMedium = "12.00%";
+
+        assertEquals(expectedResultMedium, vatPercentageMedium, "vatToPercent() does not give the expected percentage for VAT.MEDIUM (12.00%)");
+    }
+
+    @Test
+    void correctHighPercentageIsShown(){
+        String vatPercentageHigh = vatHigh.vatToPercent();
+        String expectedResultHigh = "25.00%";
+
+        assertEquals(expectedResultHigh, vatPercentageHigh, "vatToPercent() does not give the expected percentage for VAT.HIGH (25.00%)");
     }
 }
