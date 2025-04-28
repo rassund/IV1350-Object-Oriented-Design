@@ -3,8 +3,6 @@ package se.kth.iv1350.DTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
-import java.math.BigDecimal;
-
 public class ItemDTO {
     private Amount price;
     private VAT vatRate;

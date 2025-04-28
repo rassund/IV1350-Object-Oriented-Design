@@ -15,7 +15,7 @@ public class SaleDTO {
 
     public SaleDTO(LocalDateTime dateTime, ArrayList<ItemInBasketDTO> items, Amount totalPrice, Amount totalVAT, Amount amountPaid, Amount change) {
         this.dateTime = dateTime;
-        this.items = items;
+        this.items = new ArrayList<>(items);
         this.totalPrice = totalPrice;
         this.totalVAT = totalVAT;
         this.amountPaid = amountPaid;

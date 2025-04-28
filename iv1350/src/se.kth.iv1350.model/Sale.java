@@ -61,7 +61,6 @@ public class Sale {
      */
     public SaleDTO endSale(Amount amountPaid) {
         LocalDateTime dateTime = LocalDateTime.now();
-        // If amountPaid > runningTotal
         Amount change = new Amount(amountPaid.getAmount());
         change.subtractFromThis(runningTotal);
         return new SaleDTO(dateTime, items, runningTotal, totalVAT, amountPaid, change);

@@ -9,7 +9,7 @@ public class SaleSummaryDTO {
     Amount totalVAT;
 
     public SaleSummaryDTO(ItemInBasketDTO itemInBasketDTO, Amount runningTotal, Amount totalVAT) {
-        this.itemInBasketDTO = itemInBasketDTO;
+        this.itemInBasketDTO = new ItemInBasketDTO(itemInBasketDTO);
         this.runningTotal = runningTotal;
         this.totalVAT = totalVAT;
     }

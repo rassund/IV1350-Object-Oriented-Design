@@ -31,6 +31,15 @@ public class ItemInBasketDTO {
 
     }
 
+    public ItemInBasketDTO(ItemInBasketDTO itemInBasketDTO) {
+        this.price = itemInBasketDTO.getPrice();
+        this.VATRate = itemInBasketDTO.getVATRate();
+        this.description = itemInBasketDTO.getDescription();
+        this.itemID = itemInBasketDTO.getID();
+        this.name = itemInBasketDTO.getName();
+        this.amountInBasket = itemInBasketDTO.getAmountInBasket();
+    }
+
     public int getID() {
         return itemID;
     }

@@ -25,7 +25,6 @@ public class Controller {
 
     private Sale sale;
 
-    // ASK ON HANDLEDNING IF TOO MANY ARGUMENTS
     public Controller(AccountingHandler accHandler, InventoryHandler invHandler, DiscountHandler discHandler, PrinterHandler printHandler, Register register) {
         this.accHandler = accHandler;
         this.invHandler = invHandler;
@@ -34,6 +33,9 @@ public class Controller {
         this.register = register;
     }
 
+    /**
+     * Initiates a new sale.
+     */
     public void startSale() {
         this.sale = new Sale();
     }
