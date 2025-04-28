@@ -29,7 +29,7 @@ public class Sale {
 
     /**
      * Returns a reference to the list of items included in the sale.
-     * @return The list of items in the sale.
+     * @return A {@link ArrayList} containing {@link ItemInBasketDTO} objects representing items in the sale.
      */
     public ArrayList<ItemInBasketDTO> getItems() { return items; }
 
@@ -40,7 +40,7 @@ public class Sale {
     public Amount getRunningTotal() { return runningTotal; }
 
     /**
-     * Adds an {@link ItemDTO} to the sale and returns a {@link SaleSummaryDTO} for the register to display. Also updates the running total.
+     * Adds an {@link ItemDTO} to the sale and returns a {@link SaleSummaryDTO} for the register to display. Also updates the running total and total VAT.
      * @param itemToAdd The item to add to the sale.
      * @return A {@link SaleSummaryDTO} object containing info to show on the Register.
      */
