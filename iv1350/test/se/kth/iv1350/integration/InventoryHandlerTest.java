@@ -8,8 +8,6 @@ import se.kth.iv1350.DTO.ItemDTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
-import java.math.BigDecimal;
-
 class InventoryHandlerTest {
     private InventoryHandler invHandler;
 
@@ -24,16 +22,26 @@ class InventoryHandlerTest {
     }
 
     @Test
-    void fetchItemDTOValidID() {
-        ItemDTO expectedItemDTO = new ItemDTO(new Amount(BigDecimal.ZERO), VAT.HIGH, "Example item number " + 0, 0, "Temporary");
+    void fetchItemDTOValidIDNotNull() {
         ItemDTO returnedItemDTO = invHandler.fetchItemDTO(0);
+
         assertNotNull(returnedItemDTO, "Returned item DTO is null");
-        assertEquals(expectedItemDTO.itemID(), returnedItemDTO.itemID(), "InventoryHandler did not fetch correct item");
+    }
+
+    @Test
+    void fetchItemDTOValid() {
+        ItemDTO expectedItemDTO = new ItemDTO(new Amount("14.90"), VAT.LOW,
+                "YouGoGo Blueberry 240g, low sugar yogurt, blueberry flavour",
+                1, "YouGoGo Blueberry");
+        ItemDTO returnedItemDTO = invHandler.fetchItemDTO(1);
+
+        assertEquals(expectedItemDTO, returnedItemDTO, "InventoryHandler did not fetch correct item");
     }
 
     @Test
     void fetchItemDTOInvalidID() {
         ItemDTO returnedItemDTO = invHandler.fetchItemDTO(10);
+
         assertNull(returnedItemDTO, "InventoryHandler returned an item with invalid ID");
     }
 }

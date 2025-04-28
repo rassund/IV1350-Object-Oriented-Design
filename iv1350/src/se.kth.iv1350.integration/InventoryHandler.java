@@ -5,27 +5,32 @@ import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
+import java.util.ArrayList;
+
 /**
  * Used for handling the database containing the information for all items in the store's inventory.
  */
 public class InventoryHandler {
-    private final ItemDTO[] dummyItems = new ItemDTO[2];
+    private final ArrayList<ItemDTO> dummyItems;
 
     /**
      * Constructs an instance of the "InventoryHandler" class.
      * When a new InventoryHandler is created, it is populated with dummy data, with a VAT rate of 8% (VAT.LOW).
      */
     public InventoryHandler() {
+        dummyItems = new ArrayList<ItemDTO>();
         addDummyItems();
     }
 
     private void addDummyItems() {
-        dummyItems[0] = new ItemDTO(new Amount("29.90"), VAT.LOW,
+        ItemDTO bigWheelOatmeal = new ItemDTO(new Amount("29.90"), VAT.LOW,
                 "BigWheel Oatmeal 500g, whole grain oats, high fiber, gluten free",
                 0, "BigWheel Oatmeal");
-        dummyItems[1] = new ItemDTO(new Amount("14.90"), VAT.LOW,
+        dummyItems.add(bigWheelOatmeal);
+        ItemDTO youGoGoBlueberry = new ItemDTO(new Amount("14.90"), VAT.LOW,
                 "YouGoGo Blueberry 240g, low sugar yogurt, blueberry flavour",
                 1, "YouGoGo Blueberry");
+        dummyItems.add(youGoGoBlueberry);
     }
 
     /**
