@@ -13,6 +13,7 @@ import se.kth.iv1350.model.VAT;
  * @param amountInBasket The amount of the item currently present in the basket.
  */
 public record ItemInBasketDTO(Amount price, VAT vatRate, String description, int itemID, String name, int amountInBasket) {
+
     /**
      * Creates an {@link ItemInBasketDTO} based on an {@link ItemDTO} and an integer.
      *

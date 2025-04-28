@@ -12,10 +12,11 @@ import java.util.ArrayList;
  * @param totalPrice The total price of the sale (including VAT).
  * @param totalVAT The total amount of VAT applied to the sale.
  * @param amountPaid The amount paid by the customer for the sale.
- * @param change The change to return to the customer.
+ * @param change The amount of change to return to the customer.
  */
 public record SaleDTO(LocalDateTime dateTime, ArrayList<ItemInBasketDTO> items, Amount totalPrice, Amount totalVAT,
                       Amount amountPaid, Amount change) {
+
     /**
      * Creates a new {@link SaleDTO} instance with defensive copying for mutable fields.
      * @param dateTime The date and time of the sale.

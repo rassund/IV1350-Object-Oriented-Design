@@ -5,8 +5,6 @@ import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
-import java.math.BigDecimal;
-
 /**
  * Used for handling the database containing the information for all items in the store's inventory.
  */
@@ -31,10 +29,10 @@ public class InventoryHandler {
     }
 
     /**
-     * Retreives an item with a given <code>ItemID</code> from the <code>ItemDTO</code> array of this InventoryHandler instance.
+     * Retrieves an item with a given <code>ItemID</code> from the <code>ItemDTO</code> array of this InventoryHandler instance.
      * Returns null if no item in the array has the given <code>itemID</code>.
      * @param itemID The itemID of the item to search for in the <code>ItemDTO</code> array.
-     * @return The <code>ItemDTO</code> with corresponding <code>itemID</code> value if found. Otherwise, returns null.
+     * @return The <code>ItemDTO</code> with corresponding <code>itemID</code> value if found. Otherwise, returns <code>null</code>.
      */
     public ItemDTO fetchItemDTO(int itemID) {
         for (ItemDTO item : dummyItems) {

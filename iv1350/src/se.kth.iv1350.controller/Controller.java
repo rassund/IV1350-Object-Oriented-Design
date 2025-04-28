@@ -42,7 +42,7 @@ public class Controller {
 
     /**
      * Adds an item with corresponding <code>itemID</code> to the sale. If the item is not already in the sale, the item is fetched from the inventory.
-     * @param itemID The ID of the item to addToThis.
+     * @param itemID The ID of the item to add to the sale.
      * @return A <code>SaleSummaryDTO</code> with information to be displayed in the view.
      */
     public SaleSummaryDTO enterItemID(int itemID) {
