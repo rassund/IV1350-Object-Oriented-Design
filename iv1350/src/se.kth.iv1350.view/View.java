@@ -27,7 +27,7 @@ public class View {
         printSaleSummary(saleSummary);
         saleSummary = contr.enterItemID(1);
         printSaleSummary(saleSummary);
-        Amount amountOfChange = contr.payForSale(new Amount(100));
+        Amount amountOfChange = contr.payForSale(new Amount("100"));
     }
 
     private void printSaleSummary(SaleSummaryDTO saleSummary) {

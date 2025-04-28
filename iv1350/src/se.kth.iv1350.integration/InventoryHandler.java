@@ -22,10 +22,10 @@ public class InventoryHandler {
     }
 
     private void addDummyItems() {
-        dummyItems[0] = new ItemDTO(new Amount(29.90), VAT.LOW,
+        dummyItems[0] = new ItemDTO(new Amount("29.90"), VAT.LOW,
                 "BigWheel Oatmeal 500g, whole grain oats, high fiber, gluten free",
                 0, "BigWheel Oatmeal");
-        dummyItems[1] = new ItemDTO(new Amount(14.90), VAT.LOW,
+        dummyItems[1] = new ItemDTO(new Amount("14.90"), VAT.LOW,
                 "YouGoGo Blueberry 240g, low sugar yogurt, blueberry flavour",
                 1, "YouGoGo Blueberry");
     }

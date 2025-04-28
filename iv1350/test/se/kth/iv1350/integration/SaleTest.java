@@ -83,9 +83,9 @@ class SaleTest {
         ItemDTO exampleItemDTO;
         SaleSummaryDTO returnedSaleSummaryDTO;
         ItemInBasketDTO exampleItemInBasketDTO;
-        Amount expectedPrice = new Amount(0);
+        Amount expectedPrice = new Amount("0");
         for (int i = 0; i < 3; i++) {
-            Amount priceOfItem = new Amount(5 + i);
+            Amount priceOfItem = new Amount(new BigDecimal(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
             exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
             returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);

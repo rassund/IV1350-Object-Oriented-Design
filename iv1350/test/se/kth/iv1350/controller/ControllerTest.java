@@ -90,7 +90,7 @@ class ControllerTest {
     @Test
     void payForSaleChangeCalculation() {
         int testItemID = 0;
-        Amount amountPaid = new Amount(1000);
+        Amount amountPaid = new Amount("1000");
 
         contr.enterItemID(testItemID);
         Amount returnedChange = contr.payForSale(amountPaid);
@@ -106,8 +106,8 @@ class ControllerTest {
 
     @Test
     void payForSaleExactPayment() {
-        Amount returnedChange = contr.payForSale(new Amount(0));
-        Amount expectedChange = new Amount(0);
+        Amount returnedChange = contr.payForSale(new Amount("0"));
+        Amount expectedChange = new Amount("0");
 
         assertEquals(expectedChange, returnedChange, "The returned change does not match the expected change.");
     }

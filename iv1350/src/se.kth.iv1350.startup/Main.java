@@ -18,7 +18,7 @@ public class Main {
      * @param args The application does not take any command line parameters.
      */
     public static void main(String[] args) {
-        final double STARTING_BALANCE = 0;
+        final String STARTING_BALANCE = "0";
 
         AccountingHandler accHandler = new AccountingHandler();
         InventoryHandler invHandler = new InventoryHandler();
