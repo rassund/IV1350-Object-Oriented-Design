@@ -12,7 +12,7 @@ class AmountTest {
 
     @BeforeEach
     void setUp() {
-        amount = new Amount(null);
+        amount = new Amount(0);
     }
 
     @AfterEach
@@ -23,8 +23,8 @@ class AmountTest {
     @Test
     void addPositiveAmount() {
         amount.setAmount(new BigDecimal(5));
-        Amount amountToAdd = new Amount(new BigDecimal("5.5"));
-        Amount expectedAmount = new Amount(new BigDecimal("10.5"));
+        Amount amountToAdd = new Amount(5.5);
+        Amount expectedAmount = new Amount(10.5);
         amount.addToThis(amountToAdd);
 
         assertEquals(expectedAmount, amount, "Amount after addition is not at expected value");
@@ -33,8 +33,8 @@ class AmountTest {
     @Test
     void addNegativeAmount() {
         amount.setAmount(new BigDecimal(5));
-        Amount amountToAdd = new Amount(new BigDecimal(-6));
-        Amount expectedAmount = new Amount(new BigDecimal(-1));
+        Amount amountToAdd = new Amount(-6);
+        Amount expectedAmount = new Amount(-1);
         amount.addToThis(amountToAdd);
 
         assertEquals(expectedAmount, amount, "Amount after addition is not at expected value");
@@ -43,8 +43,8 @@ class AmountTest {
     @Test
     void addZero() {
         amount.setAmount(new BigDecimal(5));
-        Amount amountToAdd = new Amount(new BigDecimal(0));
-        Amount expectedAmount = new Amount(new BigDecimal(5));
+        Amount amountToAdd = new Amount(0);
+        Amount expectedAmount = new Amount(5);
         amount.addToThis(amountToAdd);
 
         assertEquals(expectedAmount, amount, "Amount after addition is not at expected value");
@@ -53,8 +53,8 @@ class AmountTest {
     @Test
     void subtractPositiveAmount() {
         amount.setAmount(new BigDecimal(5));
-        Amount amountToSubtract = new Amount(new BigDecimal("5.5"));
-        Amount expectedAmount = new Amount(new BigDecimal("-0.5"));
+        Amount amountToSubtract = new Amount(5.5);
+        Amount expectedAmount = new Amount(-0.5);
         amount.subtractFromThis(amountToSubtract);
 
         assertEquals(expectedAmount, amount, "Amount after subtraction is not at expected value");
@@ -63,8 +63,8 @@ class AmountTest {
     @Test
     void subtractNegativeAmount() {
         amount.setAmount(new BigDecimal(5));
-        Amount amountToSubtract = new Amount(new BigDecimal(-6));
-        Amount expectedAmount = new Amount(new BigDecimal(11));
+        Amount amountToSubtract = new Amount(-6);
+        Amount expectedAmount = new Amount(11);
         amount.subtractFromThis(amountToSubtract);
 
         assertEquals(expectedAmount, amount, "Amount after subtraction is not at expected value");
@@ -73,8 +73,8 @@ class AmountTest {
     @Test
     void subtractZero() {
         amount.setAmount(new BigDecimal(5));
-        Amount amountToSubtract = new Amount(new BigDecimal(0));
-        Amount expectedAmount = new Amount(new BigDecimal(5));
+        Amount amountToSubtract = new Amount(0);
+        Amount expectedAmount = new Amount(5);
         amount.subtractFromThis(amountToSubtract);
 
         assertEquals(expectedAmount, amount, "Amount after subtraction is not at expected value");
@@ -83,7 +83,7 @@ class AmountTest {
     @Test
     void equalsAmountSameValue() {
         amount.setAmount(new BigDecimal(5));
-        Amount amountToCompare = new Amount(new BigDecimal(5));
+        Amount amountToCompare = new Amount(5);
         boolean booleanToTest = amount.equals(amountToCompare);
 
         assertTrue(booleanToTest);
@@ -92,7 +92,7 @@ class AmountTest {
     @Test
     void equalsAmountDifferentValue() {
         amount.setAmount(new BigDecimal(5));
-        Amount amountToCompare = new Amount(new BigDecimal(3));
+        Amount amountToCompare = new Amount(3);
         boolean booleanToTest = amount.equals(amountToCompare);
 
         assertFalse(booleanToTest);
@@ -109,9 +109,9 @@ class AmountTest {
 
     @Test
     void subtractTwoAmountsTest() {
-        Amount amountToSubtractFrom = new Amount(new BigDecimal("1000"));
-        Amount amountToSubtractWith = new Amount(new BigDecimal("500"));
-        Amount expectedAmount = new Amount(new BigDecimal("500"));
+        Amount amountToSubtractFrom = new Amount(1000);
+        Amount amountToSubtractWith = new Amount(500);
+        Amount expectedAmount = new Amount(500);
 
         Amount amountAfterSubtraction = Amount.subtractTwoAmounts(amountToSubtractFrom, amountToSubtractWith);
 

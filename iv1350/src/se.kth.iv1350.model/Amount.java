@@ -7,7 +7,12 @@ import java.math.BigDecimal;
  */
 public class Amount {
     private BigDecimal amount;
-    private String currency;
+    private final String currency;
+
+    public Amount(double amount) {
+        this.amount = BigDecimal.valueOf(amount);
+        this.currency = "SEK";
+    }
 
     public Amount(BigDecimal amount) {
         this.amount = amount;
@@ -61,7 +66,7 @@ public class Amount {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Amount otherAmount) {
-            return this.amount.equals((otherAmount.getAmount()));
+            return this.amount.compareTo((otherAmount.getAmount())) == 0;
         }
         return false;
     }

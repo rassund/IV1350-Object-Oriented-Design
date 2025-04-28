@@ -4,8 +4,6 @@ import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.model.Amount;
 
-import java.math.BigDecimal;
-
 /**
  * The <code>view</code> method, which is a hardcoded mockup of the layer that handles the cashiers interaction with the program.
  */
@@ -29,7 +27,7 @@ public class View {
         printSaleSummary(saleSummary);
         saleSummary = contr.enterItemID(1);
         printSaleSummary(saleSummary);
-        Amount amountOfChange = contr.payForSale(new Amount(new BigDecimal(100)));
+        Amount amountOfChange = contr.payForSale(new Amount(100));
     }
 
     private void printSaleSummary(SaleSummaryDTO saleSummary) {

@@ -19,9 +19,9 @@ public class Sale {
     private final Amount totalVAT;
 
     public Sale() {
-        this.runningTotal = new Amount(BigDecimal.ZERO);
+        this.runningTotal = new Amount(0);
         this.items = new ArrayList<ItemInBasketDTO>();
-        this.totalVAT = new Amount(BigDecimal.ZERO);
+        this.totalVAT = new Amount(0);
     }
 
     public ArrayList<ItemInBasketDTO> getItems() { return items; }
