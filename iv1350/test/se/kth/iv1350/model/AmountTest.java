@@ -118,4 +118,12 @@ class AmountTest {
         assertEquals(amountAfterSubtraction, expectedAmount, "subtractTwoAmount() does not result in an expected Amount.");
     }
 
+    @Test
+    void correctCurrencyAndPriceIsPrinted(){
+        amount.setAmount(new BigDecimal("1000"));
+        String expectedResult = "1000 SEK";
+
+        assertEquals(amount.printCurrencyWithPrice(), expectedResult, "printCurrencyWithPrice() does not output expected string.");
+    }
+
 }

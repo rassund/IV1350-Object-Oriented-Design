@@ -19,6 +19,10 @@ public enum VAT {
 
     public BigDecimal getRateAsDecimal() { return rate; }
 
+    /**
+     * Converts the VAT rate ("LOW", "MEDIUM" or "HIGH") into actual percentages (6%, 12% or 25%).
+     * @return A string showing a percentage value.
+     */
     public String vatToPercent() {
         return rate.multiply(new BigDecimal(100)) + "%";
     }
