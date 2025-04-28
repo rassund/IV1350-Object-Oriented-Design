@@ -24,6 +24,6 @@ class RegisterTest {
         Register registerForTesting = new Register(balanceForTesting);
         registerForTesting.updateRegister(amountToAdd);
 
-        assertEquals(registerForTesting.getBalance(), expectedTotal, "Balance after UpdateRegister() does not become expected result.");
+        assertEquals(expectedTotal, registerForTesting.getBalance(), "Balance after UpdateRegister() does not become expected result.");
     }
 }

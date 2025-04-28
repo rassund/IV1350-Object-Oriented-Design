@@ -27,7 +27,7 @@ class AmountTest {
         Amount expectedAmount = new Amount(new BigDecimal("10.5"));
         amount.addToThis(amountToAdd);
 
-        assertEquals(amount, expectedAmount, "Amount after addition is not at expected value");
+        assertEquals(expectedAmount, amount, "Amount after addition is not at expected value");
     }
 
     @Test
@@ -37,7 +37,7 @@ class AmountTest {
         Amount expectedAmount = new Amount(new BigDecimal(-1));
         amount.addToThis(amountToAdd);
 
-        assertEquals(amount, expectedAmount, "Amount after addition is not at expected value");
+        assertEquals(expectedAmount, amount, "Amount after addition is not at expected value");
     }
 
     @Test
@@ -47,7 +47,7 @@ class AmountTest {
         Amount expectedAmount = new Amount(new BigDecimal(5));
         amount.addToThis(amountToAdd);
 
-        assertEquals(amount, expectedAmount, "Amount after addition is not at expected value");
+        assertEquals(expectedAmount, amount, "Amount after addition is not at expected value");
     }
 
     @Test
@@ -57,7 +57,7 @@ class AmountTest {
         Amount expectedAmount = new Amount(new BigDecimal("-0.5"));
         amount.subtractFromThis(amountToSubtract);
 
-        assertEquals(amount, expectedAmount, "Amount after substraction is not at expected value");
+        assertEquals(expectedAmount, amount, "Amount after subtraction is not at expected value");
     }
 
     @Test
@@ -67,7 +67,7 @@ class AmountTest {
         Amount expectedAmount = new Amount(new BigDecimal(11));
         amount.subtractFromThis(amountToSubtract);
 
-        assertEquals(amount, expectedAmount, "Amount after substraction is not at expected value");
+        assertEquals(expectedAmount, amount, "Amount after subtraction is not at expected value");
     }
 
     @Test
@@ -77,7 +77,7 @@ class AmountTest {
         Amount expectedAmount = new Amount(new BigDecimal(5));
         amount.subtractFromThis(amountToSubtract);
 
-        assertEquals(amount, expectedAmount, "Amount after substraction is not at expected value");
+        assertEquals(expectedAmount, amount, "Amount after subtraction is not at expected value");
     }
 
     @Test
@@ -113,7 +113,7 @@ class AmountTest {
         Amount amountToSubtractWith = new Amount(new BigDecimal("500"));
         Amount expectedAmount = new Amount(new BigDecimal("500"));
 
-        Amount amountAfterSubtraction = amount.subtractTwoAmounts(amountToSubtractFrom, amountToSubtractWith);
+        Amount amountAfterSubtraction = Amount.subtractTwoAmounts(amountToSubtractFrom, amountToSubtractWith);
 
         assertEquals(amountAfterSubtraction, expectedAmount, "subtractTwoAmount() does not result in an expected Amount.");
     }
@@ -123,7 +123,7 @@ class AmountTest {
         amount.setAmount(new BigDecimal("1000"));
         String expectedResult = "1000 SEK";
 
-        assertEquals(amount.printCurrencyWithPrice(), expectedResult, "printCurrencyWithPrice() does not output expected string.");
+        assertEquals(expectedResult, amount.printCurrencyWithPrice(), "printCurrencyWithPrice() does not output expected string.");
     }
 
 }
