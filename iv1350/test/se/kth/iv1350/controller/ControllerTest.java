@@ -13,7 +13,6 @@ import se.kth.iv1350.integration.PrinterHandler;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Sale;
-import se.kth.iv1350.model.VAT;
 
 import java.math.BigDecimal;
 
@@ -91,7 +90,7 @@ class ControllerTest {
     @Test
     void payForSaleChangeCalculation() {
         int testItemID = 0;
-        Amount amountPaid = new Amount(new BigDecimal(1000));
+        Amount amountPaid = new Amount(1000);
 
         contr.enterItemID(testItemID);
         Amount returnedChange = contr.payForSale(amountPaid);
@@ -107,8 +106,8 @@ class ControllerTest {
 
     @Test
     void payForSaleExactPayment() {
-        Amount returnedChange = contr.payForSale(new Amount(BigDecimal.ZERO));
-        Amount expectedChange = new Amount(BigDecimal.ZERO);
+        Amount returnedChange = contr.payForSale(new Amount(0));
+        Amount expectedChange = new Amount(0);
 
         assertEquals(expectedChange, returnedChange, "The returned change does not match the expected change.");
     }
