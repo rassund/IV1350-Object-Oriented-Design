@@ -31,15 +31,15 @@ public class View {
     }
 
     private void printSaleSummary(SaleSummaryDTO saleSummary) {
-        System.out.println("Add 1 item with item id " + saleSummary.getLatestItemID() + ":");
-        System.out.println("Item ID: " + saleSummary.getLatestItemID());
-        System.out.println("Item name: " + saleSummary.getLatestItemName());
-        System.out.println("Item cost: " + saleSummary.getLatestItemAddedPrice().getAmountAsStringWithCurrency());
-        System.out.println("VAT: " + saleSummary.getLatestItemVAT().vatToPercent());
-        System.out.println("Item description: " + saleSummary.getLatestItemAddedDescription());
+        System.out.println("Add 1 item with item id " + saleSummary.latestItemID() + ":");
+        System.out.println("Item ID: " + saleSummary.latestItemID());
+        System.out.println("Item name: " + saleSummary.latestItemName());
+        System.out.println("Item cost: " + saleSummary.latestItemPrice().getAmountAsStringWithCurrency());
+        System.out.println("VAT: " + saleSummary.latestItemVAT().vatToPercent());
+        System.out.println("Item description: " + saleSummary.latestItemDescription());
         System.out.println();
-        System.out.println("Total cost (incl VAT): " + saleSummary.getRunningTotal().getAmountAsStringWithCurrency());
-        System.out.println("Total VAT: " + saleSummary.getTotalVAT().getAmountAsStringWithCurrency());
+        System.out.println("Total cost (incl VAT): " + saleSummary.runningTotal().getAmountAsStringWithCurrency());
+        System.out.println("Total VAT: " + saleSummary.totalVAT().getAmountAsStringWithCurrency());
         System.out.println();
     }
 }

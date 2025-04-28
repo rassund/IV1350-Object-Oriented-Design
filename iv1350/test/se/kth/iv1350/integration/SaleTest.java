@@ -57,7 +57,7 @@ class SaleTest {
             exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
             returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
 
-            assertEquals(exampleItemDTO.getDescription(), returnedSaleSummaryDTO.getLatestItemAddedDescription(),
+            assertEquals(exampleItemDTO.description(), returnedSaleSummaryDTO.latestItemDescription(),
                     "SaleSummaryDTO does not contain the correct description for the last item");
         }
     }
@@ -73,7 +73,7 @@ class SaleTest {
             exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
             returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
 
-            assertEquals(exampleItemDTO.getPrice(), returnedSaleSummaryDTO.getLatestItemAddedPrice(),
+            assertEquals(exampleItemDTO.price(), returnedSaleSummaryDTO.latestItemPrice(),
                     "SaleSummaryDTO does not contain the correct price for the last item");
         }
     }
@@ -91,7 +91,7 @@ class SaleTest {
             returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
             expectedPrice.addToThis(priceOfItem);
 
-            assertEquals(expectedPrice.getAmount(), returnedSaleSummaryDTO.getRunningTotal().getAmount(), "SaleSummaryDTO does not contain the correct running total");
+            assertEquals(expectedPrice.getAmount(), returnedSaleSummaryDTO.runningTotal().getAmount(), "SaleSummaryDTO does not contain the correct running total");
         }
     }
 
@@ -114,7 +114,7 @@ class SaleTest {
         expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
-        assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
+        assertEquals(expectedChange, saleDTOToTest.change(), "SaleDTO doesn't contain the correct change");
     }
 
     @Test
@@ -134,7 +134,7 @@ class SaleTest {
         expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
-        assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
+        assertEquals(expectedChange, saleDTOToTest.change(), "SaleDTO doesn't contain the correct change");
     }
     
 //FOR ALL TESTS BELOW THE ASSUMPTION IS THAT WE DON'T HAVE TO DEAL WITH THE CUSTOMER NOT GIVING ENOUGH MONEY, IF THAT IS NOT TRUE THEY NEED TO BE CHANGED
@@ -155,7 +155,7 @@ class SaleTest {
         expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
-        assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
+        assertEquals(expectedChange, saleDTOToTest.change(), "SaleDTO doesn't contain the correct change");
     }
 
     @Test
@@ -175,7 +175,7 @@ class SaleTest {
         expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
-        assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
+        assertEquals(expectedChange, saleDTOToTest.change(), "SaleDTO doesn't contain the correct change");
     }
 
     @Test
@@ -195,7 +195,7 @@ class SaleTest {
         expectedChange.subtractFromThis(totalPrice);
         SaleDTO saleDTOToTest = sale.endSale(amountPaid);
 
-        assertEquals(expectedChange, saleDTOToTest.getChange(), "SaleDTO doesn't contain the correct change");
+        assertEquals(expectedChange, saleDTOToTest.change(), "SaleDTO doesn't contain the correct change");
     }
 }
 

@@ -26,11 +26,11 @@ public class PrinterHandler {
         System.out.println();
 
         for (ItemInBasketDTO item : receipt.getItemsBought()) {
-            BigDecimal amountOfItemBought = new BigDecimal(item.getAmountInBasket());
-            Amount totalPriceForItem = new Amount(item.getPrice().getAmount().multiply(amountOfItemBought));
+            BigDecimal amountOfItemBought = new BigDecimal(item.amountInBasket());
+            Amount totalPriceForItem = new Amount(item.price().getAmount().multiply(amountOfItemBought));
             System.out.printf("%-20s %10s x %-5s  %s%n",
-                    item.getName(),
-                    item.getPrice().getAmountAsStringWithCurrency(),
+                    item.name(),
+                    item.price().getAmountAsStringWithCurrency(),
                     amountOfItemBought,
                     totalPriceForItem.getAmountAsStringWithCurrency());
         }

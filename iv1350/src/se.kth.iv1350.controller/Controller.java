@@ -17,11 +17,11 @@ import se.kth.iv1350.model.Sale;
  * Contains code for the Controller. It is responsible for directing traffic between the different layers in the system and all calls are made through it after startup.
  */
 public class Controller {
-    private AccountingHandler accHandler;
-    private InventoryHandler invHandler;
-    private DiscountHandler discHandler;
-    private PrinterHandler printHandler;
-    private Register register;
+    private final AccountingHandler accHandler;
+    private final InventoryHandler invHandler;
+    private final DiscountHandler discHandler;
+    private final PrinterHandler printHandler;
+    private final Register register;
 
     private Sale sale;
 
@@ -53,7 +53,7 @@ public class Controller {
             itemInBasketDTO = new ItemInBasketDTO(itemDTO, 1);
         }
         else {
-            int amountOfItemsInBasket = itemInBasketDTO.getAmountInBasket();
+            int amountOfItemsInBasket = itemInBasketDTO.amountInBasket();
             itemInBasketDTO = new ItemInBasketDTO(itemInBasketDTO, amountOfItemsInBasket + 1);
         }
         return sale.addItem(itemInBasketDTO);
@@ -61,7 +61,7 @@ public class Controller {
 
     private ItemInBasketDTO getItemFromSale(int itemID) {
         for (ItemInBasketDTO item : sale.getItems()) {
-            if (item.getID() == itemID) {
+            if (item.itemID() == itemID) {
                 return item;
             }
         }
@@ -83,7 +83,7 @@ public class Controller {
         accHandler.updateAccounting(saleDTO);
         Receipt receipt = new Receipt(saleDTO);
         printHandler.printReceipt(receipt);
-        register.updateRegister(saleDTO.getTotalPrice());
-        return saleDTO.getChange();
+        register.updateRegister(saleDTO.totalPrice());
+        return saleDTO.change();
     }
 }

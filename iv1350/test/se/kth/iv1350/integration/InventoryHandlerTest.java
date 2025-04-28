@@ -28,7 +28,7 @@ class InventoryHandlerTest {
         ItemDTO expectedItemDTO = new ItemDTO(new Amount(BigDecimal.ZERO), VAT.HIGH, "Example item number " + 0, 0, "Temporary");
         ItemDTO returnedItemDTO = invHandler.fetchItemDTO(0);
         assertNotNull(returnedItemDTO, "Returned item DTO is null");
-        assertEquals(expectedItemDTO.getID(), returnedItemDTO.getID(), "InventoryHandler did not fetch correct item");
+        assertEquals(expectedItemDTO.itemID(), returnedItemDTO.itemID(), "InventoryHandler did not fetch correct item");
     }
 
     @Test

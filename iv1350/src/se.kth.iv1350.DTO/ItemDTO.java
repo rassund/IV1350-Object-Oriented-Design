@@ -3,32 +3,24 @@ package se.kth.iv1350.DTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
-public final class ItemDTO {
-    private final Amount price;
-    private final VAT vatRate;
-    private final String description;
-    private final int itemID;
-    private final String name;
-
-    public ItemDTO(Amount price, VAT vatRate, String description, int itemID, String name) {
-        this.price = new Amount(price);
-        this.vatRate = vatRate;
-        this.description = description;
-        this.itemID = itemID;
-        this.name = name;
+/**
+ * Records all relevant information about an item fetched from the inventory.
+ * @param price The price of the item (including VAT).
+ * @param vatRate The VAT rate of the item.
+ * @param description A description of the item.
+ * @param itemID The ID of the item.
+ * @param name The name of the item.
+ */
+public record ItemDTO(Amount price, VAT vatRate, String description, int itemID, String name) {
+    /**
+     * Creates a new {@link ItemDTO} instance with defensive copying for mutable fields.
+     * @param price The price of the item (including VAT).
+     * @param vatRate The VAT rate of the item.
+     * @param description A description of the item.
+     * @param itemID The ID of the item.
+     * @param name The name of the item.
+     */
+    public ItemDTO {
+        price = new Amount(price);
     }
-
-    public int getID() {
-        return itemID;
-    }
-
-    public Amount getPrice() {
-        return price;
-    }
-
-    public VAT getVATRate() { return vatRate; }
-
-    public String getDescription() { return description; }
-
-    public String getName() { return name; }
 }

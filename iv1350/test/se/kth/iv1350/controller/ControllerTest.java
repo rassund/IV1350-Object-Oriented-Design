@@ -53,13 +53,13 @@ class ControllerTest {
     @Test
     void enterItemIDNotAlreadyInSale() {
         SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
-        Amount returnedPrice = returnedSaleSummaryDTO.getLatestItemAddedPrice();
-        String returnedDescription = returnedSaleSummaryDTO.getLatestItemAddedDescription();
-        Amount returnedTotal = returnedSaleSummaryDTO.getRunningTotal();
+        Amount returnedPrice = returnedSaleSummaryDTO.latestItemPrice();
+        String returnedDescription = returnedSaleSummaryDTO.latestItemDescription();
+        Amount returnedTotal = returnedSaleSummaryDTO.runningTotal();
 
         ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
-        Amount expectedPrice = expectedItemDTO.getPrice();
-        String expectedDescription = expectedItemDTO.getDescription();
+        Amount expectedPrice = expectedItemDTO.price();
+        String expectedDescription = expectedItemDTO.description();
         Amount expectedTotal = new Amount(expectedPrice.getAmount());
 
         assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
@@ -71,14 +71,14 @@ class ControllerTest {
     @Test
     void enterItemIDAlreadyInSale() {
         SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
-        Amount expectedPrice = firstSaleSummaryDTO.getLatestItemAddedPrice();
-        String expectedDescription = firstSaleSummaryDTO.getLatestItemAddedDescription();
-        BigDecimal expectedTotal = firstSaleSummaryDTO.getRunningTotal().getAmount().multiply(BigDecimal.TWO);
+        Amount expectedPrice = firstSaleSummaryDTO.latestItemPrice();
+        String expectedDescription = firstSaleSummaryDTO.latestItemDescription();
+        BigDecimal expectedTotal = firstSaleSummaryDTO.runningTotal().getAmount().multiply(BigDecimal.TWO);
 
         SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
-        Amount returnedPrice = returnedSaleSummaryDTO.getLatestItemAddedPrice();
-        String returnedDescription = returnedSaleSummaryDTO.getLatestItemAddedDescription();
-        BigDecimal returnedTotal = returnedSaleSummaryDTO.getRunningTotal().getAmount();
+        Amount returnedPrice = returnedSaleSummaryDTO.latestItemPrice();
+        String returnedDescription = returnedSaleSummaryDTO.latestItemDescription();
+        BigDecimal returnedTotal = returnedSaleSummaryDTO.runningTotal().getAmount();
 
         assertNotNull(firstSaleSummaryDTO, "First SaleSummaryDTO is null");
         assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");

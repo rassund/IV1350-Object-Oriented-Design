@@ -38,7 +38,7 @@ public class InventoryHandler {
      */
     public ItemDTO fetchItemDTO(int itemID) {
         for (ItemDTO item : dummyItems) {
-            if (item.getID() == itemID) {
+            if (item.itemID() == itemID) {
                 return item;
             }
         }

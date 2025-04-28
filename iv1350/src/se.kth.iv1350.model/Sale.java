@@ -36,7 +36,7 @@ public class Sale {
     public SaleSummaryDTO addItem(ItemInBasketDTO itemInBasketDTO) {
         int indexOfItemToAdd = -1;
         for (ItemInBasketDTO item : this.getItems()) {
-            if (item.getID() == itemInBasketDTO.getID()) {
+            if (item.itemID() == itemInBasketDTO.itemID()) {
                 indexOfItemToAdd = items.indexOf(item);
                 break;
             }
@@ -46,8 +46,8 @@ public class Sale {
         else
             items.set(indexOfItemToAdd, itemInBasketDTO);
 
-        Amount priceOfItem = itemInBasketDTO.getPrice();
-        Amount costAddedByVAT = new Amount(priceOfItem.getAmount().subtract(priceOfItem.getAmount().divide(itemInBasketDTO.getVATRate().getRateAsDecimal().add(BigDecimal.ONE), RoundingMode.HALF_UP)));
+        Amount priceOfItem = itemInBasketDTO.price();
+        Amount costAddedByVAT = new Amount(priceOfItem.getAmount().subtract(priceOfItem.getAmount().divide(itemInBasketDTO.vatRate().getRateAsDecimal().add(BigDecimal.ONE), RoundingMode.HALF_UP)));
 
         runningTotal.addToThis(priceOfItem);
         totalVAT.addToThis(costAddedByVAT);
