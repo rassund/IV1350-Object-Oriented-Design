@@ -7,14 +7,6 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RegisterTest {
-    /*Register register;
-
-    @BeforeEach
-    void setUp() { register = new Register(null); }
-
-    @AfterEach
-    void tearDown() { register = null; }*/
-
     @Test
     void UpdateRegisterTest(){
         Amount balanceForTesting = new Amount(new BigDecimal("1000"));
