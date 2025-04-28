@@ -14,7 +14,7 @@ class RegisterTest {
         Amount expectedTotal = new Amount(new BigDecimal("1500"));
 
         Register registerForTesting = new Register(balanceForTesting);
-        registerForTesting.updateRegister(amountToAdd);
+        registerForTesting.addAmountToRegister(amountToAdd);
 
         assertEquals(expectedTotal, registerForTesting.getBalance(), "Balance after UpdateRegister() does not become expected result.");
     }

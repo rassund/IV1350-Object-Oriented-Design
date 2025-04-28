@@ -83,7 +83,7 @@ public class Controller {
         accHandler.updateAccounting(saleDTO);
         Receipt receipt = new Receipt(saleDTO);
         printHandler.printReceipt(receipt);
-        register.updateRegister(saleDTO.totalPrice());
+        register.addAmountToRegister(saleDTO.totalPrice());
         return saleDTO.change();
     }
 }
