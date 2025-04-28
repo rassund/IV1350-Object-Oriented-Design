@@ -13,6 +13,7 @@ import se.kth.iv1350.integration.PrinterHandler;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Sale;
+import se.kth.iv1350.model.VAT;
 
 import java.math.BigDecimal;
 
@@ -51,41 +52,89 @@ class ControllerTest {
     }
 
     @Test
-    void enterItemIDNotAlreadyInSale() {
+    void enterItemIDNotAlreadyInSaleNotNull() {
+        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
+
+        assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
+    }
+
+    @Test
+    void enterItemIDNotAlreadyInSaleItemPrice() {
         SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
         Amount returnedPrice = returnedSaleSummaryDTO.latestItemPrice();
+
+        ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
+        Amount expectedPrice = expectedItemDTO.price();
+
+        assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");
+    }
+
+    @Test
+    void enterItemIDNotAlreadyInSaleItemDescription() {
+        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
         String returnedDescription = returnedSaleSummaryDTO.latestItemDescription();
+
+        ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
+        String expectedDescription = expectedItemDTO.description();
+
+        assertEquals(expectedDescription, returnedDescription, "The description of the SaleSummaryDTO does not match the expected description");
+    }
+
+    @Test
+    void enterItemIDNotAlreadyInSaleTotalPrice() {
+        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
         Amount returnedTotal = returnedSaleSummaryDTO.runningTotal();
 
         ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
         Amount expectedPrice = expectedItemDTO.price();
-        String expectedDescription = expectedItemDTO.description();
         Amount expectedTotal = new Amount(expectedPrice.getAmount());
 
-        assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
-        assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");
-        assertEquals(expectedDescription, returnedDescription, "The description of the SaleSummaryDTO does not match the expected description");
         assertEquals(expectedTotal, returnedTotal, "The running total of the SaleSummaryDTO does not match the expected running total");
     }
 
     @Test
-    void enterItemIDAlreadyInSale() {
+    void enterItemIDAlreadyInSaleNotNull() {
+        SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
+
+        assertNotNull(firstSaleSummaryDTO, "First SaleSummaryDTO is null");
+    }
+
+    @Test
+    void enterItemIDAlreadyInSaleItemPrice() {
         SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
         Amount expectedPrice = firstSaleSummaryDTO.latestItemPrice();
-        String expectedDescription = firstSaleSummaryDTO.latestItemDescription();
-        BigDecimal expectedTotal = firstSaleSummaryDTO.runningTotal().getAmount().multiply(BigDecimal.TWO);
 
         SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
         Amount returnedPrice = returnedSaleSummaryDTO.latestItemPrice();
+
+        assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");
+
+    }
+
+    @Test
+    void enterItemIDAlreadyInSaleItemDescription() {
+        SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
+        String expectedDescription = firstSaleSummaryDTO.latestItemDescription();
+
+        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
         String returnedDescription = returnedSaleSummaryDTO.latestItemDescription();
+
+        assertEquals(expectedDescription, returnedDescription, "The description of the SaleSummaryDTO does not match the expected description");
+    }
+
+    @Test
+    void enterItemIDAlreadyInSaleTotalPrice() {
+        SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
+        BigDecimal expectedTotal = firstSaleSummaryDTO.runningTotal().getAmount().multiply(BigDecimal.TWO);
+
+        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
         BigDecimal returnedTotal = returnedSaleSummaryDTO.runningTotal().getAmount();
 
-        assertNotNull(firstSaleSummaryDTO, "First SaleSummaryDTO is null");
-        assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
-        assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");
-        assertEquals(expectedDescription, returnedDescription, "The description of the SaleSummaryDTO does not match the expected description");
         assertEquals(expectedTotal, returnedTotal, "The running total of the SaleSummaryDTO does not match the expected running total");
     }
+
+
+
 
     @Test
     void payForSaleChangeCalculation() {
@@ -106,9 +155,23 @@ class ControllerTest {
 
     @Test
     void payForSaleExactPayment() {
-        Amount returnedChange = contr.payForSale(new Amount("0"));
+        int testItemID = 0;
+        ItemDTO testItemDTO = invHandler.fetchItemDTO(testItemID);
+        Amount itemPrice = testItemDTO.price();
         Amount expectedChange = new Amount("0");
 
-        assertEquals(expectedChange, returnedChange, "The returned change does not match the expected change.");
+        contr.enterItemID(testItemID);
+        Amount returnedChange = contr.payForSale(itemPrice);
+
+        assertEquals(expectedChange, returnedChange, "The returned change should be 0 but isn't.");
     }
+
+    @Test
+    void payForSaleNoItemsInSale() {
+        Amount amountPaid = new Amount("1000");
+        Amount returnedChange = contr.payForSale(amountPaid);
+
+        assertEquals(amountPaid, returnedChange, "The returned change does not match the expected change.");
+    }
+
 }
