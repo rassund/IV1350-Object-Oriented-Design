@@ -3,21 +3,25 @@ package se.kth.iv1350.model;
 import se.kth.iv1350.DTO.SaleDTO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+
+
 public class Receipt {
-    private final LocalDate dateOfSale;
-    private final  LocalTime timeOfSale;
+    private final LocalDateTime dateTimeOfSale;
     private final  Amount totalPrice;
     private final  Amount totalVAT;
     private final  Amount amountPaid;
     private final  Amount change;
 
-
+    /**
+     * Creates a <code>receipt</code> for a finished instance of a sale.
+     * @param saleDTO contains all the needed information except for the <code>dateTimeOfSale</code> for the <code>receipt</code>.
+     */
 
     public Receipt(SaleDTO saleDTO) {
-        this.dateOfSale = saleDTO.getDateTime().toLocalDate();
-        this.timeOfSale = saleDTO.getDateTime().toLocalTime().withSecond(0).withNano(0);
+        this.dateTimeOfSale = saleDTO.getDateTime();
         this.totalPrice = saleDTO.getTotalPrice();
         this.totalVAT = saleDTO.getTotalVAT();
         this.amountPaid = saleDTO.getAmountPaid();
@@ -26,9 +30,9 @@ public class Receipt {
     }
 
 
-    public LocalDate getDateOfSale() { return dateOfSale; }
+    public LocalDate getDateOfSale() { return dateTimeOfSale.toLocalDate(); }
 
-    public LocalTime getTimeOfSale() { return timeOfSale; }
+    public LocalTime getTimeOfSale() { return dateTimeOfSale.toLocalTime().withSecond(0).withNano(0); }
 
     public Amount getTotalPrice() { return totalPrice; }
 
