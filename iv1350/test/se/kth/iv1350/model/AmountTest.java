@@ -3,7 +3,7 @@ package se.kth.iv1350.model;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.kth.iv1350.model.Amount;
+
 import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -123,7 +123,7 @@ class AmountTest {
         amount.setAmount(new BigDecimal("1000"));
         String expectedResult = "1000 SEK";
 
-        assertEquals(expectedResult, amount.printCurrencyWithPrice(), "printCurrencyWithPrice() does not output expected string.");
+        assertEquals(expectedResult, amount.getAmountAsStringWithCurrency(), "printCurrencyWithPrice() does not output expected string.");
     }
 
 }

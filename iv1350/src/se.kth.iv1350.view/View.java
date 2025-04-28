@@ -36,12 +36,12 @@ public class View {
         System.out.println("Add 1 item with item id " + saleSummary.getLatestItemID() + ":");
         System.out.println("Item ID: " + saleSummary.getLatestItemID());
         System.out.println("Item name: " + saleSummary.getLatestItemName());
-        System.out.println("Item cost: " + saleSummary.getLatestItemAddedPrice());
+        System.out.println("Item cost: " + saleSummary.getLatestItemAddedPrice().getAmountAsStringWithCurrency());
         System.out.println("VAT: " + saleSummary.getLatestItemVAT().vatToPercent());
         System.out.println("Item description: " + saleSummary.getLatestItemAddedDescription());
         System.out.println();
-        System.out.println("Total cost (incl VAT): " + saleSummary.getRunningTotal());
-        System.out.println("Total VAT: " + saleSummary.getTotalVAT());
+        System.out.println("Total cost (incl VAT): " + saleSummary.getRunningTotal().getAmountAsStringWithCurrency());
+        System.out.println("Total VAT: " + saleSummary.getTotalVAT().getAmountAsStringWithCurrency());
         System.out.println();
     }
 }

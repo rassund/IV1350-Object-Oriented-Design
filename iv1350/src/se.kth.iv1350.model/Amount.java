@@ -63,7 +63,7 @@ public class Amount {
      * Gets a string containing the amount/price of this Amount instance, together with the currency used for this Amount instance.
      * @return A string containing the <code>amount</code> value of this Amount instance, together with the <code>currency</code> value.
      */
-    public String printCurrencyWithPrice() {
+    public String getAmountAsStringWithCurrency() {
         return this.amount + " " + this.currency;
     }
 }
