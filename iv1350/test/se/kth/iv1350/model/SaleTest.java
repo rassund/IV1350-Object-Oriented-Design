@@ -1,4 +1,4 @@
-package se.kth.iv1350.integration;
+package se.kth.iv1350.model;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,9 +8,7 @@ import se.kth.iv1350.DTO.ItemDTO;
 import se.kth.iv1350.DTO.ItemInBasketDTO;
 import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
-import se.kth.iv1350.model.Amount;
-import se.kth.iv1350.model.Sale;
-import se.kth.iv1350.model.VAT;
+import se.kth.iv1350.integration.InventoryHandler;
 
 import java.math.BigDecimal;
 
