@@ -33,7 +33,6 @@ class SaleTest {
         ItemDTO exampleItemDTO;
         ItemInBasketDTO exampleItemInBasketDTO;
         SaleSummaryDTO returnedSaleSummaryDTO;
-        Amount expectedPrice = new Amount(BigDecimal.ZERO);
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
@@ -134,14 +133,13 @@ class SaleTest {
 
         assertEquals(expectedChange, saleDTOToTest.change(), "SaleDTO doesn't contain the correct change");
     }
-    
-//FOR ALL TESTS BELOW THE ASSUMPTION IS THAT WE DON'T HAVE TO DEAL WITH THE CUSTOMER NOT GIVING ENOUGH MONEY, IF THAT IS NOT TRUE THEY NEED TO BE CHANGED
+
     @Test
     void endSaleAmountPaidIsZero() {
         Amount amountPaid = new Amount(new BigDecimal("0"));
         ItemDTO exampleItemDTO;
         ItemInBasketDTO exampleItemInBasketDTO;
-        Amount totalPrice = new Amount(BigDecimal.ZERO);
+        Amount totalPrice;
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
@@ -161,7 +159,7 @@ class SaleTest {
         Amount amountPaid = new Amount(new BigDecimal("-5"));
         ItemDTO exampleItemDTO;
         ItemInBasketDTO exampleItemInBasketDTO;
-        Amount totalPrice = new Amount(BigDecimal.ZERO);
+        Amount totalPrice;
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
@@ -180,7 +178,7 @@ class SaleTest {
     void endSaleAmountPaidEqualsTotalPrice() {
         ItemDTO exampleItemDTO;
         ItemInBasketDTO exampleItemInBasketDTO;
-        Amount totalPrice = new Amount(BigDecimal.ZERO);
+        Amount totalPrice;
         for (int i = 0; i < 3; i++) {
             Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
             exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temporary");
