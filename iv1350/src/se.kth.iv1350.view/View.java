@@ -19,6 +19,7 @@ public class View {
      * Simulates a sale of items. Used for testing.
      */
     public void testRun() {
+        Amount amountPaid = new Amount("100");
         contr.startSale();
         SaleSummaryDTO saleSummary;
         saleSummary = contr.enterItemID(0);
@@ -27,7 +28,11 @@ public class View {
         printSaleSummary(saleSummary);
         saleSummary = contr.enterItemID(1);
         printSaleSummary(saleSummary);
-        Amount amountOfChange = contr.payForSale(new Amount("100"));
+        Amount amountOfChange = contr.payForSale(amountPaid);
+        System.out.println("End Sale:");
+        System.out.println("Total cost ( incl VAT ): " + saleSummary.runningTotal().getAmountAsStringWithCurrency());
+        System.out.println("Amount paid: " + amountPaid.getAmountAsStringWithCurrency());
+        System.out.println("Change: " + amountOfChange.getAmountAsStringWithCurrency());
     }
 
     private void printSaleSummary(SaleSummaryDTO saleSummary) {
