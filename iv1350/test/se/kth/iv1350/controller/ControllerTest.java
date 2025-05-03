@@ -13,7 +13,6 @@ import se.kth.iv1350.integration.PrinterHandler;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Sale;
-import se.kth.iv1350.model.VAT;
 
 import java.math.BigDecimal;
 
