@@ -44,6 +44,37 @@ class SaleTest {
     }
 
     @Test
+    void addItemCorrectItemName() {
+        ItemDTO exampleItemDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
+        SaleSummaryDTO returnedSaleSummaryDTO;
+        for (int i = 0; i < 3; i++) {
+            Amount priceOfItem = new Amount(BigDecimal.valueOf(5 + i));
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item number " + i, i, "Temp" + i);
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
+
+            assertEquals(exampleItemDTO.name(), returnedSaleSummaryDTO.latestItemName(),
+                    "SaleSummaryDTO does not contain the correct name for the last item");
+        }
+    }
+
+    @Test
+    void addItemSpecialCharactersItemName() {
+        ItemDTO exampleItemDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
+        SaleSummaryDTO returnedSaleSummaryDTO;
+
+        Amount priceOfItem = new Amount(BigDecimal.valueOf(5));
+        exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "Example item", 2, "ÄÖÅäöå _'*^¨<>#&€ ĆŃÓŻŹŁĘĄŚćńóżźłęą");
+        exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+        returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
+
+        assertEquals("ÄÖÅäöå _'*^¨<>#&€ ĆŃÓŻŹŁĘĄŚćńóżźłęą", returnedSaleSummaryDTO.latestItemName(),
+                "SaleSummaryDTO does not contain the correct name for the last item");
+    }
+
+    @Test
     void addItemCorrectItemDescription() {
         ItemDTO exampleItemDTO;
         ItemInBasketDTO exampleItemInBasketDTO;
@@ -57,6 +88,21 @@ class SaleTest {
             assertEquals(exampleItemDTO.description(), returnedSaleSummaryDTO.latestItemDescription(),
                     "SaleSummaryDTO does not contain the correct description for the last item");
         }
+    }
+
+    @Test
+    void addItemSpecialCharactersItemDescription() {
+        ItemDTO exampleItemDTO;
+        ItemInBasketDTO exampleItemInBasketDTO;
+        SaleSummaryDTO returnedSaleSummaryDTO;
+
+            Amount priceOfItem = new Amount(BigDecimal.valueOf(5));
+            exampleItemDTO = new ItemDTO(priceOfItem, VAT.MEDIUM, "ÄÖÅäöå _'*^¨<>#&€ ĆŃÓŻŹŁĘĄŚćńóżźłęą", 2, "Temporary");
+            exampleItemInBasketDTO = new ItemInBasketDTO(exampleItemDTO, 1);
+            returnedSaleSummaryDTO = sale.addItem(exampleItemInBasketDTO);
+
+            assertEquals("ÄÖÅäöå _'*^¨<>#&€ ĆŃÓŻŹŁĘĄŚćńóżźłęą", returnedSaleSummaryDTO.latestItemDescription(),
+                    "SaleSummaryDTO does not contain the correct description for the last item");
     }
 
     @Test
