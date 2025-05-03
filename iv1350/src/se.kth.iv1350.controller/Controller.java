@@ -84,6 +84,7 @@ public class Controller {
         Receipt receipt = new Receipt(saleDTO);
         printHandler.printReceipt(receipt);
         register.addAmountToRegister(saleDTO.totalPrice());
+        sale = null;
         return saleDTO.change();
     }
 }

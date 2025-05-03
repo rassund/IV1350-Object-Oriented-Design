@@ -14,6 +14,7 @@ import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Sale;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -171,6 +172,22 @@ class ControllerTest {
         Amount returnedChange = contr.payForSale(amountPaid);
 
         assertEquals(amountPaid, returnedChange, "The returned change does not match the expected change.");
+    }
+
+    @Test
+    void payForSaleSaleEqualsNull() throws NoSuchFieldException, IllegalAccessException {
+        int testItemID = 0;
+        ItemDTO testItemDTO = invHandler.fetchItemDTO(testItemID);
+        Amount itemPrice = testItemDTO.price();
+
+        contr.enterItemID(testItemID);
+        Amount returnedChange = contr.payForSale(itemPrice);
+        
+        Field saleField = contr.getClass().getDeclaredField("sale");
+        saleField.setAccessible(true);
+        Object saleToTest = saleField.get(contr);
+
+        assertNull(saleToTest, "The ended sale isn't null.");
     }
 
 }
