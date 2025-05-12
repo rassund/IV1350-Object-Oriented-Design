@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import se.kth.iv1350.DTO.ItemDTO;
 import se.kth.iv1350.DTO.ItemInBasketDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
-import se.kth.iv1350.integration.AccountingHandler;
-import se.kth.iv1350.integration.DiscountHandler;
-import se.kth.iv1350.integration.InventoryHandler;
-import se.kth.iv1350.integration.PrinterHandler;
+import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Sale;
@@ -31,6 +28,7 @@ class ControllerTest {
     @BeforeEach
     void setUp() {
         accHandler = new AccountingHandler();
+        invHandler = InventoryHandler.getInstance();
         discHandler = new DiscountHandler();
         printHandler = new PrinterHandler();
         balance = new Amount(BigDecimal.ZERO);
@@ -42,6 +40,7 @@ class ControllerTest {
     @AfterEach
     void tearDown() {
         accHandler = null;
+        invHandler = null;
         discHandler = null;
         printHandler = null;
         balance = null;
@@ -51,84 +50,115 @@ class ControllerTest {
 
     @Test
     void enterItemIDNotAlreadyInSaleNotNull() {
-        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
+        try {
+            SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
 
-        assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
+            assertNotNull(returnedSaleSummaryDTO, "Returned SaleSummaryDTO is null");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
     @Test
     void enterItemIDNotAlreadyInSaleItemPrice() {
-        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
-        Amount returnedPrice = returnedSaleSummaryDTO.latestItemPrice();
+        try {
+            SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
+            Amount returnedPrice = returnedSaleSummaryDTO.latestItemPrice();
 
-        ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
-        Amount expectedPrice = expectedItemDTO.price();
+            ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
+            Amount expectedPrice = expectedItemDTO.price();
 
-        assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");
+            assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
     @Test
     void enterItemIDNotAlreadyInSaleItemDescription() {
-        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
-        String returnedDescription = returnedSaleSummaryDTO.latestItemDescription();
+        try {
+            SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
+            String returnedDescription = returnedSaleSummaryDTO.latestItemDescription();
 
-        ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
-        String expectedDescription = expectedItemDTO.description();
+            ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
+            String expectedDescription = expectedItemDTO.description();
 
-        assertEquals(expectedDescription, returnedDescription, "The description of the SaleSummaryDTO does not match the expected description");
+            assertEquals(expectedDescription, returnedDescription, "The description of the SaleSummaryDTO does not match the expected description");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
     @Test
     void enterItemIDNotAlreadyInSaleTotalPrice() {
-        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
-        Amount returnedTotal = returnedSaleSummaryDTO.runningTotal();
+        try {
+            SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
+            Amount returnedTotal = returnedSaleSummaryDTO.runningTotal();
 
-        ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
-        Amount expectedPrice = expectedItemDTO.price();
-        Amount expectedTotal = new Amount(expectedPrice.getAmount());
+            ItemDTO expectedItemDTO = invHandler.fetchItemDTO(0);
+            Amount expectedPrice = expectedItemDTO.price();
+            Amount expectedTotal = new Amount(expectedPrice.getAmount());
 
-        assertEquals(expectedTotal, returnedTotal, "The running total of the SaleSummaryDTO does not match the expected running total");
+            assertEquals(expectedTotal, returnedTotal, "The running total of the SaleSummaryDTO does not match the expected running total");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
     @Test
     void enterItemIDAlreadyInSaleNotNull() {
-        SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
+        try {
+            SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
 
-        assertNotNull(firstSaleSummaryDTO, "First SaleSummaryDTO is null");
+            assertNotNull(firstSaleSummaryDTO, "First SaleSummaryDTO is null");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
     @Test
     void enterItemIDAlreadyInSaleItemPrice() {
-        SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
-        Amount expectedPrice = firstSaleSummaryDTO.latestItemPrice();
+        try {
+            SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
+            Amount expectedPrice = firstSaleSummaryDTO.latestItemPrice();
 
-        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
-        Amount returnedPrice = returnedSaleSummaryDTO.latestItemPrice();
+            SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
+            Amount returnedPrice = returnedSaleSummaryDTO.latestItemPrice();
 
-        assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");
-
+            assertEquals(expectedPrice, returnedPrice, "The price of the SaleSummaryDTO does not match the expected price");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
     @Test
     void enterItemIDAlreadyInSaleItemDescription() {
-        SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
-        String expectedDescription = firstSaleSummaryDTO.latestItemDescription();
+        try {
+            SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
+            String expectedDescription = firstSaleSummaryDTO.latestItemDescription();
 
-        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
-        String returnedDescription = returnedSaleSummaryDTO.latestItemDescription();
+            SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
+            String returnedDescription = returnedSaleSummaryDTO.latestItemDescription();
 
-        assertEquals(expectedDescription, returnedDescription, "The description of the SaleSummaryDTO does not match the expected description");
+            assertEquals(expectedDescription, returnedDescription, "The description of the SaleSummaryDTO does not match the expected description");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
     @Test
     void enterItemIDAlreadyInSaleTotalPrice() {
-        SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
-        BigDecimal expectedTotal = firstSaleSummaryDTO.runningTotal().getAmount().multiply(BigDecimal.TWO);
+        try {
+            SaleSummaryDTO firstSaleSummaryDTO = contr.enterItemID(0);
+            BigDecimal expectedTotal = firstSaleSummaryDTO.runningTotal().getAmount().multiply(BigDecimal.TWO);
 
-        SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
-        BigDecimal returnedTotal = returnedSaleSummaryDTO.runningTotal().getAmount();
+            SaleSummaryDTO returnedSaleSummaryDTO = contr.enterItemID(0);
+            BigDecimal returnedTotal = returnedSaleSummaryDTO.runningTotal().getAmount();
 
-        assertEquals(expectedTotal, returnedTotal, "The running total of the SaleSummaryDTO does not match the expected running total");
+            assertEquals(expectedTotal, returnedTotal, "The running total of the SaleSummaryDTO does not match the expected running total");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
 
@@ -136,32 +166,40 @@ class ControllerTest {
 
     @Test
     void payForSaleChangeCalculation() {
-        int testItemID = 0;
-        Amount amountPaid = new Amount("1000");
+        try {
+            int testItemID = 0;
+            Amount amountPaid = new Amount("1000");
 
-        contr.enterItemID(testItemID);
-        Amount returnedChange = contr.payForSale(amountPaid);
+            contr.enterItemID(testItemID);
+            Amount returnedChange = contr.payForSale(amountPaid);
 
-        Sale expectedSale = new Sale();
-        ItemInBasketDTO itemToAdd = new ItemInBasketDTO(invHandler.fetchItemDTO(testItemID), 1);
-        expectedSale.addItem(itemToAdd);
-        Amount expectedTotal = expectedSale.getRunningTotal();
-        Amount expectedChange = Amount.subtractTwoAmounts(amountPaid, expectedTotal);
+            Sale expectedSale = new Sale();
+            ItemInBasketDTO itemToAdd = new ItemInBasketDTO(invHandler.fetchItemDTO(testItemID), 1);
+            expectedSale.addItem(itemToAdd);
+            Amount expectedTotal = expectedSale.getRunningTotal();
+            Amount expectedChange = Amount.subtractTwoAmounts(amountPaid, expectedTotal);
 
-        assertEquals(expectedChange, returnedChange, "The returned change does not match the expected change.");
+            assertEquals(expectedChange, returnedChange, "The returned change does not match the expected change.");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
     @Test
     void payForSaleExactPayment() {
-        int testItemID = 0;
-        ItemDTO testItemDTO = invHandler.fetchItemDTO(testItemID);
-        Amount itemPrice = testItemDTO.price();
-        Amount expectedChange = new Amount("0");
+        try {
+            int testItemID = 0;
+            ItemDTO testItemDTO = invHandler.fetchItemDTO(testItemID);
+            Amount itemPrice = testItemDTO.price();
+            Amount expectedChange = new Amount("0");
 
-        contr.enterItemID(testItemID);
-        Amount returnedChange = contr.payForSale(itemPrice);
+            contr.enterItemID(testItemID);
+            Amount returnedChange = contr.payForSale(itemPrice);
 
-        assertEquals(expectedChange, returnedChange, "The returned change should be 0 but isn't.");
+            assertEquals(expectedChange, returnedChange, "The returned change should be 0 but isn't.");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
 
     @Test
@@ -173,19 +211,22 @@ class ControllerTest {
     }
 
     @Test
-    void payForSaleSaleEqualsNull() throws NoSuchFieldException, IllegalAccessException {
-        int testItemID = 0;
-        ItemDTO testItemDTO = invHandler.fetchItemDTO(testItemID);
-        Amount itemPrice = testItemDTO.price();
+    void payForSaleSaleEqualsNull() {
+        try {
+            int testItemID = 0;
+            ItemDTO testItemDTO = invHandler.fetchItemDTO(testItemID);
+            Amount itemPrice = testItemDTO.price();
 
-        contr.enterItemID(testItemID);
-        Amount returnedChange = contr.payForSale(itemPrice);
+            contr.enterItemID(testItemID);
+            Amount returnedChange = contr.payForSale(itemPrice);
 
-        Field saleField = contr.getClass().getDeclaredField("sale");
-        saleField.setAccessible(true);
-        Object saleToTest = saleField.get(contr);
+            Field saleField = contr.getClass().getDeclaredField("sale");
+            saleField.setAccessible(true);
+            Object saleToTest = saleField.get(contr);
 
-        assertNull(saleToTest, "The ended sale isn't null.");
+            assertNull(saleToTest, "The ended sale isn't null.");
+        } catch (Exception e) {
+            fail("Unexpected exception was thrown: " + e.getMessage());
+        }
     }
-
 }

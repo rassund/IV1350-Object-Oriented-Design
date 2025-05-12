@@ -64,7 +64,9 @@ class InventoryHandlerTest {
         try {
             invHandler.fetchItemDTO(-1);
             fail("InventoryHandler returned an item with invalid ID");
-        } catch (InvalidIDException e) {
+        } catch (DatabaseException e) {
+            assertTrue(e.getMessage().contains("Inventory database"), "Wrong message in DatabaseException: " + e.getMessage());
+        } catch (Exception e) {
             fail("Wrong exception was thrown");
         }
     }
