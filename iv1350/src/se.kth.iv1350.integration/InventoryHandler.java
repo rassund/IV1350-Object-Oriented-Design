@@ -11,15 +11,20 @@ import java.util.ArrayList;
  * Used for handling the database containing the information for all items in the store's inventory.
  */
 public class InventoryHandler {
+    private static final InventoryHandler INSTANCE = new InventoryHandler();
     private final ArrayList<ItemDTO> dummyItems;
 
     /**
      * Constructs an instance of the "InventoryHandler" class.
      * When a new InventoryHandler is created, it is populated with dummy data, with a VAT rate of 8% (VAT.LOW).
      */
-    public InventoryHandler() {
+    private InventoryHandler() {
         dummyItems = new ArrayList<ItemDTO>();
         addDummyItems();
+    }
+
+    public static InventoryHandler getInstance() {
+        return INSTANCE;
     }
 
     private void addDummyItems() {

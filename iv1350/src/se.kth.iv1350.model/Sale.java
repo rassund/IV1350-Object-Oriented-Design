@@ -17,6 +17,7 @@ public class Sale {
     private final Amount runningTotal;
     private final ArrayList<ItemInBasketDTO> items;
     private final Amount totalVAT;
+    private ArrayList<SaleObserver> saleObservers;
 
     /**
      * Creates a {@link Sale} instance containing no items.
@@ -25,7 +26,10 @@ public class Sale {
         this.runningTotal = new Amount("0");
         this.items = new ArrayList<>();
         this.totalVAT = new Amount("0");
+        this.saleObservers = new ArrayList<>();
     }
+
+    public void addSaleObservers(ArrayList<SaleObserver> observers) { saleObservers = observers; }
 
     /**
      * Returns a reference to the list of items included in the sale.
@@ -86,6 +90,13 @@ public class Sale {
         LocalDateTime dateTime = LocalDateTime.now();
         Amount change = new Amount(amountPaid.getAmount());
         change.subtractFromThis(runningTotal);
+        notifyAllObservers();
         return new SaleDTO(dateTime, items, runningTotal, totalVAT, amountPaid, change);
+    }
+
+    private void notifyAllObservers() {
+        for (SaleObserver obs : saleObservers) {
+            obs.saleHasEnded(runningTotal);
+        }
     }
 }

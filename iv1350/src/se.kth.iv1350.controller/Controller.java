@@ -5,10 +5,9 @@ import se.kth.iv1350.DTO.ItemInBasketDTO;
 import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.integration.*;
-import se.kth.iv1350.model.Amount;
-import se.kth.iv1350.model.Receipt;
-import se.kth.iv1350.model.Register;
-import se.kth.iv1350.model.Sale;
+import se.kth.iv1350.model.*;
+
+import java.util.ArrayList;
 
 /**
  * Contains code for the Controller. It is responsible for directing traffic between the different layers in the system and all calls are made through it after startup.
@@ -21,10 +20,11 @@ public class Controller {
     private final Register register;
 
     private Sale sale;
+    private ArrayList<SaleObserver> saleObservers = new ArrayList<>();
 
-    public Controller(AccountingHandler accHandler, InventoryHandler invHandler, DiscountHandler discHandler, PrinterHandler printHandler, Register register) {
+    public Controller(AccountingHandler accHandler, DiscountHandler discHandler, PrinterHandler printHandler, Register register) {
         this.accHandler = accHandler;
-        this.invHandler = invHandler;
+        this.invHandler = InventoryHandler.getInstance();
         this.discHandler = discHandler;
         this.printHandler = printHandler;
         this.register = register;
@@ -34,7 +34,12 @@ public class Controller {
      * Initiates a new sale.
      */
     public void startSale() {
-        this.sale = new Sale();
+        sale = new Sale();
+        sale.addSaleObservers(saleObservers);
+    }
+
+    public void addSaleObserver(SaleObserver obs) {
+        saleObservers.add(obs);
     }
 
     /**

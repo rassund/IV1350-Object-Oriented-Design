@@ -4,6 +4,7 @@ import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.integration.InvalidIDException;
 import se.kth.iv1350.model.Amount;
+import se.kth.iv1350.util.TotalRevenueFileOutput;
 
 /**
  * The <code>view</code> method, which is a hardcoded mockup of the layer that handles the cashiers interaction with the program.
@@ -14,6 +15,8 @@ public class View {
 
     public View(Controller contr) {
         this.contr = contr;
+        this.contr.addSaleObserver(new TotalRevenueView());
+        this.contr.addSaleObserver(new TotalRevenueFileOutput());
     }
 
     /**
@@ -23,9 +26,9 @@ public class View {
         Amount amountPaid = new Amount("100");
         contr.startSale();
         SaleSummaryDTO saleSummary = null;
-        scanItem(saleSummary, 0);
-        scanItem(saleSummary, 0);
-        scanItem(saleSummary, -1);
+        saleSummary = scanItem(saleSummary, 0);
+        saleSummary = scanItem(saleSummary, 0);
+        saleSummary = scanItem(saleSummary, 1);
         if (saleSummary != null) {
             Amount amountOfChange = contr.payForSale(amountPaid);
             System.out.println("End Sale:");
@@ -35,14 +38,16 @@ public class View {
         }
     }
 
-    private void scanItem(SaleSummaryDTO saleSummary, int itemID) {
+    private SaleSummaryDTO scanItem(SaleSummaryDTO saleSummary, int itemID) {
         try {
             saleSummary = contr.enterItemID(itemID);
             printSaleSummary(saleSummary);
         }
         catch(InvalidIDException ex) {
             System.out.println(ex.getMessage());
+            // Write a new message
         }
+        return saleSummary;
     }
 
     private void printSaleSummary(SaleSummaryDTO saleSummary) {
