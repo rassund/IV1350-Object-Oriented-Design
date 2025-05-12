@@ -38,14 +38,20 @@ public class InventoryHandler {
      * Returns null if no item in the array has the given <code>itemID</code>.
      * @param itemID The itemID of the item to search for in the <code>ItemDTO</code> array.
      * @return The <code>ItemDTO</code> with corresponding <code>itemID</code> value if found. Otherwise, returns <code>null</code>.
+     * @throws DatabaseException
+     * @throws InvalidIDException
      */
-    public ItemDTO fetchItemDTO(int itemID) {
+    public ItemDTO fetchItemDTO(int itemID) throws DatabaseException, InvalidIDException {
+        if (itemID == -1) {
+            throw new DatabaseException("Inventory database could not be found.");
+        }
+
         for (ItemDTO item : dummyItems) {
             if (item.itemID() == itemID) {
                 return item;
             }
         }
-        return null;
+        throw new InvalidIDException("There is no item in the inventory with ID " + itemID + ".");
     }
 
     /**

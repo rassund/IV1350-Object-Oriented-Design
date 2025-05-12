@@ -2,6 +2,7 @@ package se.kth.iv1350.view;
 
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.controller.Controller;
+import se.kth.iv1350.integration.InvalidIDException;
 import se.kth.iv1350.model.Amount;
 
 /**
@@ -21,18 +22,27 @@ public class View {
     public void testRun() {
         Amount amountPaid = new Amount("100");
         contr.startSale();
-        SaleSummaryDTO saleSummary;
-        saleSummary = contr.enterItemID(0);
-        printSaleSummary(saleSummary);
-        saleSummary = contr.enterItemID(0);
-        printSaleSummary(saleSummary);
-        saleSummary = contr.enterItemID(1);
-        printSaleSummary(saleSummary);
-        Amount amountOfChange = contr.payForSale(amountPaid);
-        System.out.println("End Sale:");
-        System.out.println("Total cost ( incl VAT ): " + saleSummary.runningTotal().getAmountAsStringWithCurrency());
-        System.out.println("Amount paid: " + amountPaid.getAmountAsStringWithCurrency());
-        System.out.println("Change: " + amountOfChange.getAmountAsStringWithCurrency());
+        SaleSummaryDTO saleSummary = null;
+        scanItem(saleSummary, 0);
+        scanItem(saleSummary, 0);
+        scanItem(saleSummary, -1);
+        if (saleSummary != null) {
+            Amount amountOfChange = contr.payForSale(amountPaid);
+            System.out.println("End Sale:");
+            System.out.println("Total cost ( incl VAT ): " + saleSummary.runningTotal().getAmountAsStringWithCurrency());
+            System.out.println("Amount paid: " + amountPaid.getAmountAsStringWithCurrency());
+            System.out.println("Change: " + amountOfChange.getAmountAsStringWithCurrency());
+        }
+    }
+
+    private void scanItem(SaleSummaryDTO saleSummary, int itemID) {
+        try {
+            saleSummary = contr.enterItemID(itemID);
+            printSaleSummary(saleSummary);
+        }
+        catch(InvalidIDException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     private void printSaleSummary(SaleSummaryDTO saleSummary) {

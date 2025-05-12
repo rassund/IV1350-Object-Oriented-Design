@@ -4,10 +4,7 @@ import se.kth.iv1350.DTO.ItemDTO;
 import se.kth.iv1350.DTO.ItemInBasketDTO;
 import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
-import se.kth.iv1350.integration.AccountingHandler;
-import se.kth.iv1350.integration.DiscountHandler;
-import se.kth.iv1350.integration.InventoryHandler;
-import se.kth.iv1350.integration.PrinterHandler;
+import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Receipt;
 import se.kth.iv1350.model.Register;
@@ -44,8 +41,9 @@ public class Controller {
      * Adds an item with corresponding <code>itemID</code> to the sale. If the item is not already in the sale, the item is fetched from the inventory.
      * @param itemID The ID of the item to add to the sale.
      * @return A <code>SaleSummaryDTO</code> with information to be displayed in the view.
+     * @throws InvalidIDException
      */
-    public SaleSummaryDTO enterItemID(int itemID) {
+    public SaleSummaryDTO enterItemID(int itemID) throws InvalidIDException {
         ItemInBasketDTO itemInBasketDTO = getItemFromSale(itemID);
         ItemDTO itemDTO;
         if (!itemAlreadyInSale(itemInBasketDTO)) {
