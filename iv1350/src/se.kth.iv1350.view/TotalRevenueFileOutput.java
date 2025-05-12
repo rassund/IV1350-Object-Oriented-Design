@@ -1,7 +1,8 @@
-package se.kth.iv1350.util;
+package se.kth.iv1350.view;
 
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.SaleObserver;
+import se.kth.iv1350.util.FileLogger;
 
 public class TotalRevenueFileOutput implements SaleObserver {
     FileLogger logger;

@@ -18,7 +18,7 @@ class SaleTest {
 
     @BeforeEach
     void setUp() {
-        invHandler = new InventoryHandler();
+        invHandler = InventoryHandler.getInstance();
         sale = new Sale();
     }
 

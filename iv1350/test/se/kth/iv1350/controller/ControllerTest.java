@@ -31,19 +31,17 @@ class ControllerTest {
     @BeforeEach
     void setUp() {
         accHandler = new AccountingHandler();
-        invHandler = new InventoryHandler();
         discHandler = new DiscountHandler();
         printHandler = new PrinterHandler();
         balance = new Amount(BigDecimal.ZERO);
         register = new Register(balance);
-        contr = new Controller(accHandler, invHandler, discHandler, printHandler, register);
+        contr = new Controller(accHandler, discHandler, printHandler, register);
         contr.startSale();
     }
 
     @AfterEach
     void tearDown() {
         accHandler = null;
-        invHandler = null;
         discHandler = null;
         printHandler = null;
         balance = null;
@@ -182,7 +180,7 @@ class ControllerTest {
 
         contr.enterItemID(testItemID);
         Amount returnedChange = contr.payForSale(itemPrice);
-        
+
         Field saleField = contr.getClass().getDeclaredField("sale");
         saleField.setAccessible(true);
         Object saleToTest = saleField.get(contr);

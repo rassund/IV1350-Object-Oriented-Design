@@ -4,7 +4,6 @@ import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.integration.InvalidIDException;
 import se.kth.iv1350.model.Amount;
-import se.kth.iv1350.util.TotalRevenueFileOutput;
 
 /**
  * The <code>view</code> method, which is a hardcoded mockup of the layer that handles the cashiers interaction with the program.

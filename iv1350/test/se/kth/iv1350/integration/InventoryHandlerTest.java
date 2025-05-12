@@ -13,7 +13,7 @@ class InventoryHandlerTest {
 
     @BeforeEach
     void setUp() {
-        invHandler = new InventoryHandler();
+        invHandler = InventoryHandler.getInstance();
     }
 
     @AfterEach
@@ -22,26 +22,50 @@ class InventoryHandlerTest {
     }
 
     @Test
-    void fetchItemDTOValidIDNotNull() {
-        ItemDTO returnedItemDTO = invHandler.fetchItemDTO(0);
+     void fetchItemDTOValidIDNotNull() {
+        int testID = 0;
+        try {
+            ItemDTO returnedItemDTO = invHandler.fetchItemDTO(testID);
 
-        assertNotNull(returnedItemDTO, "Returned item DTO is null");
-    }
+            assertNotNull(returnedItemDTO, "Returned item DTO is null");
+        } catch (InvalidIDException e) {
+            fail("Valid ID " + testID + " was treated as invalid");
+        }
+     }
 
     @Test
     void fetchItemDTOValid() {
-        ItemDTO expectedItemDTO = new ItemDTO(new Amount("14.90"), VAT.LOW,
-                "YouGoGo Blueberry 240g, low sugar yogurt, blueberry flavour",
-                1, "YouGoGo Blueberry");
-        ItemDTO returnedItemDTO = invHandler.fetchItemDTO(1);
+        int testID = 1;
+        try {
+            ItemDTO expectedItemDTO = new ItemDTO(new Amount("14.90"), VAT.LOW,
+                    "YouGoGo Blueberry 240g, low sugar yogurt, blueberry flavour",
+                    testID, "YouGoGo Blueberry");
+            ItemDTO returnedItemDTO = invHandler.fetchItemDTO(testID);
 
-        assertEquals(expectedItemDTO, returnedItemDTO, "InventoryHandler did not fetch correct item");
+            assertEquals(expectedItemDTO, returnedItemDTO, "InventoryHandler did not fetch correct item");
+        } catch (InvalidIDException e) {
+            fail("Valid ID " + testID + " was treated as invalid");
+        }
     }
 
     @Test
     void fetchItemDTOInvalidID() {
-        ItemDTO returnedItemDTO = invHandler.fetchItemDTO(10);
+        int testID = 10;
+        try {
+            invHandler.fetchItemDTO(testID);
+            fail("InventoryHandler returned an item with invalid ID");
+        } catch (InvalidIDException e) {
+            assertTrue(e.getMessage().contains(Integer.toString(testID)), "InvalidIDException contains wrong itemID: " + e.getMessage());
+        }
+    }
 
-        assertNull(returnedItemDTO, "InventoryHandler returned an item with invalid ID");
+    @Test
+    void fetchItemDTODatabaseException() {
+        try {
+            invHandler.fetchItemDTO(-1);
+            fail("InventoryHandler returned an item with invalid ID");
+        } catch (InvalidIDException e) {
+            fail("Wrong exception was thrown");
+        }
     }
 }
