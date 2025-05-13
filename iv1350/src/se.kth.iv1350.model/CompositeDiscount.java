@@ -1,6 +1,5 @@
 package se.kth.iv1350.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CompositeDiscount implements Discount {

@@ -8,8 +8,16 @@ public class FileLogger {
     private PrintWriter logStream;
 
     public FileLogger() {
+        createLogStream("log.txt");
+    }
+
+    public FileLogger(String fileName) {
+        createLogStream(fileName);
+    }
+
+    private void createLogStream(String fileName) {
         try {
-            logStream = new PrintWriter(new FileWriter("log.txt"), true);
+            logStream = new PrintWriter(new FileWriter(fileName), true);
         } catch (IOException e) {
             System.out.println("CAN NOT LOG.");
             e.printStackTrace();

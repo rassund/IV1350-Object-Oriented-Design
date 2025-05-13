@@ -5,11 +5,12 @@ import se.kth.iv1350.model.SaleObserver;
 import se.kth.iv1350.util.FileLogger;
 
 public class TotalRevenueFileOutput implements SaleObserver {
-    FileLogger logger;
-    Amount totalRevenue;
+    private static final String FILE_NAME = "RevenueOutput.txt";
+    private final FileLogger logger;
+    private final Amount totalRevenue;
 
     public TotalRevenueFileOutput() {
-        logger = new FileLogger();
+        logger = new FileLogger(FILE_NAME);
         this.totalRevenue = new Amount("0");
     }
 

@@ -4,7 +4,7 @@ import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.SaleObserver;
 
 public class TotalRevenueView implements SaleObserver {
-    Amount totalRevenue;
+    private final Amount totalRevenue;
 
     public TotalRevenueView() {
         this.totalRevenue = new Amount("0");
