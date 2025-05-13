@@ -43,9 +43,8 @@ public class InventoryHandler {
 
     /**
      * Retrieves an item with a given <code>ItemID</code> from the <code>ItemDTO</code> array of this InventoryHandler instance.
-     * Returns null if no item in the array has the given <code>itemID</code>.
      * @param itemID The itemID of the item to search for in the <code>ItemDTO</code> array.
-     * @return The <code>ItemDTO</code> with corresponding <code>itemID</code> value if found. Otherwise, returns <code>null</code>.
+     * @return The <code>ItemDTO</code> with corresponding <code>itemID</code> value.
      * @throws DatabaseException If the inventory database can not be called. As there currently is no database, this is simulated when the itemID is "-1".
      * @throws InvalidIDException If the <code>itemID</code> given does not exist in the inventory catalog.
      */

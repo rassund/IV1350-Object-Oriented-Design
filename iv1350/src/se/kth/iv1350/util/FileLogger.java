@@ -3,6 +3,7 @@ package se.kth.iv1350.util;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.ZonedDateTime;
 
 /**
  * Used to print messages/text onto a separate text file.
@@ -39,6 +40,10 @@ public class FileLogger {
      * @param message The message that is added into the created text file.
      */
     public void log(String message) {
+        ZonedDateTime now = ZonedDateTime.now();
+        logStream.println();
+        logStream.println(now);
         logStream.println(message);
+        logStream.println();
     }
 }

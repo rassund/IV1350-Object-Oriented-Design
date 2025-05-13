@@ -4,8 +4,7 @@ import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.SaleObserver;
 
 /**
- * Used to the total income from all sales to a user.
- * Used when a <code>SaleObserver</code> has been notified.
+ * Used to display the total income from all sales during one runtime of the program to a user.
  */
 public class TotalRevenueView implements SaleObserver {
     private final Amount totalRevenue;
@@ -19,7 +18,6 @@ public class TotalRevenueView implements SaleObserver {
 
     /**
      * Adds the income from a sale that has ended onto the current total income earned from all sales, and shows the new total income to the user.
-     * This method is called when a <code>SaleObserver</code> has been notified that a sale has ended.
      * @param amount The amount of total revenue, or the running total, for the sale that has ended.
      */
     @Override

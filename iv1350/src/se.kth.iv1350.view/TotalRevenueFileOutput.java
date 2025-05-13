@@ -5,7 +5,7 @@ import se.kth.iv1350.model.SaleObserver;
 import se.kth.iv1350.util.FileLogger;
 
 /**
- * Used to print the total income from all sales into a created text file with the name "RevenueOutput.txt".
+ * Used to print the total income from all sales during one runtime of the program into a created text file with the name "RevenueOutput.txt".
  * Used when a <code>SaleObserver</code> has been notified.
  */
 public class TotalRevenueFileOutput implements SaleObserver {
@@ -24,7 +24,6 @@ public class TotalRevenueFileOutput implements SaleObserver {
 
     /**
      * Adds the income from a sale that has ended onto the current total income earned from all sales, and writes it into a log file.
-     * This method is called when a <code>SaleObserver</code> has been notified that a sale has ended.
      * @param amount The amount of total revenue, or the running total, for the sale that has ended.
      */
     @Override

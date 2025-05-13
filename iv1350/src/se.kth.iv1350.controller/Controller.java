@@ -40,8 +40,8 @@ public class Controller {
     }
 
     /**
-     * Adds an "Observer" to the list of <code>SaleObserver</code>s in this class.
-     * When a new sale is started, these <code>SaleObserver</code>s are added to the <code>Sale</code> instance.
+     * Adds an "Observer" to the list of <code>SaleObserver</code> instances in this class.
+     * When a new sale is started, these <code>SaleObserver</code> instances are added to the <code>Sale</code> instance.
      * @param obs The 'observer' that is to observe when something specific is changed through the <code>Sale</code> class.
      */
     public void addSaleObserver(SaleObserver obs) {
@@ -52,7 +52,7 @@ public class Controller {
      * Adds an item with corresponding <code>itemID</code> to the sale. If the item is not already in the sale, the item is fetched from the inventory.
      * @param itemID The ID of the item to add to the sale.
      * @return A <code>SaleSummaryDTO</code> with information to be displayed in the view.
-     * @throws InvalidIDException If the <code>itemID</code> given does not exist in the inventory catalog.
+     * @throws InvalidIDException If an item with the <code>itemID</code> given does not exist in the inventory database.
      */
     public SaleSummaryDTO enterItemID(int itemID) throws InvalidIDException {
         ItemInBasketDTO itemInBasketDTO = getItemFromSale(itemID);
@@ -82,9 +82,9 @@ public class Controller {
     }
 
     /**
-     * Applies a discount onto the sale currently being conducted.
+     * Applies a discount to the sale currently being conducted.
      * Uses the customer's ID along with details of the sale to find and apply all relevant discounts.
-     * @param customerID The ID of the customer that says they are eligible for a discount.
+     * @param customerID The ID of the customer that may be eligible for a discount.
      */
     public void applyDiscount(int customerID) {
         Discount disc = discHandler.fetchDiscount(customerID);

@@ -1,7 +1,7 @@
 package se.kth.iv1350.integration;
 
 /**
- * Thrown when some identifier is invalid, i.e its value is not allowed, or cannot be found.
+ * Thrown when some identifier is invalid, i.e. its value is not allowed, or it cannot be found.
  */
 public class InvalidIDException extends Exception {
     /**

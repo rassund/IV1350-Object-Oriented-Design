@@ -8,7 +8,7 @@ import se.kth.iv1350.model.SumDiscount;
 import java.math.BigDecimal;
 
 /**
- * Used for handling the database used for getting discounts for different users/customers.
+ * Used for handling the database used for getting discounts to be applied to a sale.
  * Contains temporary test code since there is no discount database right now.
  */
 public class DiscountHandler {
@@ -17,17 +17,17 @@ public class DiscountHandler {
     private DiscountHandler() {}
 
     /**
-     * @return The only Singleton instance of this <code>DiscountHandler</code> class.
+     * @return The (only) Singleton instance of this <code>DiscountHandler</code> class.
      */
     public static DiscountHandler getInstance() {
         return INSTANCE;
     }
 
     /**
-     * Retreives all discounts that a specified customer is eligible for.
-     * Currently, ony placeholder/simulated discounts are retreived, since no discount database is present.
-     * @param customerID The identifier used to specify the customer that asks for (a) discount(s).
-     * @return A <code>CompositeDiscount</code> instance, containing all discounts the customer is eligible for.
+     * Retrieves all discounts that a specified customer is eligible for.
+     * Currently, ony placeholder/simulated discounts are retrieved, since no discount database is present.
+     * @param customerID The identifier used to specify the customer that asks for any applicable discount(s).
+     * @return A <code>CompositeDiscount</code> instance, containing any discounts the customer may be eligible for.
      */
     public Discount fetchDiscount(int customerID) {
         return getFakeDiscounts();
