@@ -13,6 +13,10 @@ import java.math.BigDecimal;
  */
 public class DiscountHandler {
     public Discount fetchDiscount(int customerID) {
+        return getFakeDiscounts();
+    }
+
+    private Discount getFakeDiscounts() {
         CompositeDiscount disc = new CompositeDiscount();
         disc.addDiscount(new SumDiscount(new BigDecimal("5")));
         disc.addDiscount(new PercentageDiscount(new BigDecimal("0.2")));
