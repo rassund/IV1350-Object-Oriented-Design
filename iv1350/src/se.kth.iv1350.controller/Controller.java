@@ -6,6 +6,7 @@ import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.*;
+import se.kth.iv1350.model.Discount;
 
 import java.util.ArrayList;
 
@@ -73,6 +74,11 @@ public class Controller {
 
     private boolean itemAlreadyInSale(ItemInBasketDTO itemInBasketDTO) {
         return itemInBasketDTO != null;
+    }
+
+    public void applyDiscount(int customerID) {
+        Discount disc = discHandler.fetchDiscount(customerID);
+        disc.applyDiscount(sale);
     }
 
     /**

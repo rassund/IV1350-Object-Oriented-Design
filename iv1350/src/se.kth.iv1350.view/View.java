@@ -28,6 +28,7 @@ public class View {
         saleSummary = scanItem(saleSummary, 0);
         saleSummary = scanItem(saleSummary, 0);
         saleSummary = scanItem(saleSummary, 1);
+        contr.applyDiscount(0);
         if (saleSummary != null) {
             Amount amountOfChange = contr.payForSale(amountPaid);
             System.out.println("End Sale:");
