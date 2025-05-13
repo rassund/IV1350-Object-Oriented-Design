@@ -39,6 +39,11 @@ public class Controller {
         sale.addSaleObservers(saleObservers);
     }
 
+    /**
+     * Adds an "Observer" to the list of <code>SaleObserver</code>s in this class.
+     * When a new sale is started, these <code>SaleObserver</code>s are added to the <code>Sale</code> instance.
+     * @param obs The 'observer' that is to observe when something specific is changed through the <code>Sale</code> class.
+     */
     public void addSaleObserver(SaleObserver obs) {
         saleObservers.add(obs);
     }
@@ -47,7 +52,7 @@ public class Controller {
      * Adds an item with corresponding <code>itemID</code> to the sale. If the item is not already in the sale, the item is fetched from the inventory.
      * @param itemID The ID of the item to add to the sale.
      * @return A <code>SaleSummaryDTO</code> with information to be displayed in the view.
-     * @throws InvalidIDException
+     * @throws InvalidIDException If the <code>itemID</code> given does not exist in the inventory catalog.
      */
     public SaleSummaryDTO enterItemID(int itemID) throws InvalidIDException {
         ItemInBasketDTO itemInBasketDTO = getItemFromSale(itemID);
@@ -76,6 +81,11 @@ public class Controller {
         return itemInBasketDTO != null;
     }
 
+    /**
+     * Applies a discount onto the sale currently being conducted.
+     * Uses the customer's ID along with details of the sale to find and apply all relevant discounts.
+     * @param customerID The ID of the customer that says they are eligible for a discount.
+     */
     public void applyDiscount(int customerID) {
         Discount disc = discHandler.fetchDiscount(customerID);
         disc.applyDiscount(sale);
