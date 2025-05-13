@@ -3,7 +3,7 @@ package se.kth.iv1350.model;
 import java.util.ArrayList;
 
 /**
- * Contains all discounts retreived for a specific customer.
+ * Contains all discounts retrieved for a specific customer.
  * When a customer asks to include the discounts they are eligible for this sale,
  * those discounts are gathered together in the instance of this (composite) class and is then applied one after another to the sale being specified.
  */
