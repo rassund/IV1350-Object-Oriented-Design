@@ -10,6 +10,9 @@ public class AccountingHandler {
 
     private AccountingHandler() {}
 
+    /**
+     * @return The only Singleton instance of this <code>AccountingHandler</code> class.
+     */
     public static AccountingHandler getInstance() {
         return INSTANCE;
     }

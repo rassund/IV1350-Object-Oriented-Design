@@ -23,6 +23,9 @@ public class InventoryHandler {
         addDummyItems();
     }
 
+    /**
+     * @return The only Singleton instance of this <code>InventoryHandler</code> class.
+     */
     public static InventoryHandler getInstance() {
         return INSTANCE;
     }
@@ -43,8 +46,8 @@ public class InventoryHandler {
      * Returns null if no item in the array has the given <code>itemID</code>.
      * @param itemID The itemID of the item to search for in the <code>ItemDTO</code> array.
      * @return The <code>ItemDTO</code> with corresponding <code>itemID</code> value if found. Otherwise, returns <code>null</code>.
-     * @throws DatabaseException
-     * @throws InvalidIDException
+     * @throws DatabaseException If the inventory database can not be called. As there currently is no database, this is simulated when the itemID is "-1".
+     * @throws InvalidIDException If the <code>itemID</code> given does not exist in the inventory catalog.
      */
     public ItemDTO fetchItemDTO(int itemID) throws DatabaseException, InvalidIDException {
         if (itemID == -1) {

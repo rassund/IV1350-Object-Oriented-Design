@@ -14,6 +14,9 @@ public class PrinterHandler {
 
     private PrinterHandler() {}
 
+    /**
+     * @return The only Singleton instance of this <code>PrinterHandler</code> class.
+     */
     public static PrinterHandler getInstance() {
         return INSTANCE;
     }

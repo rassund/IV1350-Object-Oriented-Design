@@ -29,6 +29,11 @@ public class Sale {
         this.saleObservers = new ArrayList<>();
     }
 
+    /**
+     * Adds all <code>SaleObserver</code> instances of the given list into the list contained in this <code>Sale</code> object.
+     * Used when a new sale is started.
+     * @param observers The list of <code>SaleObserver</code> instances to observe when the sale has ended.
+     */
     public void addSaleObservers(ArrayList<SaleObserver> observers) { saleObservers = observers; }
 
     /**
@@ -82,7 +87,7 @@ public class Sale {
     }
 
     /**
-     * Ends the sale, returning info to be displayed on the receipt.
+     * Ends the sale, returning info to be displayed on the receipt. Also notifies all '<code>SaleObserver</code>s' that the sale has ended.
      * @param amountPaid The amount the customer gives to pay for the sale.
      * @return A <code>SaleDTO</code> object containing info to be shown on the receipt given to the customer. Includes how much money the customer gets back as change.
      */
