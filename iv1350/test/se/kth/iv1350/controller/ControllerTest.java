@@ -27,13 +27,12 @@ class ControllerTest {
 
     @BeforeEach
     void setUp() {
-        accHandler = new AccountingHandler();
+        accHandler = AccountingHandler.getInstance();
         invHandler = InventoryHandler.getInstance();
-        discHandler = new DiscountHandler();
-        printHandler = new PrinterHandler();
-        balance = new Amount(BigDecimal.ZERO);
-        register = new Register(balance);
-        contr = new Controller(accHandler, discHandler, printHandler, register);
+        discHandler = DiscountHandler.getInstance();
+        printHandler = PrinterHandler.getInstance();
+        register = Register.getInstance();
+        contr = new Controller();
         contr.startSale();
     }
 

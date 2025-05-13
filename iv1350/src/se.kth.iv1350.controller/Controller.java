@@ -21,14 +21,14 @@ public class Controller {
     private final Register register;
 
     private Sale sale;
-    private ArrayList<SaleObserver> saleObservers = new ArrayList<>();
+    private final ArrayList<SaleObserver> saleObservers = new ArrayList<>();
 
-    public Controller(AccountingHandler accHandler, DiscountHandler discHandler, PrinterHandler printHandler, Register register) {
-        this.accHandler = accHandler;
+    public Controller() {
+        this.accHandler = AccountingHandler.getInstance();
         this.invHandler = InventoryHandler.getInstance();
-        this.discHandler = discHandler;
-        this.printHandler = printHandler;
-        this.register = register;
+        this.discHandler = DiscountHandler.getInstance();
+        this.printHandler = PrinterHandler.getInstance();
+        this.register = Register.getInstance();
     }
 
     /**

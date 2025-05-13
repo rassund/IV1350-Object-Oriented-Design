@@ -9,9 +9,17 @@ import java.math.BigDecimal;
 
 /**
  * Used for handling the database used for getting discounts for different users/customers.
- * Contains no code since there is no handling of discounts right now.
+ * Contains temporary test code since there is no discount database right now.
  */
 public class DiscountHandler {
+    private static final DiscountHandler INSTANCE = new DiscountHandler();
+
+    private DiscountHandler() {}
+
+    public static DiscountHandler getInstance() {
+        return INSTANCE;
+    }
+
     public Discount fetchDiscount(int customerID) {
         return getFakeDiscounts();
     }

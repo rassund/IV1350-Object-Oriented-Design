@@ -10,6 +10,14 @@ import java.math.BigDecimal;
  * Used for handling the software for the printer (which prints the receipt).
  */
 public class PrinterHandler {
+    private static final PrinterHandler INSTANCE = new PrinterHandler();
+
+    private PrinterHandler() {}
+
+    public static PrinterHandler getInstance() {
+        return INSTANCE;
+    }
+
     /**
      * Sends all text to print on the receipt to the printer software, and starts the printing.
      * (Currently, the printing software does not exist. This method therefore now prints a dummy version of the receipt onto the console.)

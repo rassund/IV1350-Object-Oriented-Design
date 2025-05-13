@@ -1,17 +1,25 @@
 package se.kth.iv1350.model;
 
+import se.kth.iv1350.integration.AccountingHandler;
+
 /**
  * Used for keeping track of the money in a register while sales are conducted.
  */
 public class Register {
-    private Amount balance;
+    private static final String STARTING_BALANCE = "0";
+    private static final Register INSTANCE = new Register(new Amount(STARTING_BALANCE));
+    private final Amount balance;
 
     /**
      * Creates a new {@link Register} object representing a register in the store
      * @param balance The {@link Amount} of money in the register at initialization.
      */
-    public Register(Amount balance) {
+    private Register(Amount balance) {
         this.balance = balance;
+    }
+
+    public static Register getInstance() {
+        return INSTANCE;
     }
 
     /**

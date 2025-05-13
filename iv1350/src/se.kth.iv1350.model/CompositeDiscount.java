@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CompositeDiscount implements Discount {
-    private ArrayList<Discount> discountAlgorithms = new ArrayList<>();
+    private final ArrayList<Discount> discountAlgorithms = new ArrayList<>();
 
     @Override
     public void applyDiscount(Sale sale) {
