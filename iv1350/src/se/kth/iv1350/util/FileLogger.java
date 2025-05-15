@@ -40,9 +40,20 @@ public class FileLogger {
      * @param message The message that is added into the created text file.
      */
     public void log(String message) {
-        ZonedDateTime now = ZonedDateTime.now();
-        logStream.println();
-        logStream.println(now);
+        logMessage(message);
+    }
+
+    /**
+     * Writes a given message to the created text file, along with the current date and time.
+     * @param message The message that is added into the created text file.
+     * @param zonedDateTime The current date and time represented as a <link>ZonedDateTime</link>.
+     */
+    public void log(String message, ZonedDateTime zonedDateTime) {
+        logStream.println(zonedDateTime);
+        logMessage(message);
+    }
+
+    private void logMessage(String message) {
         logStream.println(message);
         logStream.println();
     }

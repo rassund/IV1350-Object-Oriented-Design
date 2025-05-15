@@ -7,7 +7,9 @@ import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.*;
 import se.kth.iv1350.model.Discount;
+import se.kth.iv1350.util.FileLogger;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +21,7 @@ public class Controller {
     private final DiscountHandler discHandler;
     private final PrinterHandler printHandler;
     private final Register register;
+    private final FileLogger logger;
 
     private Sale sale;
     private final ArrayList<SaleObserver> saleObservers = new ArrayList<>();
@@ -29,6 +32,7 @@ public class Controller {
         this.discHandler = DiscountHandler.getInstance();
         this.printHandler = PrinterHandler.getInstance();
         this.register = Register.getInstance();
+        this.logger = new FileLogger();
     }
 
     /**
@@ -53,19 +57,25 @@ public class Controller {
      * @param itemID The ID of the item to add to the sale.
      * @return A <code>SaleSummaryDTO</code> with information to be displayed in the view.
      * @throws InvalidIDException If an item with the <code>itemID</code> given does not exist in the inventory database.
+     * @throws DatabaseException If an error occurs in some database.
      */
-    public SaleSummaryDTO enterItemID(int itemID) throws InvalidIDException {
-        ItemInBasketDTO itemInBasketDTO = getItemFromSale(itemID);
-        ItemDTO itemDTO;
-        if (!itemAlreadyInSale(itemInBasketDTO)) {
-            itemDTO = invHandler.fetchItemDTO(itemID);
-            itemInBasketDTO = new ItemInBasketDTO(itemDTO, 1);
+    public SaleSummaryDTO enterItemID(int itemID) throws InvalidIDException, DatabaseException {
+        try {
+            ItemInBasketDTO itemInBasketDTO = getItemFromSale(itemID);
+            ItemDTO itemDTO;
+            if (!itemAlreadyInSale(itemInBasketDTO)) {
+                itemDTO = invHandler.fetchItemDTO(itemID);
+                itemInBasketDTO = new ItemInBasketDTO(itemDTO, 1);
+            }
+            else {
+                int amountOfItemsInBasket = itemInBasketDTO.amountInBasket();
+                itemInBasketDTO = new ItemInBasketDTO(itemInBasketDTO, amountOfItemsInBasket + 1);
+            }
+            return sale.addItem(itemInBasketDTO);
+        } catch (DatabaseException ex) {
+            logger.log(ex.getMessage(), ZonedDateTime.now());
+            throw new DatabaseException("Database error. Item could not be added to sale.");
         }
-        else {
-            int amountOfItemsInBasket = itemInBasketDTO.amountInBasket();
-            itemInBasketDTO = new ItemInBasketDTO(itemInBasketDTO, amountOfItemsInBasket + 1);
-        }
-        return sale.addItem(itemInBasketDTO);
     }
 
     private ItemInBasketDTO getItemFromSale(int itemID) {

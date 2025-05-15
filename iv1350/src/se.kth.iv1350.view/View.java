@@ -2,6 +2,7 @@ package se.kth.iv1350.view;
 
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.controller.Controller;
+import se.kth.iv1350.integration.DatabaseException;
 import se.kth.iv1350.integration.InvalidIDException;
 import se.kth.iv1350.model.Amount;
 
@@ -25,7 +26,7 @@ public class View {
         Amount amountPaid = new Amount("100");
         contr.startSale();
         SaleSummaryDTO saleSummary = null;
-        saleSummary = scanItem(saleSummary, 0);
+        saleSummary = scanItem(saleSummary, -1);
         saleSummary = scanItem(saleSummary, 0);
         saleSummary = scanItem(saleSummary, 1);
         contr.applyDiscount(0);
@@ -43,9 +44,12 @@ public class View {
             saleSummary = contr.enterItemID(itemID);
             printSaleSummary(saleSummary);
         }
-        catch(InvalidIDException ex) {
+        catch (InvalidIDException ex) {
             System.out.println(ex.getMessage());
             // Write a new message
+        }
+        catch (DatabaseException ex) {
+            System.out.println(ex.getMessage());
         }
         return saleSummary;
     }

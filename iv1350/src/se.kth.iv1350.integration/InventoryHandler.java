@@ -5,6 +5,7 @@ import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
