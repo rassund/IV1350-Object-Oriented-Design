@@ -9,7 +9,5 @@ public class DatabaseException extends RuntimeException {
      * There is one hard coded written right now, as there currently is no database - thus a simulation of one is made instead.
      * @param message The message to be displayed to the user and the developer.
      */
-    public DatabaseException(String message) {
-        super(message);
-    }
+    public DatabaseException(String message) { super(message); }
 }
