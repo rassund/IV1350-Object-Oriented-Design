@@ -1,6 +1,7 @@
 package se.kth.iv1350.model;
 
 import java.math.BigDecimal;
+import static java.math.RoundingMode.HALF_UP;
 
 /**
  * Contains a percentage to be reduced from the total cost of the entire sale.
@@ -19,7 +20,8 @@ public class PercentageDiscount implements Discount {
     @Override
     public void applyDiscount(Sale sale) {
         Amount runningTotal = sale.getRunningTotal();
-        Amount amountToSubtract = new Amount(runningTotal.getAmount().multiply(discountPercentage));
+        BigDecimal amountToSubtractNotRounded = runningTotal.getAmount().multiply(discountPercentage);
+        Amount amountToSubtract = new Amount(amountToSubtractNotRounded.setScale(2, HALF_UP));
         runningTotal.subtractFromThis(amountToSubtract);
     }
 }
