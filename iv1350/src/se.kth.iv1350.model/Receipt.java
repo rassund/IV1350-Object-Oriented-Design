@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public final class Receipt {
     private final LocalDateTime dateTimeOfSale;
     private final Amount totalPrice;
+    private final Amount roundedTotalPrice;
+    private final Amount totalDiscount;
     private final Amount totalVAT;
     private final ArrayList<ItemInBasketDTO> itemsBought;
     private final Amount amountPaid;
@@ -26,10 +28,13 @@ public final class Receipt {
     public Receipt(SaleDTO saleDTO) {
         this.dateTimeOfSale = saleDTO.dateTime();
         this.totalPrice = saleDTO.totalPrice();
+        this.roundedTotalPrice = saleDTO.roundedTotalPrice();
+        this.totalDiscount = saleDTO.totalDiscount();
         this.totalVAT = saleDTO.totalVAT();
         this.itemsBought = new ArrayList<>(saleDTO.items());
         this.amountPaid = saleDTO.amountPaid();
         this.change = saleDTO.change();
+
     }
 
     /**
@@ -49,6 +54,18 @@ public final class Receipt {
      * @return An {@link Amount} representing the total price (Including VAT) for all items in the sale.
      */
     public Amount getTotalPrice() { return totalPrice; }
+
+    /**
+     * Gets the rounded total price.
+     * @return An {@link Amount} representing the total price (Including VAT) for all items in the sale.
+     */
+    public Amount getRoundedTotalPrice() { return roundedTotalPrice; }
+
+    /**
+     * Gets the total discount.
+     * @return An {@link Amount} representing the total discount applied to the sale.
+     */
+    public Amount getTotalDiscount() { return totalDiscount; }
 
     /**
      * Gets the total VAT.

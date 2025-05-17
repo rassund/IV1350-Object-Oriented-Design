@@ -189,13 +189,13 @@ class ControllerTest {
     void payForSaleExactPayment() {
         try {
             int testItemID = 0;
-            Amount expectedChange = new Amount("0");
+            Amount expectedChange = new Amount("0.00");
 
             SaleSummaryDTO saleSummaryDTO = contr.enterItemID(testItemID);
             Amount roundedTotalPrice = saleSummaryDTO.roundedRunningTotal();
             Amount returnedChange = contr.payForSale(roundedTotalPrice);
 
-            assertEquals(expectedChange.getAmount(), returnedChange.getAmount(), "The returned change should be 0 but isn't.");
+            assertEquals(expectedChange.getAmount(), returnedChange.getAmount(), "The returned change should be 0.00 but isn't.");
         } catch (Exception e) {
             fail("Unexpected exception was thrown: " + e.getMessage());
         }

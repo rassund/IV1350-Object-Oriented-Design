@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Sale {
     private final Amount runningTotal;
     private final Amount roundedRunningTotal;
+    private final Amount totalDiscount;
     private final ArrayList<ItemInBasketDTO> items;
     private final Amount totalVAT;
     private ArrayList<SaleObserver> saleObservers;
@@ -26,6 +27,7 @@ public class Sale {
     public Sale() {
         this.runningTotal = new Amount("0");
         this.roundedRunningTotal = new Amount("0");
+        this.totalDiscount = new Amount("0");
         this.items = new ArrayList<>();
         this.totalVAT = new Amount("0");
         this.saleObservers = new ArrayList<>();
@@ -33,6 +35,7 @@ public class Sale {
 
     private void updateRoundedRunningTotal() {
         roundedRunningTotal.setAmount(runningTotal.getAmount().setScale(0, RoundingMode.HALF_UP));
+        roundedRunningTotal.setAmount(roundedRunningTotal.getAmount().setScale(2, RoundingMode.UNNECESSARY));
     }
 
     /**
@@ -54,7 +57,17 @@ public class Sale {
      */
     public Amount getRunningTotal() { return runningTotal; }
 
+    /**
+     * Returns the rounded running total of the sale.
+     * @return The rounded running total of the sale.
+     */
     public Amount getRoundedRunningTotal() { return roundedRunningTotal; }
+
+    /**
+     * Returns the total discount applied to the sale.
+     * @return The total discount applied to the sale.
+     */
+    public Amount getTotalDiscount() { return totalDiscount;}
 
     /**
      * Adds an {@link ItemDTO} to the sale and returns a {@link SaleSummaryDTO} for the register to display. Also updates the running total and total VAT.
@@ -106,7 +119,7 @@ public class Sale {
         Amount change = new Amount(amountPaid.getAmount());
         change.subtractFromThis(roundedRunningTotal);
         notifyAllObservers();
-        return new SaleDTO(dateTime, items, runningTotal, roundedRunningTotal, totalVAT, amountPaid, change);
+        return new SaleDTO(dateTime, items, runningTotal, roundedRunningTotal, totalDiscount, totalVAT,  amountPaid, change);
     }
 
     private void notifyAllObservers() {

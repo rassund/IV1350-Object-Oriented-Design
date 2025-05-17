@@ -47,8 +47,16 @@ public class PrinterHandler {
         }
         System.out.println();
 
-        System.out.printf("%-20s %29s%n", "Total:", receipt.getTotalPrice().getAmountAsStringWithCurrency());
+        if (receipt.getTotalDiscount().getAmount().compareTo(BigDecimal.ZERO) != 0){
+            System.out.printf("%-20s %29s%n", "Discount: ", receipt.getTotalDiscount().getAmountAsStringWithCurrency());
+            System.out.println();
+        }
+
+        System.out.printf("%-20s %29s%n", "Total: ", receipt.getTotalPrice().getAmountAsStringWithCurrency());
         System.out.printf("%-20s %29s%n", "VAT: " , receipt.getTotalVAT().getAmountAsStringWithCurrency());
+        System.out.println();
+        
+        System.out.printf("%-20s %29s%n", "Rounded Total: ", receipt.getRoundedTotalPrice().getAmountAsStringWithCurrency());
         System.out.println();
 
         System.out.printf("%-20s %29s%n", "Cash: ", receipt.getAmountPaid().getAmountAsStringWithCurrency());

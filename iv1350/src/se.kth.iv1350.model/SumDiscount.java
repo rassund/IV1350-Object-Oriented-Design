@@ -18,6 +18,8 @@ public class SumDiscount implements Discount {
      */
     @Override
     public void applyDiscount(Sale sale) {
-        sale.getRunningTotal().subtractFromThis(new Amount(discountAmount));
+        Amount discount = new Amount(discountAmount);
+        sale.getTotalDiscount().subtractFromThis(discount);
+        sale.getRunningTotal().subtractFromThis(discount);
     }
 }

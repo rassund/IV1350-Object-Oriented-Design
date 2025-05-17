@@ -22,6 +22,7 @@ public class PercentageDiscount implements Discount {
         Amount runningTotal = sale.getRunningTotal();
         BigDecimal amountToSubtractNotRounded = runningTotal.getAmount().multiply(discountPercentage);
         Amount amountToSubtract = new Amount(amountToSubtractNotRounded.setScale(2, HALF_UP));
+        sale.getTotalDiscount().subtractFromThis(amountToSubtract);
         runningTotal.subtractFromThis(amountToSubtract);
     }
 }

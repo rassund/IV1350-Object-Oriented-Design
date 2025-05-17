@@ -11,12 +11,13 @@ import java.util.ArrayList;
  * @param items A list of the purchased items.
  * @param totalPrice The total price of the sale (including VAT).
  * @param roundedTotalPrice The total price rounded to the nearest swedish crown, needed for cash payments.
+ * @param totalDiscount The total amount of discount applied to the sale.
  * @param totalVAT The total amount of VAT applied to the sale.
  * @param amountPaid The amount paid by the customer for the sale.
  * @param change The amount of change to return to the customer.
  */
 public record SaleDTO(LocalDateTime dateTime, ArrayList<ItemInBasketDTO> items, Amount totalPrice, Amount roundedTotalPrice,
-                      Amount totalVAT, Amount amountPaid, Amount change) {
+                      Amount totalDiscount, Amount totalVAT, Amount amountPaid, Amount change) {
 
     /**
      * Creates a new {@link SaleDTO} instance with defensive copying for mutable fields.
@@ -32,6 +33,7 @@ public record SaleDTO(LocalDateTime dateTime, ArrayList<ItemInBasketDTO> items, 
         items = new ArrayList<>(items);
         totalPrice = new Amount(totalPrice);
         roundedTotalPrice = new Amount(roundedTotalPrice);
+        totalDiscount = new Amount(totalDiscount);
         totalVAT = new Amount(totalVAT);
         amountPaid = new Amount(amountPaid);
         change = new Amount(change);
@@ -60,6 +62,12 @@ public record SaleDTO(LocalDateTime dateTime, ArrayList<ItemInBasketDTO> items, 
     public Amount roundedTotalPrice() {
         return new Amount(roundedTotalPrice);
     }
+
+    /**
+     * Returns a defensive copy of the discount of the sale.
+     * @return The discount of the sale.
+     */
+    public Amount totalDiscount() { return totalDiscount; }
 
     /**
      * Returns a defensive copy of the total VAT of the sale.
