@@ -27,6 +27,7 @@ public class View {
         contr.startSale();
         SaleSummaryDTO saleSummary = null;
         saleSummary = scanItem(saleSummary, -1);
+        saleSummary = scanItem(saleSummary, 1);
         saleSummary = scanItem(saleSummary, 0);
         saleSummary = scanItem(saleSummary, 1);
         contr.applyDiscount(0);
