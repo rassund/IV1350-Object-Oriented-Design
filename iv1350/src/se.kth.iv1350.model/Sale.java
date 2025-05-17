@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class Sale {
     private final Amount runningTotal;
+    private final Amount roundedRunningTotal;
     private final ArrayList<ItemInBasketDTO> items;
     private final Amount totalVAT;
     private ArrayList<SaleObserver> saleObservers;
@@ -24,9 +25,14 @@ public class Sale {
      */
     public Sale() {
         this.runningTotal = new Amount("0");
+        this.roundedRunningTotal = new Amount("0");
         this.items = new ArrayList<>();
         this.totalVAT = new Amount("0");
         this.saleObservers = new ArrayList<>();
+    }
+
+    private void updateRoundedRunningTotal() {
+        roundedRunningTotal.setAmount(runningTotal.getAmount().setScale(0, RoundingMode.HALF_UP));
     }
 
     /**
@@ -47,6 +53,8 @@ public class Sale {
      * @return The running total of the sale.
      */
     public Amount getRunningTotal() { return runningTotal; }
+
+    public Amount getRoundedRunningTotal() { return roundedRunningTotal; }
 
     /**
      * Adds an {@link ItemDTO} to the sale and returns a {@link SaleSummaryDTO} for the register to display. Also updates the running total and total VAT.
@@ -70,8 +78,9 @@ public class Sale {
         Amount costAddedByVAT = costAddedByVAT(itemToAdd);
 
         runningTotal.addToThis(priceOfItem);
+        updateRoundedRunningTotal();
         totalVAT.addToThis(costAddedByVAT);
-        return new SaleSummaryDTO(itemToAdd, runningTotal, totalVAT);
+        return new SaleSummaryDTO(itemToAdd, runningTotal, roundedRunningTotal, totalVAT);
     }
 
     private boolean itemIsAlreadyInBasket(int itemInBasketID, int itemToAddID) {
@@ -93,10 +102,11 @@ public class Sale {
      */
     public SaleDTO endSale(Amount amountPaid) {
         LocalDateTime dateTime = LocalDateTime.now();
+        updateRoundedRunningTotal();
         Amount change = new Amount(amountPaid.getAmount());
-        change.subtractFromThis(runningTotal);
+        change.subtractFromThis(roundedRunningTotal);
         notifyAllObservers();
-        return new SaleDTO(dateTime, items, runningTotal, totalVAT, amountPaid, change);
+        return new SaleDTO(dateTime, items, runningTotal, roundedRunningTotal, totalVAT, amountPaid, change);
     }
 
     private void notifyAllObservers() {

@@ -10,18 +10,20 @@ import java.util.ArrayList;
  * @param dateTime The date and time of the sale.
  * @param items A list of the purchased items.
  * @param totalPrice The total price of the sale (including VAT).
+ * @param roundedTotalPrice The total price rounded to the nearest swedish crown, needed for cash payments.
  * @param totalVAT The total amount of VAT applied to the sale.
  * @param amountPaid The amount paid by the customer for the sale.
  * @param change The amount of change to return to the customer.
  */
-public record SaleDTO(LocalDateTime dateTime, ArrayList<ItemInBasketDTO> items, Amount totalPrice, Amount totalVAT,
-                      Amount amountPaid, Amount change) {
+public record SaleDTO(LocalDateTime dateTime, ArrayList<ItemInBasketDTO> items, Amount totalPrice, Amount roundedTotalPrice,
+                      Amount totalVAT, Amount amountPaid, Amount change) {
 
     /**
      * Creates a new {@link SaleDTO} instance with defensive copying for mutable fields.
      * @param dateTime The date and time of the sale.
      * @param items A list of the purchased items.
      * @param totalPrice The total price of the sale (including VAT).
+     * @param roundedTotalPrice The total price rounded to the nearest swedish crown, needed for cash payments.
      * @param totalVAT The total amount of VAT applied to the sale.
      * @param amountPaid The amount paid by the customer for the sale.
      * @param change The change to return to the customer.
@@ -29,6 +31,7 @@ public record SaleDTO(LocalDateTime dateTime, ArrayList<ItemInBasketDTO> items, 
     public SaleDTO {
         items = new ArrayList<>(items);
         totalPrice = new Amount(totalPrice);
+        roundedTotalPrice = new Amount(roundedTotalPrice);
         totalVAT = new Amount(totalVAT);
         amountPaid = new Amount(amountPaid);
         change = new Amount(change);
@@ -48,6 +51,14 @@ public record SaleDTO(LocalDateTime dateTime, ArrayList<ItemInBasketDTO> items, 
      */
     public Amount totalPrice() {
         return new Amount(totalPrice);
+    }
+
+    /**
+     * Returns a defensive copy of the rounded total price of the sale.
+     * @return The rounded total price of the sale.
+     */
+    public Amount roundedTotalPrice() {
+        return new Amount(roundedTotalPrice);
     }
 
     /**

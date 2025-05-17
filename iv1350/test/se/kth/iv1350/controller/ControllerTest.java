@@ -13,6 +13,7 @@ import se.kth.iv1350.model.Sale;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -175,7 +176,7 @@ class ControllerTest {
             Sale expectedSale = new Sale();
             ItemInBasketDTO itemToAdd = new ItemInBasketDTO(invHandler.fetchItemDTO(testItemID), 1);
             expectedSale.addItem(itemToAdd);
-            Amount expectedTotal = expectedSale.getRunningTotal();
+            Amount expectedTotal = expectedSale.getRoundedRunningTotal();
             Amount expectedChange = Amount.subtractTwoAmounts(amountPaid, expectedTotal);
 
             assertEquals(expectedChange, returnedChange, "The returned change does not match the expected change.");
@@ -188,14 +189,13 @@ class ControllerTest {
     void payForSaleExactPayment() {
         try {
             int testItemID = 0;
-            ItemDTO testItemDTO = invHandler.fetchItemDTO(testItemID);
-            Amount itemPrice = testItemDTO.price();
             Amount expectedChange = new Amount("0");
 
-            contr.enterItemID(testItemID);
-            Amount returnedChange = contr.payForSale(itemPrice);
+            SaleSummaryDTO saleSummaryDTO = contr.enterItemID(testItemID);
+            Amount roundedTotalPrice = saleSummaryDTO.roundedRunningTotal();
+            Amount returnedChange = contr.payForSale(roundedTotalPrice);
 
-            assertEquals(expectedChange, returnedChange, "The returned change should be 0 but isn't.");
+            assertEquals(expectedChange.getAmount(), returnedChange.getAmount(), "The returned change should be 0 but isn't.");
         } catch (Exception e) {
             fail("Unexpected exception was thrown: " + e.getMessage());
         }
@@ -215,9 +215,10 @@ class ControllerTest {
             int testItemID = 0;
             ItemDTO testItemDTO = invHandler.fetchItemDTO(testItemID);
             Amount itemPrice = testItemDTO.price();
+            Amount paidAmount = new Amount(itemPrice.getAmount().setScale(0, RoundingMode.HALF_UP));
 
             contr.enterItemID(testItemID);
-            Amount returnedChange = contr.payForSale(itemPrice);
+            contr.payForSale(paidAmount);
 
             Field saleField = contr.getClass().getDeclaredField("sale");
             saleField.setAccessible(true);
