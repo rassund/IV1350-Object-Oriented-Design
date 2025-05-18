@@ -35,7 +35,7 @@ class InventoryHandlerTest {
 
     @Test
     void fetchItemDTOValid() {
-        int testID = 1;
+        int testID = 2;
         try {
             ItemDTO expectedItemDTO = new ItemDTO(new Amount("14.90"), VAT.LOW,
                     "YouGoGo Blueberry 240g, low sugar yogurt, blueberry flavour",
