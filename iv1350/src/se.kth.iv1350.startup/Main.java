@@ -16,6 +16,5 @@ public class Main {
         View view = new View(contr);
 
         view.testRun();
-        view.testRun();
     }
 }

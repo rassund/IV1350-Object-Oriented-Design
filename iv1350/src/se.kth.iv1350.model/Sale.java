@@ -109,6 +109,14 @@ public class Sale {
     }
 
     /**
+     * Creates a <code>SaleDTO</code> with information about an ongoing sale.
+     * @return A <code>SaleDTO</code> with information about an ongoing sale.
+     */
+    public SaleDTO getOngoingSaleDTO(){
+        return new SaleDTO(null, items, runningTotal, roundedRunningTotal, totalDiscount, totalVAT, new Amount(BigDecimal.ZERO), new Amount(BigDecimal.ZERO));
+    }
+
+    /**
      * Ends the sale, returning info to be displayed on the receipt. Also notifies all <code>SaleObserver</code> instances that the sale has ended.
      * @param amountPaid The amount the customer gives to pay for the sale.
      * @return A <code>SaleDTO</code> object containing info to be shown on the receipt given to the customer. Includes how much money the customer gets back as change.

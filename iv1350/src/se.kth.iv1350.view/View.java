@@ -26,6 +26,20 @@ public class View {
         Amount amountPaid = new Amount("100");
         contr.startSale();
         SaleSummaryDTO saleSummary = null;
+        saleSummary = scanItem(saleSummary, 2);
+        saleSummary = scanItem(saleSummary, 0);
+        saleSummary = scanItem(saleSummary, 2);
+        contr.applyDiscount(1);
+        if (saleSummary != null) {
+            Amount amountOfChange = contr.payForSale(amountPaid);
+            System.out.println("End Sale:");
+            System.out.println("Total cost ( incl VAT ): " + saleSummary.runningTotal().getAmountAsStringWithCurrency());
+            System.out.println("Amount paid: " + amountPaid.getAmountAsStringWithCurrency());
+            System.out.println("Change: " + amountOfChange.getAmountAsStringWithCurrency());
+        }
+
+        contr.startSale();
+        saleSummary = null;
         saleSummary = scanItem(saleSummary, -1);
         saleSummary = scanItem(saleSummary, 1);
         saleSummary = scanItem(saleSummary, 0);
