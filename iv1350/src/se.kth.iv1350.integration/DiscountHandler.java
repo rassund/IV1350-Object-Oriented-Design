@@ -50,7 +50,7 @@ public class DiscountHandler {
         disc.addDiscount(new SumDiscount(itemSumToDeduct));
 
         BigDecimal runningTotalSumToDeduct = new BigDecimal("5");
-        BigDecimal minimumTotalSumToExceed = new BigDecimal("40");
+        BigDecimal minimumTotalSumToExceed = new BigDecimal("45");
         if (saleDTO.totalPrice().getAmount().compareTo(minimumTotalSumToExceed) >= 0){
             disc.addDiscount(new SumDiscount(runningTotalSumToDeduct));
         }

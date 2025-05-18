@@ -28,7 +28,6 @@ public class View {
         SaleSummaryDTO saleSummary = null;
         saleSummary = scanItem(saleSummary, 2);
         saleSummary = scanItem(saleSummary, 0);
-        saleSummary = scanItem(saleSummary, 2);
         contr.applyDiscount(1);
         if (saleSummary != null) {
             Amount amountOfChange = contr.payForSale(amountPaid);
