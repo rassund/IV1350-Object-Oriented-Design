@@ -74,7 +74,7 @@ public class Controller {
             return sale.addItem(itemInBasketDTO);
         } catch (DatabaseException ex) {
             logger.log(ex.getMessage(), ZonedDateTime.now());
-            throw new DatabaseException("Database error. Item could not be added to sale.");
+            throw new DatabaseException("\nDatabase error. Item could not be added to sale.\n");
         }
     }
 

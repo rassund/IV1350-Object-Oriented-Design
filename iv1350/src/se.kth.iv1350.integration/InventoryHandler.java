@@ -5,7 +5,6 @@ import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.VAT;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -63,7 +62,7 @@ public class InventoryHandler {
                 return item;
             }
         }
-        throw new InvalidIDException("There is no item in the inventory with ID " + itemID + ".");
+        throw new InvalidIDException("There is no item in the inventory with ID " + itemID + ".\n");
     }
 
     /**

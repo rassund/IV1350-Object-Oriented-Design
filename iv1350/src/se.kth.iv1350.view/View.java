@@ -25,6 +25,8 @@ public class View {
     public void testRun() {
         Amount amountPaid = new Amount("100");
         contr.startSale();
+        System.out.println();
+        System.out.println();
         SaleSummaryDTO saleSummary = null;
         saleSummary = scanItem(saleSummary, 2);
         saleSummary = scanItem(saleSummary, 0);
@@ -38,6 +40,8 @@ public class View {
         }
 
         contr.startSale();
+        System.out.println();
+        System.out.println();
         saleSummary = null;
         saleSummary = scanItem(saleSummary, -1);
         saleSummary = scanItem(saleSummary, 1);
