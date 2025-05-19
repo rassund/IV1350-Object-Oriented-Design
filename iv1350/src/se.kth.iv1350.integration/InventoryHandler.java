@@ -36,9 +36,13 @@ public class InventoryHandler {
                 "BigWheel Oatmeal 500g, whole grain oats, high fiber, gluten free",
                 0, "BigWheel Oatmeal");
         dummyItems.add(bigWheelOatmeal);
+        ItemDTO youGoGoDiscount= new ItemDTO(new Amount("14.90"), VAT.LOW,
+                "YouGoGo Discount 240g, low sugar yogurt, discount flavour",
+                1, "YouGoGo Discount");
+        dummyItems.add(youGoGoDiscount);
         ItemDTO youGoGoBlueberry = new ItemDTO(new Amount("14.90"), VAT.LOW,
                 "YouGoGo Blueberry 240g, low sugar yogurt, blueberry flavour",
-                1, "YouGoGo Blueberry");
+                2, "YouGoGo Blueberry");
         dummyItems.add(youGoGoBlueberry);
     }
 

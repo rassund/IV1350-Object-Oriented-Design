@@ -97,7 +97,8 @@ public class Controller {
      * @param customerID The ID of the customer that may be eligible for a discount.
      */
     public void applyDiscount(int customerID) {
-        Discount disc = discHandler.fetchDiscount(customerID);
+        SaleDTO saleDTO = sale.getOngoingSaleDTO();
+        Discount disc = discHandler.fetchDiscount(customerID, saleDTO);
         disc.applyDiscount(sale);
     }
 

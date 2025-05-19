@@ -30,7 +30,7 @@ public class FileLogger {
         try {
             logStream = new PrintWriter(new FileWriter(fileName), true);
         } catch (IOException e) {
-            System.out.println("CAN NOT LOG.");
+            System.out.println("CANNOT LOG.");
             e.printStackTrace();
         }
     }
