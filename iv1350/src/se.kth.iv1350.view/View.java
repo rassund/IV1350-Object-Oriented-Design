@@ -1,5 +1,6 @@
 package se.kth.iv1350.view;
 
+import se.kth.iv1350.DTO.SaleDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.integration.DatabaseException;
@@ -24,25 +25,30 @@ public class View {
      */
     public void testRun() {
         Amount amountPaid = new Amount("100");
+        SaleSummaryDTO saleSummary = null;
+        SaleDTO sale = null;
+        Amount amountOfChange = null;
         contr.startSale();
         System.out.println();
         System.out.println();
-        SaleSummaryDTO saleSummary = null;
         saleSummary = scanItem(saleSummary, 2);
         saleSummary = scanItem(saleSummary, 0);
         contr.applyDiscount(1);
         if (saleSummary != null) {
-            Amount amountOfChange = contr.payForSale(amountPaid);
+            sale = contr.payForSale(amountPaid);
+            amountOfChange = sale.change();
             System.out.println("End Sale:");
-            System.out.println("Total cost ( incl VAT ): " + saleSummary.runningTotal().getAmountAsStringWithCurrency());
+            System.out.println("Total cost ( incl VAT ): " + sale.roundedTotalPrice().getAmountAsStringWithCurrency());
             System.out.println("Amount paid: " + amountPaid.getAmountAsStringWithCurrency());
             System.out.println("Change: " + amountOfChange.getAmountAsStringWithCurrency());
         }
 
         contr.startSale();
-        System.out.println();
-        System.out.println();
         saleSummary = null;
+        sale = null;
+        amountOfChange = null;
+        System.out.println();
+        System.out.println();
         saleSummary = scanItem(saleSummary, -1);
         saleSummary = scanItem(saleSummary, 1);
         saleSummary = scanItem(saleSummary, 0);
@@ -50,9 +56,10 @@ public class View {
         saleSummary = scanItem(saleSummary, 1);
         contr.applyDiscount(0);
         if (saleSummary != null) {
-            Amount amountOfChange = contr.payForSale(amountPaid);
+            sale = contr.payForSale(amountPaid);
+            amountOfChange = sale.change();
             System.out.println("End Sale:");
-            System.out.println("Total cost ( incl VAT ): " + saleSummary.runningTotal().getAmountAsStringWithCurrency());
+            System.out.println("Total cost ( incl VAT ): " + sale.roundedTotalPrice().getAmountAsStringWithCurrency());
             System.out.println("Amount paid: " + amountPaid.getAmountAsStringWithCurrency());
             System.out.println("Change: " + amountOfChange.getAmountAsStringWithCurrency());
         }

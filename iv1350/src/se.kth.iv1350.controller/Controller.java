@@ -105,9 +105,9 @@ public class Controller {
     /**
      * Handles updating inventory and accounting systems, printing the receipt, and updating the register when the sale is paid for.
      * @param amountPaid The <code>Amount</code> paid by the customer.
-     * @return The <code>Amount</code> of change to give back to the customer.
+     * @return The <code>SaleDTO</code> for the completed sale.
      */
-    public Amount payForSale(Amount amountPaid) {
+    public SaleDTO payForSale(Amount amountPaid) {
         SaleDTO saleDTO = sale.endSale(amountPaid);
         invHandler.updateInventory(saleDTO);
         accHandler.updateAccounting(saleDTO);
@@ -115,6 +115,6 @@ public class Controller {
         printHandler.printReceipt(receipt);
         register.addAmountToRegister(saleDTO.totalPrice());
         sale = null;
-        return saleDTO.change();
+        return saleDTO;
     }
 }

@@ -171,7 +171,7 @@ class ControllerTest {
             Amount amountPaid = new Amount("1000");
 
             contr.enterItemID(testItemID);
-            Amount returnedChange = contr.payForSale(amountPaid);
+            Amount returnedChange = contr.payForSale(amountPaid).change();
 
             Sale expectedSale = new Sale();
             ItemInBasketDTO itemToAdd = new ItemInBasketDTO(invHandler.fetchItemDTO(testItemID), 1);
@@ -193,7 +193,7 @@ class ControllerTest {
 
             SaleSummaryDTO saleSummaryDTO = contr.enterItemID(testItemID);
             Amount roundedTotalPrice = saleSummaryDTO.roundedRunningTotal();
-            Amount returnedChange = contr.payForSale(roundedTotalPrice);
+            Amount returnedChange = contr.payForSale(roundedTotalPrice).change();
 
             assertEquals(expectedChange.getAmount(), returnedChange.getAmount(), "The returned change should be 0.00 but isn't.");
         } catch (Exception e) {
@@ -204,7 +204,7 @@ class ControllerTest {
     @Test
     void payForSaleNoItemsInSale() {
         Amount amountPaid = new Amount("1000");
-        Amount returnedChange = contr.payForSale(amountPaid);
+        Amount returnedChange = contr.payForSale(amountPaid).change();
 
         assertEquals(amountPaid, returnedChange, "The returned change does not match the expected change.");
     }
