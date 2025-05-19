@@ -72,7 +72,6 @@ public class View {
         }
         catch (InvalidIDException ex) {
             System.out.println(ex.getMessage());
-            // Write a new message
         }
         catch (DatabaseException ex) {
             System.out.println(ex.getMessage());
