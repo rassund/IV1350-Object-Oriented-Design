@@ -132,7 +132,7 @@ public class Sale {
 
     private void notifyAllObservers() {
         for (SaleObserver obs : saleObservers) {
-            obs.saleHasEnded(runningTotal);
+            obs.saleHasEnded(roundedRunningTotal);
         }
     }
 }

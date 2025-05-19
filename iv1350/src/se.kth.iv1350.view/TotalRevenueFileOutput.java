@@ -4,6 +4,8 @@ import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.SaleObserver;
 import se.kth.iv1350.util.FileLogger;
 
+import java.time.ZonedDateTime;
+
 /**
  * Used to print the total income from all sales during one runtime of the program into a created text file with the name "RevenueOutput.txt".
  * Used when a <code>SaleObserver</code> has been notified.
@@ -29,6 +31,6 @@ public class TotalRevenueFileOutput implements SaleObserver {
     @Override
     public void saleHasEnded(Amount amount) {
         totalRevenue.addToThis(amount);
-        logger.log(totalRevenue.getAmountAsStringWithCurrency());
+        logger.log(totalRevenue.getAmountAsStringWithCurrency(), ZonedDateTime.now());
     }
 }
