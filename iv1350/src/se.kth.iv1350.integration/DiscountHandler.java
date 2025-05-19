@@ -55,10 +55,11 @@ public class DiscountHandler {
             disc.addDiscount(new SumDiscount(runningTotalSumToDeduct));
         }
 
-        BigDecimal percentageToReduce = new BigDecimal("0.2");
+        BigDecimal percentageToReduce = new BigDecimal("0");
         if (customerID == 0){
-            disc.addDiscount(new PercentageDiscount(percentageToReduce));
+            percentageToReduce = new BigDecimal("0.2");
         }
+        disc.addDiscount(new PercentageDiscount(percentageToReduce));
         return disc;
     }
 }
