@@ -131,8 +131,9 @@ public class Sale {
     }
 
     private void notifyAllObservers() {
+        Amount amountToGive = new Amount(roundedRunningTotal);
         for (SaleObserver obs : saleObservers) {
-            obs.saleHasEnded(roundedRunningTotal);
+            obs.saleHasEnded(amountToGive);
         }
     }
 }
