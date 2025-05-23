@@ -26,8 +26,7 @@ public class View {
     public void testRun() {
         Amount amountPaid = new Amount("100");
         SaleSummaryDTO saleSummary = null;
-        SaleDTO sale = null;
-        Amount amountOfChange = null;
+        SaleDTO sale;
         contr.startSale();
         System.out.println();
         System.out.println();
@@ -36,17 +35,11 @@ public class View {
         contr.applyDiscount(1);
         if (saleSummary != null) {
             sale = contr.payForSale(amountPaid);
-            amountOfChange = sale.change();
-            System.out.println("End Sale:");
-            System.out.println("Total cost ( incl VAT ): " + sale.roundedTotalPrice().getAmountAsStringWithCurrency());
-            System.out.println("Amount paid: " + amountPaid.getAmountAsStringWithCurrency());
-            System.out.println("Change: " + amountOfChange.getAmountAsStringWithCurrency());
+            printEndOfSaleInfo(sale);
         }
 
         contr.startSale();
         saleSummary = null;
-        sale = null;
-        amountOfChange = null;
         System.out.println();
         System.out.println();
         saleSummary = scanItem(saleSummary, -1);
@@ -57,11 +50,7 @@ public class View {
         contr.applyDiscount(0);
         if (saleSummary != null) {
             sale = contr.payForSale(amountPaid);
-            amountOfChange = sale.change();
-            System.out.println("End Sale:");
-            System.out.println("Total cost ( incl VAT ): " + sale.roundedTotalPrice().getAmountAsStringWithCurrency());
-            System.out.println("Amount paid: " + amountPaid.getAmountAsStringWithCurrency());
-            System.out.println("Change: " + amountOfChange.getAmountAsStringWithCurrency());
+            printEndOfSaleInfo(sale);
         }
     }
 
@@ -90,5 +79,12 @@ public class View {
         System.out.println("Total cost (incl VAT): " + saleSummary.runningTotal().getAmountAsStringWithCurrency());
         System.out.println("Total VAT: " + saleSummary.totalVAT().getAmountAsStringWithCurrency());
         System.out.println();
+    }
+
+    private void printEndOfSaleInfo(SaleDTO saleDTO){
+        System.out.println("End Sale:");
+        System.out.println("Total cost ( incl VAT ): " + saleDTO.roundedTotalPrice().getAmountAsStringWithCurrency());
+        System.out.println("Amount paid: " + saleDTO.amountPaid().getAmountAsStringWithCurrency());
+        System.out.println("Change: " + saleDTO.change().getAmountAsStringWithCurrency());
     }
 }
