@@ -1,7 +1,5 @@
 package se.kth.iv1350.view;
 
-import se.kth.iv1350.model.Amount;
-import se.kth.iv1350.model.SaleObserver;
 import se.kth.iv1350.util.FileLogger;
 
 import java.time.ZonedDateTime;
@@ -10,10 +8,11 @@ import java.time.ZonedDateTime;
  * Used to print the total income from all sales during one runtime of the program into a created text file with the name "RevenueOutput.txt".
  * Used when a <code>SaleObserver</code> has been notified.
  */
-public class TotalRevenueFileOutput implements SaleObserver {
+public class TotalRevenueFileOutput extends TotalRevenueOutput {
     private static final String FILE_NAME = "RevenueOutput.txt";
+    private static final String ERROR_LOG = "log.txt";
     private final FileLogger logger;
-    private final Amount totalRevenue;
+
 
     /**
      * When the total income earned from all sales starts to be recorded, the total income starts off as being "0".
@@ -21,7 +20,6 @@ public class TotalRevenueFileOutput implements SaleObserver {
      */
     public TotalRevenueFileOutput() {
         logger = new FileLogger(FILE_NAME);
-        this.totalRevenue = new Amount("0");
     }
 
     /**
@@ -29,8 +27,15 @@ public class TotalRevenueFileOutput implements SaleObserver {
      * @param amount The amount of total revenue, or the running total, for the sale that has ended.
      */
     @Override
-    public void saleHasEnded(Amount amount) {
-        totalRevenue.addToThis(amount);
+    protected void doShowTotalIncome() throws Exception {
         logger.log(totalRevenue.getAmountAsStringWithCurrency(), ZonedDateTime.now());
+    }
+
+    // DOUBLE CHECK ERROR HANDLING LATER
+    @Override
+    protected void handleErrors(Exception e) {
+        FileLogger errorLog = new FileLogger(ERROR_LOG);
+        e.getStackTrace();
+        errorLog.log("Error in TotalRevenueFileOutput", ZonedDateTime.now());
     }
 }
