@@ -42,33 +42,45 @@ class PrinterHandlerTest {
     }
 
     @Test
-    void printReceiptEmptySale() {
-        ArrayList<ItemInBasketDTO> items = new ArrayList<>();
+    void printReceiptNotNull() {
+        ArrayList<ItemInBasketDTO> itemInBasketDTOS = new ArrayList<>();
         Amount zero = new Amount("0");
-        SaleDTO saleDTO = new SaleDTO(localDateTime, items, zero, zero, zero, zero, zero, zero);
+        SaleDTO saleDTO = new SaleDTO(localDateTime, itemInBasketDTOS, zero, zero, zero, zero, zero, zero);
         Receipt receipt = new Receipt(saleDTO);
         printerHandler.printReceipt(receipt);
 
-        StringBuilder receiptStringBuilder = new StringBuilder();
-        receiptStringBuilder.append("------------------ Begin receipt -------------------");
-        receiptStringBuilder.append(System.lineSeparator());
-        receiptStringBuilder.append("Time of Sale: ").append(receipt.getDateOfSale()).append(" ").append(receipt.getTimeOfSale());
-        receiptStringBuilder.append(System.lineSeparator());
-        receiptStringBuilder.append(System.lineSeparator());
-        receiptStringBuilder.append(System.lineSeparator());
-        receiptStringBuilder.append(String.format("%-20s %29s%n", "Total: ", receipt.getTotalPrice().getAmountAsStringWithCurrency()));
-        receiptStringBuilder.append(String.format("%-20s %29s%n", "VAT: " , receipt.getTotalVAT().getAmountAsStringWithCurrency()));
-        receiptStringBuilder.append(System.lineSeparator());
-        receiptStringBuilder.append(String.format("%-20s %29s%n", "Rounded Total: ", receipt.getRoundedTotalPrice().getAmountAsStringWithCurrency()));
-        receiptStringBuilder.append(System.lineSeparator());
-        receiptStringBuilder.append(String.format("%-20s %29s%n", "Cash: ", receipt.getAmountPaid().getAmountAsStringWithCurrency()));
-        receiptStringBuilder.append(String.format("%-20s %29s%n", "Change: ", receipt.getChange().getAmountAsStringWithCurrency()));
-        receiptStringBuilder.append("------------------ End receipt -------------------");
-        receiptStringBuilder.append(System.lineSeparator());
-        receiptStringBuilder.append(System.lineSeparator());
-
-        String receiptString = receiptStringBuilder.toString();
         String result = outContent.toString();
-        assertTrue(result.contains(receiptString), "Receipt printout not correct");
+        assertNotNull(result, "Receipt printout is null");
+    }
+
+    @Test
+    void printReceiptEmptySale() {
+        ArrayList<ItemInBasketDTO> itemInBasketDTOS = new ArrayList<>();
+        Amount zero = new Amount("0");
+        SaleDTO saleDTO = new SaleDTO(localDateTime, itemInBasketDTOS, zero, zero, zero, zero, zero, zero);
+        Receipt receipt = new Receipt(saleDTO);
+        printerHandler.printReceipt(receipt);
+
+        String receiptString =
+                "------------------ Begin receipt -------------------" +
+                System.lineSeparator() +
+                "Time of Sale: " + receipt.getDateOfSale() + " " + receipt.getTimeOfSale() +
+                System.lineSeparator() +
+                System.lineSeparator() +
+                System.lineSeparator() +
+                String.format("%-20s %29s%n", "Total: ", receipt.getTotalPrice().getAmountAsStringWithCurrency()) +
+                String.format("%-20s %29s%n", "VAT: ", receipt.getTotalVAT().getAmountAsStringWithCurrency()) +
+                System.lineSeparator() +
+                String.format("%-20s %29s%n", "Rounded Total: ",
+                        receipt.getRoundedTotalPrice().getAmountAsStringWithCurrency()) +
+                System.lineSeparator() +
+                String.format("%-20s %29s%n", "Cash: ", receipt.getAmountPaid().getAmountAsStringWithCurrency()) +
+                String.format("%-20s %29s%n", "Change: ", receipt.getChange().getAmountAsStringWithCurrency()) +
+                "------------------ End receipt -------------------" +
+                System.lineSeparator() +
+                System.lineSeparator();
+
+        String result = outContent.toString();
+        assertTrue(result.contains(receiptString), "Receipt printout for sale with no items not correct");
     }
 }
