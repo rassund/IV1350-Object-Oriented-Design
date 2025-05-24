@@ -144,6 +144,6 @@ class PrinterHandlerTest {
                         System.lineSeparator();
 
         String result = outContent.toString();
-        assertTrue(result.contains(receiptString), "Receipt printout for sale with no items not correct");
+        assertTrue(result.contains(receiptString), "Receipt printout for sale with no discount not correct");
     }
 }
