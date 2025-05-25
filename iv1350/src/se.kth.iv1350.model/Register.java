@@ -35,4 +35,10 @@ public class Register {
     public void addAmountToRegister(Amount amountToAdd) {
         balance.addToThis(amountToAdd);
     }
+
+    /**
+     * Updates the "<code>balance</code>" of this Register instance by setting the amount "<code>amountToSet</code>" as the new balance.
+     * @param amountToSet The amount that is the new <code>balance</code> for the register.
+     */
+    public void setAmountInRegister(Amount amountToSet)  { balance.setAmount(amountToSet.getAmount()); };
 }
