@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InvalidIDExceptionTest {
-    InvalidIDException exception;
+    private InvalidIDException exception;
 
     @BeforeEach
     void setUp() {

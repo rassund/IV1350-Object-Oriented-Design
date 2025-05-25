@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DatabaseExceptionTest {
-    DatabaseException exception;
+    private DatabaseException exception;
 
     @BeforeEach
     void setUp() {

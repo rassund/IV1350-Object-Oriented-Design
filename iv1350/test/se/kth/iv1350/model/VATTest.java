@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VATTest {
-    VAT vatLow;
-    VAT vatMedium;
-    VAT vatHigh;
+    private VAT vatLow;
+    private VAT vatMedium;
+    private VAT vatHigh;
 
     @BeforeEach
     void setUp() {

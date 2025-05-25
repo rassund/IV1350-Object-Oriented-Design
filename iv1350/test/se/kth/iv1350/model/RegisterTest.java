@@ -3,17 +3,13 @@ package se.kth.iv1350.model;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.kth.iv1350.integration.PrinterHandler;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RegisterTest {
-    Register registerForTesting = Register.getInstance();
+    private Register registerForTesting = Register.getInstance();
 
     @BeforeEach
     void setUp() {

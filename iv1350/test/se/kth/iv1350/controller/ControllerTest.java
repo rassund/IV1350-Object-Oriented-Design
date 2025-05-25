@@ -8,9 +8,10 @@ import se.kth.iv1350.DTO.ItemInBasketDTO;
 import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.Amount;
-import se.kth.iv1350.model.Register;
 import se.kth.iv1350.model.Sale;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,33 +19,26 @@ import java.math.RoundingMode;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
-    AccountingHandler accHandler;
-    InventoryHandler invHandler;
-    DiscountHandler discHandler;
-    PrinterHandler printHandler;
-    Amount balance;
-    Register register;
-    Controller contr;
+    private InventoryHandler invHandler;
+    private Controller contr;
+    private ByteArrayOutputStream outContent;
+    private PrintStream originalSysOut;
 
     @BeforeEach
     void setUp() {
-        accHandler = AccountingHandler.getInstance();
+        originalSysOut = System.out;
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
         invHandler = InventoryHandler.getInstance();
-        discHandler = DiscountHandler.getInstance();
-        printHandler = PrinterHandler.getInstance();
-        register = Register.getInstance();
         contr = new Controller();
         contr.startSale();
     }
 
     @AfterEach
     void tearDown() {
-        accHandler = null;
+        outContent = null;
+        System.setOut(originalSysOut);
         invHandler = null;
-        discHandler = null;
-        printHandler = null;
-        balance = null;
-        register = null;
         contr = null;
     }
 

@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ViewTest {
     private ByteArrayOutputStream outContent;
     private PrintStream originalSysOut;
-    View view;
-    Controller contr;
+    private View view;
+    private Controller contr;
 
     @BeforeEach
     void setUp() {
