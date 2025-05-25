@@ -125,7 +125,7 @@ class PrinterHandlerTest {
             controller.enterItemID(2);
         }
         catch (Exception e){
-            fail("A exception was thrown during the test \n" +
+            fail("An exception was thrown during the test \n" +
                     "Error message: " + e.getMessage() + "\n" +
                     "Error stack trace: " + Arrays.toString(e.getStackTrace()));
         }
@@ -155,7 +155,7 @@ class PrinterHandlerTest {
             controller.enterItemID(1);
         }
         catch (Exception e){
-            fail("A exception was thrown during the test \n" +
+            fail("An exception was thrown during the test \n" +
                     "Error message: " + e.getMessage() + "\n" +
                     "Error stack trace: " + Arrays.toString(e.getStackTrace()));
         }
