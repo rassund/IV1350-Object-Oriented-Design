@@ -5,6 +5,7 @@ import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.Receipt;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  * Used for handling the software for the printer (which prints the receipt).
@@ -31,21 +32,24 @@ public class PrinterHandler {
     }
 
     private void fakePrintReceipt(Receipt receipt) {
+        ArrayList<ItemInBasketDTO> itemsBought = receipt.getItemsBought();
         System.out.println("------------------ Begin receipt -------------------");
 
         System.out.println("Time of Sale: " + receipt.getDateOfSale() + " " + receipt.getTimeOfSale());
         System.out.println();
 
-        for (ItemInBasketDTO item : receipt.getItemsBought()) {
-            BigDecimal amountOfItemBought = new BigDecimal(item.amountInBasket());
-            Amount totalPriceForItem = new Amount(item.price().getAmount().multiply(amountOfItemBought));
-            System.out.printf("%-20s %10s x %-5s  %s%n",
-                    item.name(),
-                    item.price().getAmountAsStringWithCurrency(),
-                    amountOfItemBought,
-                    totalPriceForItem.getAmountAsStringWithCurrency());
+        if (!itemsBought.isEmpty()){
+            for (ItemInBasketDTO item : receipt.getItemsBought()) {
+                BigDecimal amountOfItemBought = new BigDecimal(item.amountInBasket());
+                Amount totalPriceForItem = new Amount(item.price().getAmount().multiply(amountOfItemBought));
+                System.out.printf("%-20s %10s x %-5s  %s%n",
+                        item.name(),
+                        item.price().getAmountAsStringWithCurrency(),
+                        amountOfItemBought,
+                        totalPriceForItem.getAmountAsStringWithCurrency());
+            }
+            System.out.println();
         }
-        System.out.println();
 
         if (receipt.getTotalDiscount().getAmount().compareTo(BigDecimal.ZERO) != 0){
             System.out.printf("%-20s %29s%n", "Discount: ", receipt.getTotalDiscount().getAmountAsStringWithCurrency());
