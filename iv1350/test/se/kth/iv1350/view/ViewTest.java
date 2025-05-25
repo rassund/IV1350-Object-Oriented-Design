@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.DTO.SaleDTO;
+import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.integration.InvalidIDException;
 import se.kth.iv1350.model.Amount;
@@ -56,6 +57,26 @@ class ViewTest {
         return saleDTOs;
     }
 
+    private static String getDuringSaleSummary(SaleSummaryDTO saleSummary){
+        return "Add 1 item with item id " + saleSummary.latestItemID() + ":" +
+                System.lineSeparator() +
+                "Item ID: " + saleSummary.latestItemID() +
+                System.lineSeparator() +
+                "Item name: " + saleSummary.latestItemName() +
+                System.lineSeparator() +
+                "Item cost: " + saleSummary.latestItemPrice().getAmountAsStringWithCurrency() +
+                System.lineSeparator() +
+                "VAT: " + saleSummary.latestItemVAT().vatToPercent() +
+                System.lineSeparator() +
+                "Item description: " + saleSummary.latestItemDescription() +
+                System.lineSeparator() +
+                System.lineSeparator() +
+                "Total cost (incl VAT): " + saleSummary.runningTotal().getAmountAsStringWithCurrency() +
+                System.lineSeparator() +
+                "Total VAT: " + saleSummary.totalVAT().getAmountAsStringWithCurrency() +
+                System.lineSeparator();
+    }
+
     private static String getEndOfSaleSummary(SaleDTO saleDTO){
         return "End Sale:" +
                 System.lineSeparator() +
@@ -69,7 +90,8 @@ class ViewTest {
     @Test
     void testRunNotNull() {
         view.testRun();
-        assertNotNull(outContent);
+        String result = outContent.toString();
+        assertNotNull(result);
     }
 
     @Test
@@ -92,5 +114,76 @@ class ViewTest {
         String result = outContent.toString();
         assertTrue(result.contains(firstSaleSummary), "First end of sale summary not present or incorrect.");
         assertTrue(result.contains(secondSaleSummary), "Second end of sale summary not present or incorrect.");
+    }
+
+    @Test
+    void testRunExceptionMessages(){
+        view.testRun();
+        contr.startSale();
+        String databaseExceptionString = "Unmodified database exception string";
+        String invalidIDExceptionString = "Unmodified invalid ID exception string";
+        try {
+            contr.enterItemID(-1);
+        }
+        catch (Exception e) {
+            databaseExceptionString = e.getMessage();
+        }
+        try {
+            contr.enterItemID(100);
+        }
+        catch (Exception e) {
+            invalidIDExceptionString = e.getMessage();
+        }
+
+        String result = outContent.toString();
+        assertFalse(result.contains("Unmodified database exception string"), "Database exception not thrown during test run.");
+        assertTrue(result.contains(databaseExceptionString), "Correct database exception string not found in output.");
+        assertFalse(result.contains("Unmodified invalid ID exception string"), "Invalid ID exception not thrown during test run.");
+        assertTrue(result.contains(invalidIDExceptionString), "Correct invalid ID exception string not found in output.");
+    }
+
+    @Test
+    void testRunItemSummaries(){
+        view.testRun();
+        SaleSummaryDTO sale1Item1DTO = null;
+        SaleSummaryDTO sale1item2DTO = null;
+        SaleSummaryDTO sale2Item1DTO = null;
+        SaleSummaryDTO sale2item2DTO = null;
+        SaleSummaryDTO sale2item3DTO = null;
+        contr.startSale();
+        try {
+            sale1Item1DTO = contr.enterItemID(2);
+            sale1item2DTO = contr.enterItemID(0);
+        }
+        catch (Exception e) {
+            fail("An exception was thrown during the first sale \n" +
+                    "Error message: " + e.getMessage() + "\n" +
+                    "Error stack trace: " + Arrays.toString(e.getStackTrace()));
+        }
+        contr.payForSale(new Amount("500"));
+        contr.startSale();
+        try {
+            sale2Item1DTO = contr.enterItemID(1);
+            sale2item2DTO = contr.enterItemID(0);
+            sale2item3DTO = contr.enterItemID(1);
+        }
+        catch (Exception e) {
+            fail("An exception was thrown during the second sale \n" +
+                    "Error message: " + e.getMessage() + "\n" +
+                    "Error stack trace: " + Arrays.toString(e.getStackTrace()));
+        }
+
+        String sale1item1String = getDuringSaleSummary(sale1Item1DTO);
+        String sale1item2String = getDuringSaleSummary(sale1item2DTO);
+        String sale2item1String = getDuringSaleSummary(sale2Item1DTO);
+        String sale2item2String = getDuringSaleSummary(sale2item2DTO);
+        String sale2item3String = getDuringSaleSummary(sale2item3DTO);
+
+        String result = outContent.toString();
+        assertTrue(result.contains(sale1item1String));
+        assertTrue(result.contains(sale1item2String));
+        assertTrue(result.contains(sale2item1String));
+        assertTrue(result.contains(sale2item2String));
+        assertTrue(result.contains(sale2item3String));
     }
 }

@@ -59,10 +59,7 @@ public class View {
             saleSummary = contr.enterItemID(itemID);
             printSaleSummary(saleSummary);
         }
-        catch (InvalidIDException ex) {
-            System.out.println(ex.getMessage());
-        }
-        catch (DatabaseException ex) {
+        catch (InvalidIDException | DatabaseException ex) {
             System.out.println(ex.getMessage());
         }
         return saleSummary;
