@@ -58,7 +58,8 @@ class ViewTest {
     }
 
     private static String getDuringSaleSummary(SaleSummaryDTO saleSummary){
-        return "Add 1 item with item id " + saleSummary.latestItemID() + ":" +
+        return  System.lineSeparator() +
+                "Add 1 item with item id " + saleSummary.latestItemID() + ":" +
                 System.lineSeparator() +
                 "Item ID: " + saleSummary.latestItemID() +
                 System.lineSeparator() +
@@ -180,10 +181,71 @@ class ViewTest {
         String sale2item3String = getDuringSaleSummary(sale2item3DTO);
 
         String result = outContent.toString();
-        assertTrue(result.contains(sale1item1String));
-        assertTrue(result.contains(sale1item2String));
-        assertTrue(result.contains(sale2item1String));
-        assertTrue(result.contains(sale2item2String));
-        assertTrue(result.contains(sale2item3String));
+        assertTrue(result.contains(sale1item1String), "Printout doesn't contain summary from sale 1 item 1.");
+        assertTrue(result.contains(sale1item2String), "Printout doesn't contain summary from sale 1 item 2.");
+        assertTrue(result.contains(sale2item1String), "Printout doesn't contain summary from sale 2 item 1.");
+        assertTrue(result.contains(sale2item2String), "Printout doesn't contain summary from sale 2 item 2.");
+        assertTrue(result.contains(sale2item3String), "Printout doesn't contain summary from sale 2 item 3.");
+    }
+
+    @Test
+    void testRunCompleteDuringSalePrintouts(){
+        view.testRun();
+        SaleSummaryDTO sale1Item1DTO = null;
+        SaleSummaryDTO sale1item2DTO = null;
+        SaleSummaryDTO sale2Item1DTO = null;
+        SaleSummaryDTO sale2item2DTO = null;
+        SaleSummaryDTO sale2item3DTO = null;
+        contr.startSale();
+        try {
+            sale1Item1DTO = contr.enterItemID(2);
+            sale1item2DTO = contr.enterItemID(0);
+        }
+        catch (Exception e) {
+            fail("An exception was thrown during the first sale \n" +
+                    "Error message: " + e.getMessage() + "\n" +
+                    "Error stack trace: " + Arrays.toString(e.getStackTrace()));
+        }
+        contr.payForSale(new Amount("500"));
+        contr.startSale();
+        try {
+            sale2Item1DTO = contr.enterItemID(1);
+            sale2item2DTO = contr.enterItemID(0);
+            sale2item3DTO = contr.enterItemID(1);
+        }
+        catch (Exception e) {
+            fail("An exception was thrown during the second sale \n" +
+                    "Error message: " + e.getMessage() + "\n" +
+                    "Error stack trace: " + Arrays.toString(e.getStackTrace()));
+        }
+        contr.payForSale(new Amount("500"));
+
+
+        String databaseExceptionString = "Unmodified database exception string";
+        String invalidIDExceptionString = "Unmodified invalid ID exception string";
+        contr.startSale();
+        try {
+            contr.enterItemID(-1);
+        }
+        catch (Exception e) {
+            databaseExceptionString = e.getMessage();
+        }
+        try {
+            contr.enterItemID(100);
+        }
+        catch (Exception e) {
+            invalidIDExceptionString = e.getMessage();
+        }
+
+        String sale1String =
+                System.lineSeparator() + getDuringSaleSummary(sale1Item1DTO) + getDuringSaleSummary(sale1item2DTO);
+        String sale2String =
+                System.lineSeparator() + databaseExceptionString +
+                getDuringSaleSummary(sale2Item1DTO) + getDuringSaleSummary(sale2item2DTO) +
+                System.lineSeparator() + invalidIDExceptionString + getDuringSaleSummary(sale2item3DTO);
+
+        String result = outContent.toString();
+        assertTrue(result.contains(sale1String), "Printout during the first sale not correct.");
+        assertTrue(result.contains(sale2String), "Printout during the second sale not correct.");
     }
 }
