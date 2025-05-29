@@ -12,6 +12,7 @@ public class TotalRevenueView extends TotalRevenueOutput {
 
     /**
      * Prints the total income from all sales to System.out.
+     * @throws Exception Any exception that might be thrown.
      */
     @Override
     protected void doShowTotalIncome() throws Exception {

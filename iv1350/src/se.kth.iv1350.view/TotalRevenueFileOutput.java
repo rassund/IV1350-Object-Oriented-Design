@@ -23,6 +23,7 @@ public class TotalRevenueFileOutput extends TotalRevenueOutput {
 
     /**
      * Writes the current total revenue of all sales to the log.
+     * @throws Exception Any exception that might be thrown.
      */
     @Override
     protected void doShowTotalIncome() throws Exception {
