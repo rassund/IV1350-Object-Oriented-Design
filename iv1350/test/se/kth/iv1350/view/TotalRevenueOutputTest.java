@@ -32,7 +32,6 @@ class TotalRevenueOutputTest {
         System.setOut(new PrintStream(outContent));
         contr = new Controller();
         view = new View(contr);
-        invHandler = InventoryHandler.getInstance();
     }
 
     @AfterEach
@@ -41,7 +40,6 @@ class TotalRevenueOutputTest {
         System.setOut(originalSysOut);
         contr = null;
         view = null;
-        invHandler = null;
     }
 
     @Test
