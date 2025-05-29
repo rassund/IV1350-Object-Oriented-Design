@@ -30,7 +30,7 @@ class FileLoggerTest {
     }
 
     @Test
-    void testCreateLogStreamError() {
+    void createLogStreamError() {
         String invalidFileName = "/invalidFileName";
         fileLogger = new FileLogger(invalidFileName);
         String result = outContent.toString();
