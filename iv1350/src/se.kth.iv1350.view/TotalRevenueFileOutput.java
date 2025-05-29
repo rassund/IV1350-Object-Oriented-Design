@@ -15,23 +15,20 @@ public class TotalRevenueFileOutput extends TotalRevenueOutput {
 
 
     /**
-     * When the total income earned from all sales starts to be recorded, the total income starts off as being "0".
-     * Also creates a text file with the name "RevenueOutput.txt", used for logging all times the total income changes.
+     * Creates a new instance of TotalRevenueFileOutput and a text file with the name "RevenueOutput.txt", used for logging all times the total income changes.
      */
     public TotalRevenueFileOutput() {
         logger = new FileLogger(FILE_NAME);
     }
 
     /**
-     * Adds the income from a sale that has ended onto the current total income earned from all sales, and writes it into a log file.
-     * @param amount The amount of total revenue, or the running total, for the sale that has ended.
+     * Writes the current total revenue of all sales to the log.
      */
     @Override
     protected void doShowTotalIncome() throws Exception {
         logger.log(totalRevenue.getAmountAsStringWithCurrency(), ZonedDateTime.now());
     }
 
-    // DOUBLE CHECK ERROR HANDLING LATER
     @Override
     protected void handleErrors(Exception e) {
         FileLogger errorLog = new FileLogger(ERROR_LOG);
