@@ -19,6 +19,7 @@ class FileLoggerTest {
         originalSysOut = System.out;
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(outContent));
         fileLogger = null;
     }
 
@@ -26,6 +27,7 @@ class FileLoggerTest {
     void tearDown() {
         outContent = null;
         System.setOut(originalSysOut);
+        System.setErr(originalSysOut);
         fileLogger = null;
     }
 
@@ -35,5 +37,6 @@ class FileLoggerTest {
         fileLogger = new FileLogger(invalidFileName);
         String result = outContent.toString();
         assertTrue(result.contains("CANNOT LOG"), "Incorrect error message when creating FileLogger.");
+        assertTrue(result.contains("java.io.FileNotFoundException: \\invalidFileName (Access is denied)"), "Stack trace not printed when creating FileLogger.");
     }
 }
