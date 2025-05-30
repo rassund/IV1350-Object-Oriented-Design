@@ -2,16 +2,16 @@ package se.kth.iv1350.higherGrade;
 
 public class HigherGradeMain {
     public static void main(String[] args) {
-        DiceInheritance diceInheritance = new DiceInheritance(6);
-        System.out.println("D" + diceInheritance.getSides() + " throw using inheritance");
-        System.out.println(diceInheritance.rollDice());
-        System.out.println(diceInheritance.rollDice());
-        System.out.println(diceInheritance.rollDice());
+        DieInheritance dieInheritance = new DieInheritance(6);
+        System.out.println("D" + dieInheritance.getSides() + " throw using inheritance:");
+        System.out.println(dieInheritance.rollDie());
+        System.out.println(dieInheritance.rollDie());
+        System.out.println(dieInheritance.rollDie());
 
-        DiceComposition diceComposition = new DiceComposition(6);
-        System.out.println("D" + diceComposition.getSides() + " throw using composition");
-        System.out.println(diceComposition.rollDice());
-        System.out.println(diceComposition.rollDice());
-        System.out.println(diceComposition.rollDice());
+        DieComposition dieComposition = new DieComposition(6);
+        System.out.println("D" + dieComposition.getSides() + " throw using composition:");
+        System.out.println(dieComposition.rollDie());
+        System.out.println(dieComposition.rollDie());
+        System.out.println(dieComposition.rollDie());
     }
 }
