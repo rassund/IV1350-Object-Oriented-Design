@@ -33,7 +33,6 @@ public class TotalRevenueFileOutput extends TotalRevenueOutput {
     @Override
     protected void handleErrors(Exception e) {
         FileLogger errorLog = new FileLogger(ERROR_LOG);
-        e.getStackTrace();
-        errorLog.log("Error in TotalRevenueFileOutput", ZonedDateTime.now());
+        errorLog.log("Error in TotalRevenueFileOutput \n" + e.getMessage(), ZonedDateTime.now());
     }
 }

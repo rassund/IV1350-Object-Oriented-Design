@@ -22,7 +22,6 @@ public class TotalRevenueView extends TotalRevenueOutput {
     @Override
     protected void handleErrors(Exception e) {
         FileLogger errorLog = new FileLogger(ERROR_LOG);
-        e.getStackTrace();
-        errorLog.log("Error in TotalRevenueView", ZonedDateTime.now());
+        errorLog.log("Error in TotalRevenueView \n" + e.getMessage(), ZonedDateTime.now());
     }
 }
