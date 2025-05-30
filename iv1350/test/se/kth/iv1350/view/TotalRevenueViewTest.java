@@ -3,10 +3,6 @@ package se.kth.iv1350.view;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.kth.iv1350.DTO.SaleSummaryDTO;
-import se.kth.iv1350.controller.Controller;
-import se.kth.iv1350.integration.InvalidIDException;
-import se.kth.iv1350.integration.InventoryHandler;
 import se.kth.iv1350.model.Amount;
 
 import java.io.ByteArrayOutputStream;
@@ -17,35 +13,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class TotalRevenueViewTest {
     private ByteArrayOutputStream outContent;
     private PrintStream originalSysOut;
-    private View view;
-    private Controller contr;
-    private InventoryHandler invHandler;
+    private TotalRevenueView revenueView;
 
     @BeforeEach
     void setUp() {
         originalSysOut = System.out;
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        contr = new Controller();
-        view = new View(contr);
+        revenueView = new TotalRevenueView();
     }
 
     @AfterEach
     void tearDown() {
         outContent = null;
         System.setOut(originalSysOut);
-        contr = null;
-        view = null;
+        revenueView = null;
     }
 
     @Test
-    void totalRevenueViewGivesCorrectOutput() throws InvalidIDException {
-        contr.startSale();
-        SaleSummaryDTO saleSummary = contr.enterItemID(0);
-        Amount amountPaid = new Amount(saleSummary.roundedRunningTotal().getAmount());
-        contr.payForSale(amountPaid);
+    void saleHasEndedCorrectOutput() {
+        Amount testAmount = new Amount("5");
+        revenueView.saleHasEnded(testAmount);
 
         String result = outContent.toString();
-        assertTrue(result.contains("Current total revenue of all sales: " + amountPaid.getAmount()), "TotalRevenueView prints wrong message: " + result);
+        assertTrue(result.contains(testAmount.getAmountAsStringWithCurrency()), "TotalRevenueView does not print the correct revenue: " + result);
     }
 }
