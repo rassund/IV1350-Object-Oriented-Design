@@ -8,7 +8,6 @@ import se.kth.iv1350.DTO.SaleSummaryDTO;
 import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.integration.InvalidIDException;
 import se.kth.iv1350.model.Amount;
-import se.kth.iv1350.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -19,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class MainTest {
     private ByteArrayOutputStream outContent;
     private PrintStream originalSysOut;
-    private View view;
     private Controller contr;
 
     @BeforeEach
@@ -28,7 +26,6 @@ class MainTest {
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         contr = new Controller();
-        view = new View(contr);
     }
 
     @AfterEach
@@ -36,7 +33,6 @@ class MainTest {
         outContent = null;
         System.setOut(originalSysOut);
         contr = null;
-        view = null;
     }
 
     private SaleDTO[] getCopyOfTestRunSaleDTOs() throws InvalidIDException {
